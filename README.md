@@ -1,35 +1,260 @@
 # Hrules
 
-HCloudLab Rules — validated routing-rule artifacts for supported proxy clients.
+[English](./README_EN.md) | **简体中文**
 
-## Status
+**Hrules 是 HCloudLab 面向多代理客户端的通用分流规则聚合与发布平台。**
 
-The first Mihomo / Clash Verge release is currently in **v0.1 release-candidate validation** in the private Hrules Core pipeline.
+它不是把几个规则仓库简单拼在一起，也不是只为某一个客户端维护一份“超级规则”。Hrules 的目标是：从多个成熟上游中吸收可复用的数据和设计经验，经过来源登记、标准化、去重、冲突检查、策略映射、客户端编译与真实客户端验证后，再发布为不同代理客户端可以直接使用的规则或配置。
 
-This public repository is the publication boundary. It will contain only artifacts that satisfy the release policy and CI gates; research, candidate, partial-validation records, private test fixtures, provider credentials, and user-specific configurations are not published here.
+> 一套规则逻辑，多种客户端输出；同一项分流意图，尽量保持跨客户端行为一致。
 
-## Planned public layout
+## 当前状态
 
-- `mihomo/` — validated Mihomo / Clash Verge rule artifacts
-- `shadowrocket/` — future validated Shadowrocket artifacts
-- `sing-box/` — future validated sing-box / SFM artifacts
-- `manifest.json` — version and artifact metadata
-- `SHA256SUMS` — integrity hashes
-- `SOURCES.md` — provenance, attribution and licensing notes
-- `CHANGELOG.md` — release history
+Hrules 采用“私有 Core + 公开发布仓库”的双层结构：
 
-## Release principles
+- `Hrules-core`：私有构建与验证核心，保存上游登记、规范化规则、策略、测试、编译器和验证记录。
+- `Hrules`：公开发布边界，只发布通过当前发布门槛的用户可用产物、说明、来源信息、版本与校验值。
 
-- Rules identify traffic; routing policy decides where that traffic goes.
-- Sensitive-service routing is about controlled and predictable egress, not a promise to prevent service-side account checks, fraud controls or bans.
-- Shared CDN, analytics and identity domains are not automatically classified as sensitive-service traffic merely because they appear in the same browsing session.
-- Upstream changes are normalized and validated in Hrules Core before any public artifact changes.
-- Public artifacts are versioned and accompanied by hashes and source/provenance information.
-
-## Current client priority
+当前客户端优先级：
 
 1. Mihomo / Clash Verge
 2. Shadowrocket
 3. sing-box / SFM
+4. v2rayN / v2rayNG
+5. 其他通过适配与验证的客户端
 
-No user-specific proxy nodes or subscription credentials belong in this repository.
+## Hrules 的原则
+
+### 1. 集众家之长，但不做机械拼接
+
+Hrules 会研究并登记多个成熟项目和原始数据源。上游进入候选列表，不代表其内容会被直接复制发布。任何数据在进入公开产物前，都需要经过来源、许可、格式、冲突和行为验证。
+
+### 2. 规则负责“识别流量”，策略负责“流量去哪”
+
+服务识别与路由策略必须分离。
+
+例如，`claude.ai` 属于 Claude 服务这一事实，不等于它必须固定走某一个国家、住宅 IP 或某个节点。Hrules Core 先确定“这是什么流量”，再由 profile / policy 决定它应该走 DIRECT、PROXY、REJECT 或指定策略组。
+
+### 3. 不以规则最少为目标，以行为准确为目标
+
+规则数量本身不是质量指标。Hrules 不会为了追求“只有几百条规则”而牺牲覆盖率，也不会为了追求“大而全”无条件收录规则。
+
+真正需要控制的是：
+
+- 重复规则
+- 相互冲突的规则
+- 过宽的匹配
+- 过时或失效的规则
+- 无法解释来源的规则
+- 不同客户端转换后语义发生变化的规则
+
+### 4. 同一逻辑只维护一次
+
+Hrules Core 维护客户端无关的规范化规则模型，再由适配器生成不同客户端需要的语法。原则上不手工维护多份相同域名/IP列表。
+
+### 5. 上游更新不会直接推给用户
+
+Hrules 不把“上游最新”自动等同于“用户应该立即使用”。
+
+基本流水线为：
+
+```text
+Upstream
+  ↓
+Fetch
+  ↓
+Normalize
+  ↓
+Deduplicate
+  ↓
+Conflict check
+  ↓
+Canonical validation
+  ↓
+Policy / Profile validation
+  ↓
+Client compilation
+  ↓
+Syntax & routing tests
+  ↓
+Real-client acceptance
+  ↓
+Release
+```
+
+### 6. 可追溯优先
+
+公开产物应尽可能能回答：
+
+- 这组规则来自哪里？
+- Hrules 对它做了什么处理？
+- 它属于什么模块？
+- 发布版本是什么？
+- 文件是否完整？
+- 哪些客户端经过验证？
+
+因此公开仓库会维护 `SOURCES.md`、版本信息和校验值。
+
+### 7. 不把共享基础设施轻易归入敏感服务
+
+CDN、登录服务、分析域名和共享云基础设施可能同时被多个网站使用。仅仅因为某域名在一次 Claude、银行或交易所会话中出现，并不足以把它永久归入该服务的专用规则。
+
+## Hrules 能做什么
+
+Hrules 的能力分为四层：
+
+- **数据聚合**：接入成熟规则源、Geo 数据、服务级规则和 HCloudLab 自有验证数据。
+- **规则治理**：统一格式、去重、冲突检测、优先级与覆盖关系处理。
+- **策略组合**：把服务模块组合成不同使用场景，例如 Basic、AI、Finance、Full。
+- **多客户端输出**：将同一套逻辑编译为 Mihomo、Shadowrocket、sing-box / SFM、v2rayN / v2rayNG 等客户端需要的格式。
+
+## 规则类型
+
+Hrules 不把所有“规则”混成一类。长期会区分：
+
+- Routing Rules — 路由/分流
+- Blocking Rules — 广告、跟踪、恶意域名等阻断
+- DNS Rules — DNS 行为与解析相关
+- Rewrite Rules — URL / 重写类能力
+- Host Rules — Hosts / DNS 映射
+- Client Runtime Options — 客户端自身的 TUN、IPv6、DNS 劫持等运行参数
+
+不是所有客户端都支持全部能力；Hrules 只会在目标客户端支持且行为可验证时输出对应功能。
+
+## 上游来源
+
+Hrules 当前会研究或整合的来源包括但不限于：
+
+- MetaCubeX `meta-rules-dat`
+- Loyalsoldier 规则项目
+- v2fly `domain-list-community`
+- blackmatrix7 `ios_rule_script`
+- ACL4SSR
+- GFWList
+- GreatFire 相关检测数据
+- EasyList / EasyList China
+- 乘风广告过滤规则
+- Peter Lowe 广告、跟踪与恶意域名列表
+- LOWERTOP / Shadowrocket（主要作为 Shadowrocket 配置与行为参考）
+- HCloudLab 自有实测与服务会话验证
+
+具体采用范围、许可与发布状态以 [SOURCES.md](./SOURCES.md) 为准。
+
+## 如何使用
+
+### 普通用户
+
+公开产物发布后，请优先选择与你客户端和使用场景相符的目录或 profile，而不是下载“最大的那个规则文件”。
+
+典型选择逻辑：
+
+- 普通海外访问：Basic
+- ChatGPT / Claude / Gemini：AI
+- 美国银行 / 券商等需要更稳定出口的服务：对应 Finance profile
+- 希望自己组合策略：Full / advanced modules
+
+每个客户端的实际导入方式会放在对应目录中。
+
+### 高级用户
+
+你也可以只使用独立模块，将 Hrules 作为自己的规则提供器，再自行决定策略组和最终出口。
+
+Hrules 不要求用户必须采用 HCloudLab 的节点、代理组命名或订阅结构。
+
+## 常见问题
+
+### 上万条规则会不会一定比几百条规则慢很多？
+
+不能只按“行数”判断。
+
+不同代理内核会使用不同的数据结构、索引、缓存和规则集加载方式。现代客户端通常并不是把每个请求简单地从第一行逐条扫描到最后一行。因此，Hrules 不会用“规则条数”作为唯一性能指标。
+
+我们更关注：加载时间、内存占用、规则类型、DNS 触发成本、冲突数量、命中准确率以及目标客户端的真实运行表现。
+
+### 为什么 Hrules 不直接把所有上游规则合在一起？
+
+因为不同规则源可能存在重复、冲突、分类口径不一致、过度匹配以及许可差异。
+
+Hrules 的价值恰恰在“聚合之后的治理”，而不是下载后 `cat` 到一个文件里。
+
+### 黑名单模式和白名单模式有什么区别？
+
+本质区别通常在“未知流量如何兜底”。
+
+- 黑名单思路：已知需要代理的流量走代理，其他默认直连。
+- 白名单思路：已知可以直连的流量直连，其他默认代理。
+
+Hrules 更倾向把底层规则数据与最终 profile 分离：同一批规则可以服务于不同兜底策略，而不需要复制成两份巨大列表。
+
+### Hrules 能保证 ChatGPT、Claude、银行或交易所账号不触发风控吗？
+
+不能。
+
+Hrules 能做的是尽量让相关服务流量按照可预期的策略出口，减少由于错误分流造成的出口漂移或会话拆分。服务端仍可能基于账号、IP、设备、行为、地区、付款方式等因素执行自己的风控。
+
+### Hrules 的广告规则能过滤所有广告吗？
+
+不能保证。
+
+域名级、URL 级阻断对很多网页广告、追踪器和独立广告服务器有效，但第一方广告、动态接口、视频流内广告以及经常变化的 App 广告策略，可能无法仅靠代理分流规则完整处理。
+
+Hrules 会把 Blocking 作为独立能力，而不会把“完全去广告”作为核心承诺。
+
+### 为什么一个服务不能只写一个主域名？
+
+因为现代服务通常会使用多个域名、API、认证端点、静态资源和 CDN。一个网站的“首页域名”不等于完整业务链路。
+
+Hrules 更倾向以“服务模块”维护必要的一组第一方/专用依赖，同时谨慎处理共享第三方基础设施。
+
+### 为什么 Hrules 不直接把 CDN、Google 登录或公共分析域名全部放进某个服务组？
+
+因为这些域名可能被大量不相关服务共享。过度归类会把原本无关的流量一起送进特殊策略组，制造新的分流错误。
+
+### 我应该选最大、最全的 profile 吗？
+
+通常不需要。
+
+优先选覆盖你实际需求的最小 profile。规则越多不一定越差，但无关的策略组和服务模块会增加理解和维护成本。
+
+### 上游今天更新，Hrules 为什么没有立刻更新？
+
+这是有意的。
+
+Hrules 将“新鲜度”和“稳定性”分开处理。上游变化需要先通过标准化、差异检查、冲突检测与目标客户端验证，再决定是否进入公开发布。
+
+### 为什么不同客户端生成出来的文件看起来不一样？
+
+因为 Shadowrocket、Mihomo、sing-box 等使用不同的规则语法、策略模型和运行能力。
+
+Hrules 的目标不是让文件文本完全相同，而是让**同一分流意图在不同客户端尽量得到相同结果**。
+
+## 公开仓库结构
+
+随着正式版本发布，公开仓库预计包含：
+
+- `mihomo/`
+- `shadowrocket/`
+- `sing-box/`
+- `v2rayn/`
+- `manifest.json`
+- `SHA256SUMS`
+- `SOURCES.md`
+- `CHANGELOG.md`
+
+未完成验证的研究数据、测试夹具、用户节点与订阅凭据不会进入公开仓库。
+
+## 贡献与反馈
+
+如果你发现：
+
+- 域名遗漏
+- 误杀 / 错误分流
+- 某客户端语法问题
+- 某服务近期域名变化
+- 上游来源值得引入
+
+欢迎通过 Issue / Pull Request 提交证据和复现信息。对于服务级规则，能提供“命中域名 + 实际功能 + 客户端 + 连接日志”的反馈，会比只提交一个域名更有价值。
+
+## 免责声明
+
+Hrules 是规则与配置研究项目，不提供代理节点，也不承诺绕过任何服务的账号、地域或安全策略。请遵守所在地法律法规及目标服务的使用条款。
