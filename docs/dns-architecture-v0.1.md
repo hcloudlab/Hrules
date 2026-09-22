@@ -30,7 +30,7 @@ Hrules currently acts as a routing overlay and the host profile owns DNS. DNS v0
 ## Resolver roles
 
 - Bootstrap: `223.5.5.5`, `119.29.29.29`
-- Proxy-server DNS: mainland-reachable resolvers; must work without proxy
+- Proxy-server DNS: mainland-reachable resolvers; must work without proxy. It is explicitly configured because Mihomo otherwise falls back to nameserver-policy/nameserver/fallback for proxy-node domains.
 - DIRECT DNS: mainland-reachable resolvers
 - Global DNS: encrypted resolver candidate; Stable/Strict may bind it to a real generated Hrules proxy group after runtime validation
 
@@ -66,6 +66,10 @@ Preferred binding order for the current edition topology:
 The binding must never target a source-profile group merely because it happens to be named `PROXY`. Hrules may consume airport profiles with arbitrary group names.
 
 Standard deliberately has no proxied-DNS dependency. Stable/Strict may add `#<resolved Hrules group>` only after runtime validation.
+
+The `#group` suffix controls the DNS server connection's egress. It must not be confused with choosing which resolver answers a domain. Hrules therefore keeps resolver selection, node bootstrap, and DNS-server egress as separate concerns.
+
+`respect-rules` remains disabled in v0.1 candidates. If evaluated later, it requires an explicit `proxy-server-nameserver` and must not be combined casually with HTTP/3 DNS. Explicit group binding is preferred when Hrules needs deterministic global-DoH egress.
 
 ## Release gate
 
