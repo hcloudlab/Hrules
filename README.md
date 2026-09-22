@@ -31,9 +31,9 @@
 
 当前公共场景覆盖：
 
-**AI（Gemini / Grok / Perplexity 等）** · **Claude / OpenAI** · **虚拟货币** · **美国银行** · **美股 / 券商** · **金融账户（PayPal / Wise / Payoneer 等）** · **Telegram** · **YouTube** · **中国大陆直连** · **私有网络直连**
+**一般 AI 服务** · **Claude / OpenAI** · **虚拟货币** · **美国银行** · **美股 / 券商** · **金融账户** · **Telegram** · **YouTube** · **中国大陆直连** · **私有网络直连**
 
-→ [查看场景与规则说明](docs/scenes.md)
+具体服务覆盖以当前 Scene 规则与 coverage audit 为准；场景名称不代表对该类别所有网站的穷举覆盖。\n\n→ [查看场景与规则说明](docs/scenes.md)
 
 ## DNS 规则
 
