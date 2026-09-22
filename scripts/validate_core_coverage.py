@@ -52,6 +52,13 @@ if errors:
     raise SystemExit(1)
 print("Hrules representative Core coverage: PASS")
 
+
+# Mihomo fake-ip defaults live in 198.18.0.0/16. Treating the benchmarking
+# block as private DIRECT would bypass routing for fake-IP destinations.
+private_text=(ROOT/"mihomo"/"scenes"/"private_direct.yaml").read_text(encoding="utf-8")
+if "198.18.0.0/15" in private_text or "198.18.0.0/16" in private_text:
+    errors.append("private_direct.yaml: fake-IP range must never be forced DIRECT")
+
 # Mature CN routing datasets must be wired into every integration; a bare .cn
 # suffix is not an acceptable mainland-China direct-routing implementation.
 for edition in ("standard", "stable", "strict"):
