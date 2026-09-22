@@ -1,6 +1,6 @@
 # Hrules DNS v0.1 Test Matrix
 
-Status: **required before production DNS ownership**
+Status: **implementation promoted; final runtime release acceptance pending**
 
 ## Node classes
 
@@ -60,10 +60,10 @@ A syntax/static PASS is necessary but not sufficient. Runtime evidence is the re
 Must pass all required node classes before release.
 
 ### Stable
-Must pass Standard gates plus global DoH egress observation. The final implementation must prove whether global DoH is DIRECT or bound to the generated Hrules proxy group; no assumption is accepted.
+Must pass Standard gates plus observation that global DoH actually exits through the generated Hrules automatic group after a clean start.
 
 ### Strict
-Must pass Stable gates plus rule-provider cold-start tests before enabling `nameserver-policy`.
+Must pass Stable gates plus rule-provider cold-start tests. `nameserver-policy` remains intentionally disabled in v0.1.
 
 ## Failure classification
 
@@ -103,7 +103,7 @@ Warnings were also observed for traffic falling through host `MATCH → PROXY`, 
 
 ### Remaining DNS release gates
 
-DNS v0.1 remains **NOT fully production-ready**. Standard DNS ownership has now been promoted into the Clash Verge Rev Standard adapter after the baseline connectivity observation; Stable / Strict remain gated. Continue with the resolver-path gates:
+DNS v0.1 implementation is now promoted in all Clash Verge Rev editions. Final release acceptance still requires the following runtime resolver-path gates:
 1. clean cold start and cache reset;
 2. domain-form proxy-server bootstrap observation;
 3. DIRECT mainland-domain/CDN observation;
@@ -118,7 +118,7 @@ DNS v0.1 remains **NOT fully production-ready**. Standard DNS ownership has now 
 
 - Standard Clash Verge Rev adapter now generates the conservative DNS baseline automatically; manual subscription YAML editing is no longer part of the intended UX.
 - Standard keeps node bootstrap independent from proxy establishment through `proxy-server-nameserver` using the China-reachable bootstrap pair.
-- Stable / Strict still do **not** mutate host DNS. Their global DoH path remains a candidate until clean-start egress is observed.
+- Stable / Strict now generate their DNS baseline. Their global DoH is explicitly bound to the Hrules automatic group while bootstrap/node DNS remains proxy-independent; clean-start egress still requires runtime acceptance.
 - Feature-branch adapters and 3X-UI artifacts are pinned to the same feature-branch Scene inventory during acceptance, preventing mixed `branch JS → main Scene` tests.
 - Core audit also removed `198.18.0.0/15` from `private_direct`: Mihomo Fake-IP uses the 198.18/15 benchmarking space, so forcing that range DIRECT would defeat rule evaluation for Fake-IP destinations.
 
