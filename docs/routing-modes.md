@@ -28,6 +28,20 @@ Hrules 将出口选择方式分为三档：**标准、稳定、严格**。
 
 典型场景：银行、券商、Crypto、重要账户等需要更谨慎管理出口的场景。
 
+## 三版的收敛关系
+
+三版不是三套彼此独立的规则，而是严格的包含关系：
+
+`严格版 ⊃ 稳定版 ⊃ 标准版`
+
+低版本减少的是策略组数量、自动化能力和出口约束，不减少已经支持的流量识别范围。
+
+- 标准版：Claude / OpenAI 与一般 AI 合并到 `🤖 AI 服务`；虚拟货币、美国银行、美股 / 券商合并到 `🔐 重要账户`。
+- 稳定版：Claude / OpenAI 独立；一般 AI 独立；三个金融账户场景合并到 `🔐 重要账户`。
+- 严格版：Claude / OpenAI、虚拟货币、美国银行、美股 / 券商分别独立管理。
+
+因此，降级版本后不允许某个已支持场景因为专用组减少而直接掉入 `MATCH`。
+
 ## 模式与场景是两个维度
 
 场景回答：
@@ -42,7 +56,7 @@ Hrules 将出口选择方式分为三档：**标准、稳定、严格**。
 
 - 完整 YAML / full-config transformation：可以读取具体 \`proxies\`，可实现节点级地区组、同地区故障转移和具体节点绑定。
 - Clash Verge Rev Global Extension Script：只有当前配置暴露具体 \`proxies\` 时才能提供节点级能力；仅有 \`proxy-providers\` 时无法枚举 Provider 运行时节点，Strict 不应作为支持路径使用。
-- 3X-UI Remote Routing：只安全绑定宿主 \`PROXY\` / \`DIRECT\`；Standard / Stable / Strict 在这里仅区分场景集合，不提供节点级地区组、同地区故障转移或固定节点。
+- 3X-UI Remote Routing：当前已通过真实链路验证，\`include-all-proxies\` 可以读取最终配置中的真实面板节点；各版场景组保留 \`PROXY\` / \`DIRECT\` 作为显式回退，同时暴露宿主可见节点。
 
 因此，不应仅根据 Standard / Stable / Strict 名称推断某个接入方式具备节点级拓扑能力。
 
