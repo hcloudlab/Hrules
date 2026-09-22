@@ -110,10 +110,6 @@ function main(config) {
     ? [...sensitiveNames,...regionParent,...exact]
     : [...sensitiveNames,...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
 
-  if (hasScene("sensitive_ai")) groups.push({name:"🔐 Claude / OpenAI [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("crypto_account")) groups.push({name:"💰 虚拟货币 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("us_banking_account")) groups.push({name:"🏦 美国银行 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("brokerage_account")) groups.push({name:"📈 美股 [场景]",type:"select",proxies:sensitiveCandidates});
   groups.push({name:"🔐 重要账户 [场景]",type:"select",proxies:normalCandidates});
   if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
   if (hasScene("youtube_media")) groups.push({name:"📺 YouTube [场景]",type:"select",proxies:mediaCandidates});
