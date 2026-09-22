@@ -18,28 +18,40 @@ COMMON = [
 ]
 FORBIDDEN_ALL = ["respect-rules: true", "geosite:cn", "dhcp://", "- system"]
 FORBIDDEN_STANDARD = ["1.1.1.1", "8.8.8.8", "nameserver-policy:", "direct-nameserver:"]
-FORBIDDEN_POLICY = ["nameserver-policy:\n"]
 
 errors = []
 for edition in ("standard", "stable", "strict"):
     path = DNS / f"hrules-{edition}.yaml"
-    text = path.read_text(encoding="utf-8")
+    data = path.read_text(encoding="utf-8")
+    active = "\n".join(
+        line for line in data.splitlines()
+        if not line.lstrip().startswith("#")
+    )
     for token in COMMON:
-        if token not in text:
-            errors.append(f"{edition}: missing {token}")
+        if token not in active:
+            errors.append(f"{edition}: missing active {token}")
     for token in FORBIDDEN_ALL:
-        if token in text:
+        if token in active:
             errors.append(f"{edition}: forbidden v0.1 token {token}")
     if edition == "standard":
         for token in FORBIDDEN_STANDARD:
-            if token in text:
+            if token in active:
                 errors.append(f"standard: unexpected dependency {token}")
     else:
         for token in ("direct-nameserver:", "https://1.1.1.1/dns-query", "https://8.8.8.8/dns-query"):
-            if token not in text:
-                errors.append(f"{edition}: missing {token}")
-        if "nameserver-policy:\n" in text:
+            if token not in active:
+                errors.append(f"{edition}: missing active {token}")
+        if "nameserver-policy:" in active:
             errors.append(f"{edition}: nameserver-policy must remain gated")
+
+# Guard the integration boundary: DNS v0.1 may prepare a binding candidate but
+# must not mutate host-profile DNS in the generated edition yet.
+stable_js = (ROOT / "mihomo" / "editions" / "hrules-stable.js").read_text(encoding="utf-8")
+if 'config["dns"] =' in stable_js or "config.dns =" in stable_js:
+    errors.append("stable edition: DNS ownership enabled before runtime gate")
+for token in ('hasSystem("auto")', 'hasSystem("all")', '"♻️ 自动选择 [系统]"', '"🌐 全部节点 [系统]"'):
+    if token not in stable_js:
+        errors.append(f"stable edition: inventory-aware binding helper missing {token}")
 
 if errors:
     print("\n".join(errors), file=sys.stderr)
