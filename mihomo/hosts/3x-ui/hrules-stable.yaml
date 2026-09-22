@@ -1,26 +1,31 @@
 proxy-groups:
 - name: 🔐 Claude / OpenAI [场景]
   type: select
+  include-all-proxies: true
   proxies:
   - PROXY
   - DIRECT
 - name: 🤖 AI 服务 [场景]
   type: select
+  include-all-proxies: true
   proxies:
   - PROXY
   - DIRECT
 - name: 📺 YouTube [场景]
   type: select
+  include-all-proxies: true
   proxies:
   - PROXY
   - DIRECT
 - name: 💬 Telegram [场景]
   type: select
+  include-all-proxies: true
   proxies:
   - PROXY
   - DIRECT
 - name: 🚀 漏网之鱼 [自选]
   type: select
+  include-all-proxies: true
   proxies:
   - PROXY
   - DIRECT
