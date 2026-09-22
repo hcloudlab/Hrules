@@ -10,11 +10,11 @@ consistency requires otherwise.
 | Scene | Representative services | Standard | Stable | Strict |
 |---|---|---|---|---|
 | sensitive_ai | OpenAI/ChatGPT, Claude/Anthropic | 🤖 AI 服务 | 🔐 Claude / OpenAI | 🔐 Claude / OpenAI |
-| general_ai | Gemini/Google AI, Grok/xAI, Perplexity, Copilot endpoints | 🤖 AI 服务 | 🤖 AI 服务 | 🤖 AI 服务 |
+| general_ai | Gemini/Google AI, Grok/xAI, Perplexity, Copilot, Cursor, Meta AI, Mistral, HuggingFace, OpenRouter and other mainstream AI | 🤖 AI 服务 | 🤖 AI 服务 | 🤖 AI 服务 |
 | financial_account | PayPal/Venmo/Xoom, Wise, Payoneer, HSBC, Standard Chartered | 🔐 重要账户 | 🔐 重要账户 | 💳 金融账户 |
-| us_banking_account | AmEx, BofA, Capital One, Chase, Citi, Wells Fargo, US Bank, PNC, Ally, Discover | 🔐 重要账户 | 🔐 重要账户 | 🏦 美国银行 |
-| brokerage_account | IBKR, Schwab, Robinhood, Fidelity, E*TRADE, Webull, moomoo | 🔐 重要账户 | 🔐 重要账户 | 📈 美股 |
-| crypto_account | Binance US, Bybit, Coinbase, Kraken, OKX | 🔐 重要账户 | 🔐 重要账户 | 💰 虚拟货币 |
+| us_banking_account | AmEx, BofA, Capital One, Chase, Citi, Wells Fargo, US Bank, PNC, Ally, Discover, TD, Truist, Regions and other major US retail banks | 🔐 重要账户 | 🔐 重要账户 | 🏦 美国银行 |
+| brokerage_account | IBKR, Schwab, Robinhood, Fidelity, E*TRADE, Webull, moomoo, Vanguard, SoFi, tastytrade, TradeStation | 🔐 重要账户 | 🔐 重要账户 | 📈 美股 |
+| crypto_account | Binance, Bybit, Coinbase, Kraken, OKX, Crypto.com, Bitget, MEXC, Gate, KuCoin, HTX and major wallet/account infrastructure | 🔐 重要账户 | 🔐 重要账户 | 💰 虚拟货币 |
 | telegram | Telegram domains + official IPv4/IPv6 ranges | 💬 Telegram | 💬 Telegram | 💬 Telegram |
 | youtube_media | YouTube web/video/image/API endpoints | 📺 YouTube | 📺 YouTube | 📺 YouTube |
 | private_direct | RFC/local address and local-name baseline | DIRECT | DIRECT | DIRECT |
