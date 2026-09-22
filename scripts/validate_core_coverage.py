@@ -25,9 +25,9 @@ REQUIRED = {
     ],
     "us_banking_account.yaml": [
         "americanexpress.com", "bankofamerica.com", "capitalone.com",
-        "chase.com", "citi.com", "citicards.com", "wellsfargo.com", "usbank.com", "pnc.com", "ally.com",
+        "chase.com", "citi.com", "citicards.com", "wellsfargo.com", "usbank.com", "pnc.com", "ally.com", "discover.com", "td.com", "truist.com", "regions.com",
     ],
-    "brokerage_account.yaml": ["interactivebrokers.com", "ibkr.com", "schwab.com", "robinhood.com", "fidelity.com", "etrade.com", "webull.com"],
+    "brokerage_account.yaml": ["interactivebrokers.com", "ibkr.com", "schwab.com", "robinhood.com", "fidelity.com", "etrade.com", "webull.com", "vanguard.com", "sofi.com", "tastytrade.com", "tradestation.com"],
     "crypto_account.yaml": [
         "binance.com", "binance.us", "bybit.com", "coinbase.com", "kraken.com", "okx.com", "crypto.com", "bitget.com", "mexc.com", "gate.io", "kucoin.com", "htx.com", "metamask.io", "walletconnect.com",
     ],
