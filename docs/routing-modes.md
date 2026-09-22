@@ -55,7 +55,7 @@ Hrules 将出口选择方式分为三档：**标准、稳定、严格**。
 上述“同地区故障转移”“受限出口”等是 **Edition 的目标语义**，实际可用能力取决于接入方式能看到的节点清单：
 
 - 完整 YAML / full-config transformation：可以读取具体 \`proxies\`，可实现节点级地区组、同地区故障转移和具体节点绑定。
-- Clash Verge Rev Global Extension Script：只有当前配置暴露具体 \`proxies\` 时才能提供节点级能力；仅有 \`proxy-providers\` 时无法枚举 Provider 运行时节点，Strict 不应作为支持路径使用。
+- Clash Verge Rev Global Extension Script：只有当前配置暴露具体 \`proxies\` 时才能提供节点级能力；仅有 \`proxy-providers\` 时无法枚举 Provider 运行时节点，严格版不应作为支持路径使用。
 - 3X-UI Remote Routing：当前已通过真实链路验证，\`include-all-proxies\` 可以读取最终配置中的真实面板节点；各版场景组保留 \`PROXY\` / \`DIRECT\` 作为显式回退，同时暴露宿主可见节点。
 
 因此，不应仅根据标准 / 稳定 / 严格的名称推断某个接入方式具备节点级拓扑能力。
