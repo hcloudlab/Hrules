@@ -168,3 +168,26 @@ Assessment:
 - DIRECT mainland routing: **PASS**.
 - Overseas DoH configuration binding: **CONFIG PASS**; packet/log-level proof of the DoH socket egress is still a release-evidence item.
 - EdgeTunnel preferred-IP preservation and node-switch/restart repetition remain the final compatibility checks before release.
+
+
+## EdgeTunnel / preferred-IP runtime acceptance — Clash Verge Rev / macOS — 2026-09-22
+
+Environment: Stable Global Extension Script loaded over an EdgeTunnel-style subscription whose VLESS WebSocket nodes use Cloudflare preferred IPs as `server` while preserving a separate TLS `servername` / WebSocket `Host`.
+
+Observed evidence:
+- Preferred-IP transport semantics were preserved in the final runtime config. Example nodes retained literal Cloudflare IPs in `server` while `servername` / WS `Host` remained the subscription domain; Hrules did not rewrite either field.
+- Multiple preferred-IP nodes were usable after the Hrules overlay loaded. Traffic was observed through several concrete VLESS exits, including US-SJC / US-LAX variants.
+- ChatGPT / Claude matched `🔐 Claude / OpenAI [场景]`.
+- Gemini/Google AI endpoints matched `🤖 AI 服务 [场景]`.
+- YouTube matched `📺 YouTube [场景]`.
+- Telegram official IPs matched `💬 Telegram [场景]`.
+- Baidu / mainland endpoints remained `DIRECT`.
+- Stable overseas DoH egress is now directly observed: Mihomo opened `1.1.1.1:443` through `♻️ 自动选择 [系统]`; the connection view also showed `8.8.8.8:443` using the same Hrules automatic group.
+- No DNS bootstrap loop or preferred-IP breakage was observed during this run.
+
+Assessment:
+- EdgeTunnel / preferred-IP preservation: **PASS**.
+- Stable overseas DoH egress binding: **PASS**.
+- Mixed Hrules scene routing on an airport/EdgeTunnel-style source profile: **PASS**.
+- Mainland DIRECT behavior: **PASS**.
+- The remaining release work is repository finalization only: switch feature-branch scene URLs back to `main`, run final CI, then merge.
