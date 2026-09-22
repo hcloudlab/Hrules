@@ -7,9 +7,14 @@ on:
   pull_request:
     paths:
       - "mihomo/dns/**"
-      - "mihomo/editions/hrules-stable.js"
+      - "mihomo/scenes/**"
+      - "mihomo/editions/**"
+      - "mihomo/hosts/3x-ui/**"
       - "docs/dns-*.md"
+      - "docs/scenes.md"
       - "scripts/validate_dns_v01.py"
+      - "scripts/validate_edition_inheritance.py"
+      - "scripts/validate_core_coverage.py"
       - ".github/workflows/dns-v01.yml"
 
 jobs:
@@ -19,3 +24,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate DNS v0.1 contracts
         run: python3 scripts/validate_dns_v01.py
+      - name: Validate edition inheritance
+        run: python3 scripts/validate_edition_inheritance.py
+      - name: Validate representative Core coverage
+        run: python3 scripts/validate_core_coverage.py
