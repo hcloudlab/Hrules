@@ -18,6 +18,22 @@ README 面向用户，按实际客户端分类，例如 Clash Verge Rev、Shadow
 - Stable：增加地区一致性、自动选择与故障转移
 - Strict：增加重要账户专用拓扑和受限出口
 
+## Edition inheritance invariant
+
+The editions are a nested product hierarchy:
+
+`Strict ⊃ Stable ⊃ Standard`
+
+Lower editions may collapse multiple higher-edition scenes into fewer policy groups, reduce automation, and relax exit constraints. They must **not** lose classification coverage. Traffic recognized by Strict must still have an explicit route in Stable and Standard; it may not disappear merely because a specialized group does not exist and then fall through to host `MATCH`.
+
+Current Mihomo collapse contract:
+
+- Standard: `sensitive_ai + general_ai → 🤖 AI 服务`; `crypto_account + us_banking_account + brokerage_account → 🔐 重要账户`.
+- Stable: `sensitive_ai → 🔐 Claude / OpenAI`; `general_ai → 🤖 AI 服务`; financial account scenes collapse to `🔐 重要账户`.
+- Strict: sensitive AI and each financial account scene keep independent groups.
+
+This invariant is enforced by CI for both Clash Verge Rev Global JS and 3X-UI Remote Routing outputs.
+
 ## Integration
 
 同一内核与版本可以派生不同接入产物。Mihomo 首先以统一产品模型生成 Global JS，并从同源模型派生 3X-UI Remote Routing / YAML 等接入形式。
