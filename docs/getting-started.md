@@ -8,16 +8,16 @@ Hrules 不提供节点。开始前，请先准备一个可正常使用的机场�
 | --- | --- | --- |
 | Clash Verge Rev / Mihomo | Available | [Mihomo 安装说明](install.md) |
 | 3X-UI → Mihomo Remote Routing | Available | [3X-UI 安装说明](install.md#3x-ui-remote-routing) |
-| Shadowrocket | Planned | 尚未公开 |
+| Shadowrocket | Available | [Shadowrocket 安装说明](kernels/shadowrocket.md) |
 | sing-box / SFM | Planned | 尚未公开 |
 | v2rayN / v2rayNG | Planned | 尚未公开 |
 | Karing | Planned | 尚未公开 |
 
-Planned 不代表已经可用。只有通过对应客户端真实验收的实现才会开放。
+Planned 不代表已经可用。只有通过对应客户端真实验收的实现才会开放。Shadowrocket 只提供一个完整配置，不参与 Clash / Mihomo 的三档模式。
 
 ## 2. 选择路由模式
 
-Hrules 使用三种用户模式：**标准、稳定、严格**。
+Clash / Mihomo 使用三种用户模式：**标准、稳定、严格**。Shadowrocket 不分等级。
 
 当前 v0.1 RC 的 Mihomo 场景拓扑已经包含普通场景与敏感场景的不同出口策略；统一的三档模式属于长期公共产品契约，具体客户端映射会随各客户端实现逐步完成。
 
