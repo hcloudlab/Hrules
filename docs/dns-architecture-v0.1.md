@@ -53,6 +53,20 @@ Build on Stable. Add narrowly-scoped `nameserver-policy` only after rule-provide
 - No default DoT dependency.
 - No production mutation of Clash Verge Rev host DNS in this branch.
 
+## Integration binding contract
+
+The static DNS candidates do not hard-code a proxy group. When DNS ownership is promoted into a generated Mihomo integration, the adapter must resolve the DNS egress group from the same final inventory used to build Hrules proxy groups.
+
+Preferred binding order for the current edition topology:
+
+1. `♻️ 自动选择 [系统]` when that Hrules-owned group exists.
+2. `🌐 全部节点 [系统]` when auto-selection is absent.
+3. If neither Hrules-owned group can be guaranteed, do not force proxied global DoH; fail open to the edition's compatibility behavior.
+
+The binding must never target a source-profile group merely because it happens to be named `PROXY`. Hrules may consume airport profiles with arbitrary group names.
+
+Standard deliberately has no proxied-DNS dependency. Stable/Strict may add `#<resolved Hrules group>` only after runtime validation.
+
 ## Release gate
 
 DNS ownership must not be enabled in production integrations until the test matrix in `docs/dns-test-matrix-v0.1.md` passes for the supported node classes.
