@@ -1,6 +1,10 @@
 # Hrules DNS v0.1 candidate — Strict
-# Experimental: policy entries are deliberately NOT enabled yet.
-# Strict must first inherit the validated Stable bootstrap/node-DNS path.
+# Experimental validation artifact, not a production include.
+#
+# Strict inherits Stable's bootstrap/node-DNS path. Global DoH remains unbound
+# in this static candidate; production binding must target a real generated
+# Hrules group. nameserver-policy stays disabled until cold-start/provider tests
+# prove that policy loading cannot break node establishment.
 dns:
   enable: true
   ipv6: false
@@ -22,4 +26,4 @@ dns:
     - "*.lan"
     - "*.local"
 
-# nameserver-policy is gated on cold-start/rule-provider validation.
+# nameserver-policy: intentionally gated.
