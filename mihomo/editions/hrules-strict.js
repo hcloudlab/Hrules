@@ -1,7 +1,7 @@
 // GENERATED from Hrules Core edition contract. Do not edit directly.
 // Hrules Mihomo Strict / 严格版
 const HRULES_EDITION = "strict";
-const HRULES_EDITION_SPEC = {"system_groups":["all","auto","fallback","load-balance"],"region_groups":true,"same_region_failover":true,"scene_groups":["sensitive_ai","crypto_account","us_banking_account","brokerage_account","general_ai","youtube_media"],"sensitive_exit_policy":"restricted"};
+const HRULES_EDITION_SPEC = {"system_groups":["all","auto","fallback","load-balance"],"region_groups":true,"same_region_failover":true,"scene_groups":["sensitive_ai","crypto_account","us_banking_account","brokerage_account","financial_account","general_ai","youtube_media"],"sensitive_exit_policy":"restricted"};
 
 // Hrules Clash Verge Rev Global Adapter v0.1
 // Paste this file into Clash Verge Rev -> Global Extension Script.
@@ -48,7 +48,7 @@ function main(config) {
     "🛡️ 日本故障转移 [敏感]","🛡️ 新加坡故障转移 [敏感]","🛡️ 香港故障转移 [敏感]",
     "🛡️ 台湾故障转移 [敏感]","🛡️ 韩国故障转移 [敏感]","🛡️ 英国故障转移 [敏感]",
     "🛡️ 德国故障转移 [敏感]","🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]",
-    "🏦 美国银行 [场景]","📈 美股 [场景]","🔐 重要账户 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]",
+    "🏦 美国银行 [场景]","📈 美股 [场景]","💳 支付金融 [场景]","🔐 重要账户 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]",
     "🚀 漏网之鱼 [自选]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
@@ -114,6 +114,7 @@ function main(config) {
   if (hasScene("crypto_account")) groups.push({name:"💰 虚拟货币 [场景]",type:"select",proxies:sensitiveCandidates});
   if (hasScene("us_banking_account")) groups.push({name:"🏦 美国银行 [场景]",type:"select",proxies:sensitiveCandidates});
   if (hasScene("brokerage_account")) groups.push({name:"📈 美股 [场景]",type:"select",proxies:sensitiveCandidates});
+  if (hasScene("financial_account")) groups.push({name:"💳 支付金融 [场景]",type:"select",proxies:sensitiveCandidates});
   if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
   if (hasScene("youtube_media")) groups.push({name:"📺 YouTube [场景]",type:"select",proxies:mediaCandidates});
   groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
@@ -126,6 +127,7 @@ function main(config) {
     ["hrules-crypto-account","crypto_account"],
     ["hrules-us-banking-account","us_banking_account"],
     ["hrules-brokerage-account","brokerage_account"],
+    ["hrules-financial-account","financial_account"],
     ["hrules-general-ai","general_ai"],
     ["hrules-youtube-media","youtube_media"],
     ["hrules-cn-direct","cn_direct"]
@@ -143,6 +145,7 @@ function main(config) {
   if (hasScene("crypto_account")) hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
   if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国银行 [场景]");
   if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,📈 美股 [场景]");
+  if (hasScene("financial_account")) hrulesRules.push("RULE-SET,hrules-financial-account,💳 支付金融 [场景]");
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 YouTube [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
