@@ -58,63 +58,63 @@ rule-providers:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/feature/mihomo-dns-v0.1/mihomo/scenes/private_direct.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/private_direct.yaml
     path: ./providers/private_direct.yaml
     interval: 21600
   hrules-brokerage-account:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/feature/mihomo-dns-v0.1/mihomo/scenes/brokerage_account.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/brokerage_account.yaml
     path: ./providers/brokerage_account.yaml
     interval: 21600
   hrules-crypto-account:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/feature/mihomo-dns-v0.1/mihomo/scenes/crypto_account.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/crypto_account.yaml
     path: ./providers/crypto_account.yaml
     interval: 21600
   hrules-sensitive-ai:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/feature/mihomo-dns-v0.1/mihomo/scenes/sensitive_ai.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/sensitive_ai.yaml
     path: ./providers/sensitive_ai.yaml
     interval: 21600
   hrules-us-banking-account:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/feature/mihomo-dns-v0.1/mihomo/scenes/us_banking_account.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/us_banking_account.yaml
     path: ./providers/us_banking_account.yaml
     interval: 21600
   hrules-financial-account:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/feature/mihomo-dns-v0.1/mihomo/scenes/financial_account.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/financial_account.yaml
     path: ./providers/financial_account.yaml
     interval: 21600
   hrules-telegram:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/feature/mihomo-dns-v0.1/mihomo/scenes/telegram.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/telegram.yaml
     path: ./providers/telegram.yaml
     interval: 21600
   hrules-general-ai:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/feature/mihomo-dns-v0.1/mihomo/scenes/general_ai.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/general_ai.yaml
     path: ./providers/general_ai.yaml
     interval: 21600
   hrules-youtube-media:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/feature/mihomo-dns-v0.1/mihomo/scenes/youtube_media.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/youtube_media.yaml
     path: ./providers/youtube_media.yaml
     interval: 21600
   hrules-cn-domain:
@@ -135,7 +135,7 @@ rule-providers:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/feature/mihomo-dns-v0.1/mihomo/scenes/cn_direct.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/cn_direct.yaml
     path: ./providers/cn_direct.yaml
     interval: 21600
 rules:
