@@ -1,0 +1,11 @@
+# Hrules 3X-UI Remote Routing real-node A/B probe
+proxy-groups:
+  - name: "🧪 Hrules Real Node Probe"
+    type: select
+    include-all-proxies: true
+    proxies:
+      - PROXY
+      - DIRECT
+
+rules:
+  - MATCH,🧪 Hrules Real Node Probe
