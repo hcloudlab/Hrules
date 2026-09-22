@@ -48,7 +48,7 @@ function main(config) {
     "🛡️ 日本故障转移 [敏感]","🛡️ 新加坡故障转移 [敏感]","🛡️ 香港故障转移 [敏感]",
     "🛡️ 台湾故障转移 [敏感]","🛡️ 韩国故障转移 [敏感]","🛡️ 英国故障转移 [敏感]",
     "🛡️ 德国故障转移 [敏感]","🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]",
-    "🏦 美国银行 [场景]","📈 美股 [场景]","💳 支付金融 [场景]","🔐 重要账户 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]",
+    "🏦 美国银行 [场景]","📈 美股 [场景]","💳 支付金融 [场景]","🔐 重要账户 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]","💬 Telegram [场景]",
     "🚀 漏网之鱼 [自选]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
@@ -117,6 +117,7 @@ function main(config) {
   if (hasScene("financial_account")) groups.push({name:"💳 支付金融 [场景]",type:"select",proxies:sensitiveCandidates});
   if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
   if (hasScene("youtube_media")) groups.push({name:"📺 YouTube [场景]",type:"select",proxies:mediaCandidates});
+  groups.push({name:"💬 Telegram [场景]",type:"select",proxies:normalCandidates});
   groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
   config["proxy-groups"] = groups;
 
@@ -128,6 +129,7 @@ function main(config) {
     ["hrules-us-banking-account","us_banking_account"],
     ["hrules-brokerage-account","brokerage_account"],
     ["hrules-financial-account","financial_account"],
+    ["hrules-telegram","telegram"],
     ["hrules-general-ai","general_ai"],
     ["hrules-youtube-media","youtube_media"],
     ["hrules-cn-direct","cn_direct"]
@@ -146,6 +148,7 @@ function main(config) {
   if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国银行 [场景]");
   if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,📈 美股 [场景]");
   if (hasScene("financial_account")) hrulesRules.push("RULE-SET,hrules-financial-account,💳 支付金融 [场景]");
+  hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景]");
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 YouTube [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
