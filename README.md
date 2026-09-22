@@ -1,8 +1,8 @@
 # Hrules
 
-## 多客户端 · 场景化 · 分级路由
+## 多客户端 · 场景化 · 智能路由
 
-## 三种路由模式
+## Clash / Mihomo 三种路由模式
 
 | 模式 | 主要目标 | 典型行为 | 典型场景 |
 | --- | --- | --- | --- |
@@ -10,7 +10,9 @@
 | 🟡 **稳定** | 尽量保持地区一致 | 优先同地区选择与同地区故障切换 | Claude、ChatGPT、Netflix 等地区敏感服务 |
 | 🔴 **严格** | 出口更可预测 | 限制自动漂移，优先明确/固定的允许出口 | 银行、证券 / 券商、虚拟货币等重要账户 |
 
-→ [了解三种路由模式](docs/routing-modes.md)
+以上三种等级仅适用于 Clash / Mihomo。Shadowrocket 只提供一个完整配置，不分等级。
+
+→ [了解 Clash / Mihomo 三种路由模式](docs/routing-modes.md)
 
 ## 客户端支持
 
@@ -18,7 +20,7 @@
 | --- | --- | --- |
 | **Clash Verge Rev** | ✅ Available | [进入安装中心](docs/kernels/mihomo.md#clash-verge-rev) |
 | **Mihomo / Clash Meta 客户端** | ✅ Available | [进入安装中心](docs/kernels/mihomo.md) |
-| **Shadowrocket** | 🧪 Planned | 待开放 |
+| **Shadowrocket** | ✅ Available | [进入安装说明](docs/kernels/shadowrocket.md) |
 | **sing-box / SFM** | 🧪 Planned | 待开放 |
 | **v2rayN / v2rayNG** | 🧪 Planned | 待开放 |
 | **Karing** | 🧪 Planned | 待开放 |
@@ -68,7 +70,7 @@ Hrules 在 **Clash Verge Rev / Mihomo** 中同时提供经过实机验证的 DNS
 
 当前公共版本：**v0.1.0-rc1**
 
-当前已经完成 **Clash Verge Rev / Mihomo** 多订阅真实客户端验证，以及 **3X-UI Remote Routing** 真实链路验证。其他客户端会在完成实现与真实验收后逐步开放。
+当前已经完成 **Clash Verge Rev / Mihomo** 多订阅真实客户端验证、**3X-UI Remote Routing** 真实链路验证，以及 **Shadowrocket** 真机路由验证。Shadowrocket 采用单一完整配置，不分标准 / 稳定 / 严格。其他客户端会在完成实现与真实验收后逐步开放。
 
 \`main\` 提供持续更新的公共运行时与规则；版本 Tag / Release 提供固定的产品契约快照。
 
@@ -76,7 +78,8 @@ Hrules 在 **Clash Verge Rev / Mihomo** 中同时提供经过实机验证的 DNS
 
 ## Documentation
 
-- [路由模式：标准 / 稳定 / 严格](docs/routing-modes.md)
+- [Clash / Mihomo 路由模式：标准 / 稳定 / 严格](docs/routing-modes.md)
+- [Shadowrocket 安装说明](docs/kernels/shadowrocket.md)
 - [场景与规则](docs/scenes.md)
 - [安装与客户端说明](docs/install.md)
 - [第三方 / 机场 Integration Contract](docs/integration-contract.md)
