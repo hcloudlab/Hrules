@@ -7,7 +7,8 @@
 **Host / Partner 负责：**
 - 节点与节点凭据
 - 订阅生命周期
-- DNS / TUN / 端口等运行时配置
+- TUN / 端口等宿主运行时配置
+- DNS：仅在所选 Hrules Edition 尚未声明 DNS ownership 时由 Host 保留；声明 ownership 的 Edition 以 Hrules 生成块为准
 - 原生兜底策略与服务可用性
 
 **Hrules 负责：**
@@ -28,6 +29,8 @@
 | \`crypto_account\` | 虚拟货币账户场景 |
 | \`us_banking_account\` | 美国银行账户场景 |
 | \`brokerage_account\` | 美股 / 券商账户场景 |
+| \`financial_account\` | 支付 / 国际金融账户场景 |
+| \`telegram\` | Telegram 域名与官方 IP 网段场景 |
 | \`general_ai\` | 一般 AI 服务 |
 | \`youtube_media\` | YouTube 媒体 |
 | \`cn_direct\` | 中国大陆直连 |
@@ -63,7 +66,7 @@
 
 ## 5. 版本与兼容
 
-当前公共通道为 \`v0.1 RC\`。合作接入应优先依赖稳定 Scene ID 和公开路径，而不是依赖 Hrules 内部构建结构。
+当前公共通道为 \`v0.1 RC\`。Standard DNS baseline 已进入分阶段 ownership；Stable / Strict DNS 仍处于 runtime gate，未通过冷启动与 DoH 路径验收前不得自动接管。合作接入应优先依赖稳定 Scene ID 和公开路径，而不是依赖 Hrules 内部构建结构。
 
 重大不兼容变化应通过新的公共契约版本发布；公共运行时不依赖私有 Hrules Core 仓库。
 
