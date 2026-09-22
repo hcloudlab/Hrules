@@ -1,6 +1,6 @@
 # Hrules Mihomo DNS Architecture v0.1
 
-Status: **experimental design / not released**
+Status: **implementation complete / runtime acceptance pending**
 
 ## Goal
 
@@ -12,7 +12,7 @@ The primary invariant is:
 
 ## Ownership boundary
 
-Hrules currently acts as a routing overlay and the host profile owns DNS. DNS v0.1 does **not** change that production contract yet. This branch introduces an explicit DNS design and candidate profiles for validation first. DNS ownership may move into an integration only after compatibility tests pass.
+Clash Verge Rev Hrules editions now own their generated DNS baseline. Standard uses a conservative mainland-reachable resolver path. Stable/Strict preserve independent bootstrap/node DNS and bind ordinary overseas DoH to an Hrules-owned proxy group. Host DNS remains authoritative only for integrations that do not declare Hrules DNS ownership.
 
 ## Hard invariants
 
@@ -32,7 +32,7 @@ Hrules currently acts as a routing overlay and the host profile owns DNS. DNS v0
 - Bootstrap: `223.5.5.5`, `119.29.29.29`
 - Proxy-server DNS: mainland-reachable resolvers; must work without proxy. It is explicitly configured because Mihomo otherwise falls back to nameserver-policy/nameserver/fallback for proxy-node domains.
 - DIRECT DNS: mainland-reachable resolvers
-- Global DNS: encrypted resolver candidate; Stable/Strict may bind it to a real generated Hrules proxy group after runtime validation
+- Global DNS: Stable/Strict bind Cloudflare/Google DoH to the generated Hrules automatic group; node/bootstrap resolution remains independent
 
 ## Edition intent
 
@@ -40,10 +40,10 @@ Hrules currently acts as a routing overlay and the host profile owns DNS. DNS v0
 Maximum compatibility. No rule-set DNS policy and no dependency on proxied DNS.
 
 ### Stable
-Mainland default. Preserve safe bootstrap/node DNS, separate DIRECT DNS, and validate proxied global DoH against the actual generated proxy-group inventory.
+Mainland-oriented default. Preserves safe bootstrap/node DNS, separates DIRECT DNS, and routes ordinary global DoH through the actual Hrules automatic group.
 
 ### Strict
-Build on Stable. Add narrowly-scoped `nameserver-policy` only after rule-provider startup ordering and cold-start behavior are validated.
+Builds on Stable's resolver model while keeping `nameserver-policy` disabled in v0.1. Strictness is currently expressed by routing topology/exit constraints, not by making bootstrap depend on rule-provider DNS policy.
 
 ## Non-goals for v0.1
 
@@ -51,11 +51,11 @@ Build on Stable. Add narrowly-scoped `nameserver-policy` only after rule-provide
 - No automatic `geosite:cn` injection into `fake-ip-filter`.
 - No dependence on `system`/DHCP DNS for core availability.
 - No default DoT dependency.
-- No production mutation of Clash Verge Rev host DNS in this branch.
+- No automatic `nameserver-policy` dependency in v0.1; resolver bootstrap remains independent of rule-provider startup.
 
 ## Integration binding contract
 
-The static DNS candidates do not hard-code a proxy group. When DNS ownership is promoted into a generated Mihomo integration, the adapter must resolve the DNS egress group from the same final inventory used to build Hrules proxy groups.
+The Stable/Strict static artifacts bind to Hrules' `♻️ 自动选择 [系统]` group, and the generated adapters resolve the DNS egress group from the same final inventory used to build Hrules proxy groups.
 
 Preferred binding order for the current edition topology:
 
@@ -65,7 +65,7 @@ Preferred binding order for the current edition topology:
 
 The binding must never target a source-profile group merely because it happens to be named `PROXY`. Hrules may consume airport profiles with arbitrary group names.
 
-Standard deliberately has no proxied-DNS dependency. Stable/Strict may add `#<resolved Hrules group>` only after runtime validation.
+Standard deliberately has no proxied-DNS dependency. Stable/Strict use `#<resolved Hrules group>` for ordinary overseas DoH while `default-nameserver` and `proxy-server-nameserver` remain proxy-independent.
 
 The `#group` suffix controls the DNS server connection's egress. It must not be confused with choosing which resolver answers a domain. Hrules therefore keeps resolver selection, node bootstrap, and DNS-server egress as separate concerns.
 
@@ -73,4 +73,4 @@ The `#group` suffix controls the DNS server connection's egress. It must not be 
 
 ## Release gate
 
-DNS ownership must not be enabled in production integrations until the test matrix in `docs/dns-test-matrix-v0.1.md` passes for the supported node classes.
+The implementation is frozen for runtime acceptance. Release still requires the supported-node test matrix in `docs/dns-test-matrix-v0.1.md`; runtime failures are fixed as compatibility defects rather than by redesigning the ownership model.
