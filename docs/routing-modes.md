@@ -58,6 +58,6 @@ Hrules 将出口选择方式分为三档：**标准、稳定、严格**。
 - Clash Verge Rev Global Extension Script：只有当前配置暴露具体 \`proxies\` 时才能提供节点级能力；仅有 \`proxy-providers\` 时无法枚举 Provider 运行时节点，Strict 不应作为支持路径使用。
 - 3X-UI Remote Routing：当前已通过真实链路验证，\`include-all-proxies\` 可以读取最终配置中的真实面板节点；各版场景组保留 \`PROXY\` / \`DIRECT\` 作为显式回退，同时暴露宿主可见节点。
 
-因此，不应仅根据 Standard / Stable / Strict 名称推断某个接入方式具备节点级拓扑能力。
+因此，不应仅根据标准 / 稳定 / 严格的名称推断某个接入方式具备节点级拓扑能力。
 
 > 路由模式只控制 Hrules 的出口选择逻辑。它不能保证第三方服务不会触发风控、封号或地区资格限制。
