@@ -10,7 +10,9 @@
 | 🟡 **稳定** | 尽量保持地区一致 | 优先同地区选择与同地区故障切换 | Claude、ChatGPT、Netflix 等地区敏感服务 |
 | 🔴 **严格** | 出口更可预测 | 限制自动漂移，优先明确/固定的允许出口 | 银行、证券 / 券商、虚拟货币等重要账户 |
 
-以上三种等级仅适用于 Clash / Mihomo。Shadowrocket 只提供一个完整配置，不分等级。\n\n→ [了解 Clash / Mihomo 三种路由模式](docs/routing-modes.md)
+以上三种等级仅适用于 Clash / Mihomo。Shadowrocket 只提供一个完整配置，不分等级。
+
+→ [了解 Clash / Mihomo 三种路由模式](docs/routing-modes.md)
 
 ## 客户端支持
 
@@ -76,7 +78,8 @@ Hrules 在 **Clash Verge Rev / Mihomo** 中同时提供经过实机验证的 DNS
 
 ## Documentation
 
-- [Clash / Mihomo 路由模式：标准 / 稳定 / 严格](docs/routing-modes.md)\n- [Shadowrocket 安装说明](docs/kernels/shadowrocket.md)
+- [Clash / Mihomo 路由模式：标准 / 稳定 / 严格](docs/routing-modes.md)
+- [Shadowrocket 安装说明](docs/kernels/shadowrocket.md)
 - [场景与规则](docs/scenes.md)
 - [安装与客户端说明](docs/install.md)
 - [第三方 / 机场 Integration Contract](docs/integration-contract.md)
