@@ -1,7 +1,11 @@
 # Hrules DNS v0.1 candidate — Stable
-# Experimental: global DoH egress binding is intentionally unresolved here.
-# The final integration must bind global DoH to a real generated Hrules group,
-# not to a hard-coded group name.
+# Experimental validation artifact, not a production include.
+#
+# IMPORTANT:
+# The two global DoH endpoints below are intentionally unbound in this static
+# candidate. The production adapter must append #<REAL_HRULES_GROUP> only after
+# the generated proxy-group inventory exists. This file therefore validates
+# resolver syntax/bootstrap behavior, not final DoH egress ownership.
 dns:
   enable: true
   ipv6: false
