@@ -40,6 +40,6 @@ Rules:
 
 ### Audit opened 2026-09-22
 
-Coverage audit remains an active release gate for **coverage claims**, not a declaration that every currently available client path is unusable. Runtime paths marked Available have passed their documented client acceptance, while individual scene inventories may continue to expand.
+Coverage audit remains an active release gate for **coverage claims**. Client/runtime availability is tracked separately in the release documentation and acceptance matrix; individual scene inventories may continue to expand.
 
 Do not describe a scene as exhaustive unless its coverage audit supports that claim. Current documentation and videos should distinguish **validated routing behavior** from **complete service coverage**; newly discovered first-party omissions remain Core coverage work.
