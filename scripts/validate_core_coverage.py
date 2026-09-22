@@ -25,9 +25,9 @@ REQUIRED = {
     ],
     "us_banking_account.yaml": [
         "americanexpress.com", "bankofamerica.com", "capitalone.com",
-        "chase.com", "citicards.com", "wellsfargo.com",
+        "chase.com", "citi.com", "citicards.com", "wellsfargo.com", "usbank.com", "pnc.com", "ally.com",
     ],
-    "brokerage_account.yaml": ["interactivebrokers.com", "ibkr.com"],
+    "brokerage_account.yaml": ["interactivebrokers.com", "ibkr.com", "schwab.com", "robinhood.com", "fidelity.com", "etrade.com", "webull.com"],
     "crypto_account.yaml": [
         "binance.us", "bybit.com", "coinbase.com", "kraken.com", "okx.com",
     ],
