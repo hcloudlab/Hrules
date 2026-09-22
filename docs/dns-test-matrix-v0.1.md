@@ -103,7 +103,7 @@ Warnings were also observed for traffic falling through host `MATCH → PROXY`, 
 
 ### Remaining DNS release gates
 
-DNS v0.1 remains **NOT production-ready**. Continue with the existing resolver-path gates:
+DNS v0.1 remains **NOT fully production-ready**. Standard DNS ownership has now been promoted into the Clash Verge Rev Standard adapter after the baseline connectivity observation; Stable / Strict remain gated. Continue with the resolver-path gates:
 1. clean cold start and cache reset;
 2. domain-form proxy-server bootstrap observation;
 3. DIRECT mainland-domain/CDN observation;
@@ -112,3 +112,12 @@ DNS v0.1 remains **NOT production-ready**. Continue with the existing resolver-p
 6. subscription/provider refresh;
 7. EdgeTunnel preferred-IP preservation;
 8. classify the observed MATCH/Telegram/Google/IPv6 warnings before promotion.
+
+
+## Staged promotion record — 2026-09-22
+
+- Standard Clash Verge Rev adapter now generates the conservative DNS baseline automatically; manual subscription YAML editing is no longer part of the intended UX.
+- Standard keeps node bootstrap independent from proxy establishment through `proxy-server-nameserver` using the China-reachable bootstrap pair.
+- Stable / Strict still do **not** mutate host DNS. Their global DoH path remains a candidate until clean-start egress is observed.
+- Feature-branch adapters and 3X-UI artifacts are pinned to the same feature-branch Scene inventory during acceptance, preventing mixed `branch JS → main Scene` tests.
+- Core audit also removed `198.18.0.0/15` from `private_direct`: Mihomo Fake-IP uses the 198.18/15 benchmarking space, so forcing that range DIRECT would defeat rule evaluation for Fake-IP destinations.
