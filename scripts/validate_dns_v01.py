@@ -44,6 +44,17 @@ for edition in ("standard", "stable", "strict"):
         if "nameserver-policy:" in active:
             errors.append(f"{edition}: nameserver-policy must remain gated")
 
+
+# Standard generated DNS and the static Standard artifact must keep the same
+# resolver contract. This prevents documentation/candidate drift from runtime.
+standard_yaml = (DNS / "hrules-standard.yaml").read_text(encoding="utf-8")
+for token in ("fake-ip-filter-mode: blacklist", "223.5.5.5", "119.29.29.29"):
+    if token not in standard_yaml:
+        errors.append(f"standard dns artifact: missing {token}")
+for forbidden in ("https://1.1.1.1/dns-query", "https://8.8.8.8/dns-query", "direct-nameserver:"):
+    if forbidden in standard_yaml:
+        errors.append(f"standard dns artifact: unexpected {forbidden}")
+
 # Integration gates.
 # Standard passed the initial real-device connectivity baseline and now owns its
 # conservative DNS block. Stable/Strict remain gated until proxied-DoH egress is
