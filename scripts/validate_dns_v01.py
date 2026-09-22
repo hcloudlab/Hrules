@@ -44,11 +44,21 @@ for edition in ("standard", "stable", "strict"):
         if "nameserver-policy:" in active:
             errors.append(f"{edition}: nameserver-policy must remain gated")
 
-# Guard the integration boundary: DNS v0.1 may prepare a binding candidate but
-# must not mutate host-profile DNS in the generated edition yet.
+# Integration gates.
+# Standard passed the initial real-device connectivity baseline and now owns its
+# conservative DNS block. Stable/Strict remain gated until proxied-DoH egress is
+# observed after clean cold start.
+standard_js = (ROOT / "mihomo" / "editions" / "hrules-standard.js").read_text(encoding="utf-8")
+for token in ('config["dns"] =', '"proxy-server-nameserver"', '"223.5.5.5"', '"119.29.29.29"', '"fake-ip-filter-mode": "blacklist"'):
+    if token not in standard_js:
+        errors.append(f"standard edition: generated DNS baseline missing {token}")
+
+for edition in ("stable", "strict"):
+    js = (ROOT / "mihomo" / "editions" / f"hrules-{edition}.js").read_text(encoding="utf-8")
+    if 'config["dns"] =' in js or "config.dns =" in js:
+        errors.append(f"{edition} edition: DNS ownership enabled before runtime gate")
+
 stable_js = (ROOT / "mihomo" / "editions" / "hrules-stable.js").read_text(encoding="utf-8")
-if 'config["dns"] =' in stable_js or "config.dns =" in stable_js:
-    errors.append("stable edition: DNS ownership enabled before runtime gate")
 for token in ('hasSystem("auto")', 'hasSystem("all")', '"♻️ 自动选择 [系统]"', '"🌐 全部节点 [系统]"'):
     if token not in stable_js:
         errors.append(f"stable edition: inventory-aware binding helper missing {token}")
