@@ -17,7 +17,7 @@ REQUIRED = {
     "general_ai.yaml": [
         "gemini.google.com", "generativelanguage.googleapis.com",
         "grok.com", "x.ai", "perplexity.ai", "pplx.ai",
-        "copilot-proxy.githubusercontent.com",
+        "copilot-proxy.githubusercontent.com", "copilot.microsoft.com", "cursor.com", "meta.ai", "mistral.ai", "huggingface.co", "openrouter.ai",
     ],
     "financial_account.yaml": [
         "paypal.com", "paypalobjects.com", "wise.com", "transferwise.com",
@@ -29,7 +29,7 @@ REQUIRED = {
     ],
     "brokerage_account.yaml": ["interactivebrokers.com", "ibkr.com", "schwab.com", "robinhood.com", "fidelity.com", "etrade.com", "webull.com"],
     "crypto_account.yaml": [
-        "binance.us", "bybit.com", "coinbase.com", "kraken.com", "okx.com",
+        "binance.com", "binance.us", "bybit.com", "coinbase.com", "kraken.com", "okx.com", "crypto.com", "bitget.com", "mexc.com", "gate.io", "kucoin.com", "htx.com", "metamask.io", "walletconnect.com",
     ],
     "telegram.yaml": ["telegram.org", "t.me", "149.154.160.0/20", "91.108.4.0/22"],
     "youtube_media.yaml": ["youtube.com", "youtu.be", "googlevideo.com", "ytimg.com", "youtubei.googleapis.com"],
