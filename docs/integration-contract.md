@@ -66,7 +66,7 @@
 
 ## 5. 版本与兼容
 
-当前公共通道为 \`v0.1 RC\`。Standard DNS baseline 已进入分阶段 ownership；Stable / Strict DNS 仍处于 runtime gate，未通过冷启动与 DoH 路径验收前不得自动接管。合作接入应优先依赖稳定 Scene ID 和公开路径，而不是依赖 Hrules 内部构建结构。
+当前公共通道为 \`v0.1 RC\`。Clash Verge Rev 的 Standard / Stable / Strict 已声明 DNS ownership：Standard 使用保守 DNS 基线；Stable / Strict 使用独立 bootstrap/node DNS + 绑定 Hrules 自动组的海外 DoH。其他 Host Adapter（包括仅提供 Remote Routing 的集成）在未声明 DNS ownership 时仍由 Host 保留 DNS。合作接入应优先依赖稳定 Scene ID 和公开路径，而不是依赖 Hrules 内部构建结构。
 
 重大不兼容变化应通过新的公共契约版本发布；公共运行时不依赖私有 Hrules Core 仓库。
 
