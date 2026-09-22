@@ -19,7 +19,7 @@ function main(config) {
   };
   const hasSystem = id => editionSpec.system_groups.includes(id);
   const hasScene = id => editionSpec.scene_groups.includes(id);
-  const providerBase = "https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes";
+  const providerBase = "https://raw.githubusercontent.com/hcloudlab/Hrules/feature/mihomo-dns-v0.1/mihomo/scenes";
   const rawNodeNames = Array.isArray(config.proxies)
     ? config.proxies.map(p => p && p.name).filter(n => typeof n === "string" && n.length)
     : [];
