@@ -63,3 +63,8 @@ for edition in ("standard", "stable", "strict"):
                        "RULE-SET,hrules-cn-ip,DIRECT,no-resolve"):
             if needle not in text:
                 errors.append(f"{rel}: missing mature CN routing contract {needle}")
+
+if errors:
+    print("\n".join(errors), file=sys.stderr)
+    raise SystemExit(1)
+print("Hrules representative Core coverage: PASS")
