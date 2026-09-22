@@ -50,3 +50,21 @@ payload:
 # Exact hosts are intentional: do not send the whole google.com namespace to AI.
 - DOMAIN,accounts.google.com
 - DOMAIN,www.google.com
+
+# xAI / Grok
+- DOMAIN-SUFFIX,grok.com
+- DOMAIN-SUFFIX,grokipedia.com
+- DOMAIN-SUFFIX,x.ai
+- DOMAIN,grok.x.com
+
+# Perplexity
+- DOMAIN-SUFFIX,perplexity.ai
+- DOMAIN-SUFFIX,perplexity.com
+- DOMAIN-SUFFIX,pplx.ai
+- DOMAIN,ppl-ai-file-upload.s3.amazonaws.com
+- DOMAIN,pplx-res.cloudinary.com
+
+# Microsoft / GitHub Copilot-specific endpoints
+- DOMAIN,copilot-proxy.githubusercontent.com
+- DOMAIN,copilot-workspace.githubnext.com
+- DOMAIN,copilotprodattachments.blob.core.windows.net
