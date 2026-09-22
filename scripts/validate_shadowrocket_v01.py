@@ -66,8 +66,8 @@ for rule in normalized:
         if parts != ["FINAL", "PROXY"]:
             errors.append(f"invalid FINAL: {rule}")
     elif parts[0] == "RULE-SET":
-        if len(parts) < 3 or parts[2] != "DIRECT":
-            errors.append(f"invalid CN RULE-SET policy: {rule}")
+        if len(parts) < 3 or parts[2] not in ("DIRECT", "PROXY", "REJECT"):
+            errors.append(f"invalid RULE-SET policy: {rule}")
     elif len(parts) < 3 or parts[2] not in ("DIRECT", "PROXY", "REJECT"):
         errors.append(f"missing/invalid policy: {rule}")
 
@@ -76,8 +76,7 @@ if len(normalized) != len(set(normalized)):
 
 # CN direct routing must use maintained domain + IP datasets, not only .cn/GEOIP.
 cn_required = (
-    "RULE-SET,https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.list,DIRECT",
-    "RULE-SET,https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.list,DIRECT,no-resolve",
+    "RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/ChinaMax/ChinaMax.list,DIRECT",
 )
 for rule in cn_required:
     if rule not in normalized:
