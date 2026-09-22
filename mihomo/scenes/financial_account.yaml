@@ -1,0 +1,19 @@
+payload:
+# PayPal family — first-party/account infrastructure only
+- DOMAIN-SUFFIX,paypal.com
+- DOMAIN-SUFFIX,paypalobjects.com
+- DOMAIN-SUFFIX,paypal.me
+- DOMAIN-SUFFIX,paypalinc.com
+- DOMAIN-SUFFIX,paypalcorp.com
+- DOMAIN-SUFFIX,paypalcredit.com
+- DOMAIN-SUFFIX,paypalgivingfund.org
+- DOMAIN-SUFFIX,braintreegateway.com
+- DOMAIN-SUFFIX,braintreepayments.com
+- DOMAIN-SUFFIX,venmo.com
+- DOMAIN-SUFFIX,xoom.com
+# Wise / TransferWise
+- DOMAIN-SUFFIX,wise.com
+- DOMAIN-SUFFIX,transferwise.com
+# Payoneer
+- DOMAIN-SUFFIX,payoneer.com
+- DOMAIN-SUFFIX,payoneer.com.cn
