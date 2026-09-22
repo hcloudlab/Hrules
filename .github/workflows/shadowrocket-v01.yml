@@ -1,0 +1,23 @@
+name: Shadowrocket v0.1
+
+on:
+  push:
+    paths:
+      - "shadowrocket/**"
+      - "scripts/validate_shadowrocket_v01.py"
+      - ".github/workflows/shadowrocket-v01.yml"
+  pull_request:
+    paths:
+      - "shadowrocket/**"
+      - "scripts/validate_shadowrocket_v01.py"
+      - ".github/workflows/shadowrocket-v01.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: python scripts/validate_shadowrocket_v01.py
