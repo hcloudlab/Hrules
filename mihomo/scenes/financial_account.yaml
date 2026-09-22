@@ -17,3 +17,12 @@ payload:
 # Payoneer
 - DOMAIN-SUFFIX,payoneer.com
 - DOMAIN-SUFFIX,payoneer.com.cn
+
+# International banking / financial accounts
+- DOMAIN-SUFFIX,hsbc.com
+- DOMAIN-SUFFIX,hsbcnet.com
+- DOMAIN-SUFFIX,hsbcprivatebank.com
+- DOMAIN-SUFFIX,sc.com
+- DOMAIN-SUFFIX,standardchartered.com
+- DOMAIN,standchartbank.sc.omtrdc.net
+- DOMAIN,standchartbank.tt.omtrdc.net
