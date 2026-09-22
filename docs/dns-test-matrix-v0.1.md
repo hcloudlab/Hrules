@@ -41,6 +41,19 @@ For each supported case verify:
 - OpenClash
 - bare Mihomo Linux router
 
+## Resolver-path evidence
+
+Runtime acceptance must capture enough evidence to distinguish configuration success from accidental cache/system-DNS success:
+
+- start from a clean Mihomo process and cleared relevant DNS/cache state;
+- run with debug DNS logging while exercising the test domain;
+- record the resolver selected for a domain-form proxy `server`;
+- for Stable/Strict, record the network path used by the global DoH TCP/443 connection;
+- repeat after restart and node switch;
+- do not accept a browser DNS-provider test page alone as proof of resolver egress.
+
+A syntax/static PASS is necessary but not sufficient. Runtime evidence is the release gate.
+
 ## Edition gates
 
 ### Standard
