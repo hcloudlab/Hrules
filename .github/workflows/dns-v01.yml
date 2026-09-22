@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - "mihomo/dns/**"
+      - "mihomo/editions/hrules-stable.js"
       - "docs/dns-*.md"
       - "scripts/validate_dns_v01.py"
       - ".github/workflows/dns-v01.yml"
