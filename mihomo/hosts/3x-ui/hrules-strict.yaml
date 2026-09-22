@@ -41,7 +41,7 @@ proxy-groups:
   - PROXY
   - DIRECT
   include-all-proxies: true
-- name: 💳 支付金融 [场景]
+- name: 💳 金融账户 [场景]
   type: select
   proxies:
   - PROXY
@@ -130,7 +130,7 @@ rules:
 - RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]
 - RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]
 - RULE-SET,hrules-us-banking-account,🏦 美国银行 [场景]
-- RULE-SET,hrules-financial-account,💳 支付金融 [场景]
+- RULE-SET,hrules-financial-account,💳 金融账户 [场景]
 - RULE-SET,hrules-telegram,💬 Telegram [场景]
 - RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]
 - RULE-SET,hrules-youtube-media,📺 YouTube [场景]
