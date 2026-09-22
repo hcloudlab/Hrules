@@ -5,8 +5,8 @@ const HRULES_EDITION_SPEC = {"system_groups":["all","auto","fallback"],"region_g
 
 // Hrules Clash Verge Rev Global Adapter v0.1
 // Paste this file into Clash Verge Rev -> Global Extension Script.
-// Hrules owns routing topology only. The active profile continues to own nodes,
-// providers, DNS, TUN, ports, and credentials.
+// Hrules owns routing topology and the validated DNS baseline. The active profile
+// continues to own nodes, providers, TUN, ports, and credentials.
 
 function main(config) {
   const HR = "Hrules";
@@ -58,10 +58,8 @@ function main(config) {
   if (providerNames.length) source.use = providerNames;
   const health = { url: "https://www.gstatic.com/generate_204", interval: 300 };
 
-  // DNS v0.1 integration helper. This is deliberately inert in the generated
-  // editions until runtime validation promotes DNS ownership to the adapter.
-  // When enabled later, Stable/Strict must bind global DoH to an Hrules-owned
-  // group that is guaranteed to exist for the current inventory.
+  // DNS egress is bound to an Hrules-owned group that exists for this edition.
+  // Node-domain bootstrap remains independent from the proxy to avoid a loop.
   const dnsProxyGroup = hasSystem("auto") ? "♻️ 自动选择 [系统]"
     : hasSystem("all") ? "🌐 全部节点 [系统]" : null;
 
@@ -125,9 +123,22 @@ function main(config) {
   groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
   config["proxy-groups"] = groups;
 
-  // Keep the host profile's DNS untouched for v0.1 validation.
-  // dnsProxyGroup is intentionally only a validated binding candidate here.
-  void dnsProxyGroup;
+  config["dns"] = {
+    enable: true,
+    ipv6: false,
+    "enhanced-mode": "fake-ip",
+    "fake-ip-range": "198.18.0.1/16",
+    "fake-ip-filter-mode": "blacklist",
+    "fake-ip-filter": ["*.lan","*.local"],
+    "default-nameserver": ["223.5.5.5","119.29.29.29"],
+    "proxy-server-nameserver": ["223.5.5.5","119.29.29.29"],
+    "direct-nameserver": ["223.5.5.5","119.29.29.29"],
+    "direct-nameserver-follow-policy": false,
+    nameserver: [
+      "https://1.1.1.1/dns-query#" + dnsProxyGroup,
+      "https://8.8.8.8/dns-query#" + dnsProxyGroup
+    ]
+  };
 
   const providers = Object.assign({}, config["rule-providers"] || {});
   const defs = [
