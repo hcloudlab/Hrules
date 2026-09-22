@@ -11,3 +11,10 @@ payload:
 - DOMAIN-SUFFIX,wellsfargo.com
 - DOMAIN-SUFFIX,wf.com
 - DOMAIN-SUFFIX,wfinterface.com
+
+# Additional major US retail banks — first-party domains
+- DOMAIN-SUFFIX,citi.com
+- DOMAIN-SUFFIX,usbank.com
+- DOMAIN-SUFFIX,pnc.com
+- DOMAIN-SUFFIX,ally.com
+- DOMAIN-SUFFIX,discover.com
