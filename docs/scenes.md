@@ -40,4 +40,6 @@ Rules:
 
 ### Audit opened 2026-09-22
 
-Current Core coverage is classified as **incomplete / not production-ready** pending a full inventory reconciliation. Real-device testing exposed representative omissions including Grok and financial-account services outside the current US-bank/brokerage/crypto lists. DNS promotion remains gated until this audit is complete so routing omissions are not misclassified as DNS failures.
+Coverage audit remains an active release gate for **coverage claims**, not a declaration that every currently available client path is unusable. Runtime paths marked Available have passed their documented client acceptance, while individual scene inventories may continue to expand.
+
+Do not describe a scene as exhaustive unless its coverage audit supports that claim. Current documentation and videos should distinguish **validated routing behavior** from **complete service coverage**; newly discovered first-party omissions remain Core coverage work.
