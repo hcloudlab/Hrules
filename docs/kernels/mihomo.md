@@ -16,7 +16,7 @@
 
 打开对应链接后复制完整 JS 内容，粘贴到 Clash Verge Rev 的 Global Extension Script / 全局扩展脚本中。
 
-> **脚本边界：** 该 JS 只在 Clash Verge Rev / Mihomo 配置层修改 Hrules 管理的代理组、规则、Rule Providers 与 DNS 配置，不获取 root 权限，也不安装系统服务。源码公开；删除全局扩展脚本并重新激活原配置即可退出 Hrules 覆写。仓库发布的校验文件可用于核对公开工件。
+> **脚本边界：** 该 JS 只在 Clash Verge Rev / Mihomo 配置层修改 Hrules 管理的代理组、规则、Rule Providers 与 DNS 配置，不获取 root 权限，也不安装系统服务。源码公开；删除全局扩展脚本并重新激活原配置即可退出 Hrules 覆写。源码公开，可直接审阅；删除全局扩展脚本并重新激活原配置即可退出 Hrules 覆写。
 
 > **严格版前置条件：** 只有当前 Clash Verge Rev 配置暴露具体顶层 `proxies` 节点时，才使用严格版。若订阅配置只有 `proxy-providers`、没有可见的顶层 `proxies`，请不要使用严格版；此时脚本无法枚举 Provider 运行时节点，敏感场景无法建立有效的受限出口候选。可改用 标准 / 稳定，或使用能读取完整 `proxies` 清单的完整配置转换路径。
 
