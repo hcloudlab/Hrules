@@ -1,20 +1,28 @@
 payload:
+# Major US retail/card issuers — first-party namespaces.
 - DOMAIN-SUFFIX,americanexpress.com
 - DOMAIN-SUFFIX,bankofamerica.com
 - DOMAIN-SUFFIX,bac-assets.com
-- DOMAIN-SUFFIX,online-metrix.net
-- DOMAIN-SUFFIX,dv.socure.io
 - DOMAIN-SUFFIX,capitalone.com
 - DOMAIN-SUFFIX,chase.com
 - DOMAIN-SUFFIX,chasecdn.com
+- DOMAIN-SUFFIX,citi.com
 - DOMAIN-SUFFIX,citicards.com
 - DOMAIN-SUFFIX,wellsfargo.com
 - DOMAIN-SUFFIX,wf.com
 - DOMAIN-SUFFIX,wfinterface.com
-
-# Additional major US retail banks — first-party domains
-- DOMAIN-SUFFIX,citi.com
 - DOMAIN-SUFFIX,usbank.com
 - DOMAIN-SUFFIX,pnc.com
 - DOMAIN-SUFFIX,ally.com
 - DOMAIN-SUFFIX,discover.com
+- DOMAIN-SUFFIX,td.com
+- DOMAIN-SUFFIX,truist.com
+- DOMAIN-SUFFIX,regions.com
+- DOMAIN-SUFFIX,citizensbank.com
+- DOMAIN-SUFFIX,fifththird.com
+- DOMAIN-SUFFIX,key.com
+
+# Shared identity/risk endpoints deliberately included because they participate
+# directly in account authentication; generic analytics/CDN/WAF stay excluded.
+- DOMAIN-SUFFIX,online-metrix.net
+- DOMAIN-SUFFIX,dv.socure.io
