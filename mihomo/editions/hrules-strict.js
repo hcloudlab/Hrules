@@ -138,6 +138,12 @@ function main(config) {
     providers[key] = {type:"http",behavior:"classical",format:"yaml",
       url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600};
   }
+  providers["hrules-cn-domain"] = {type:"http",behavior:"domain",format:"mrs",
+    url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
+    path:"./providers/hrules-cn-domain.mrs",interval:21600};
+  providers["hrules-cn-ip"] = {type:"http",behavior:"ipcidr",format:"mrs",
+    url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs",
+    path:"./providers/hrules-cn-ip.mrs",interval:21600};
   config["rule-providers"] = providers;
 
   // Hrules is an overlay. Do not add its MATCH here: the host profile keeps
@@ -152,6 +158,8 @@ function main(config) {
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 YouTube [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
+  hrulesRules.push("RULE-SET,hrules-cn-domain,DIRECT");
+  hrulesRules.push("RULE-SET,hrules-cn-ip,DIRECT,no-resolve");
   config.rules = hrulesRules.concat(originalRules);
   config.mode = "rule";
   return config;
