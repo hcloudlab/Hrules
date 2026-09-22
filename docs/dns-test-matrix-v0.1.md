@@ -144,3 +144,27 @@ Shared infrastructure remained outside account/AI scenes as designed (for exampl
 Result: **Standard generated DNS + representative Core routing integration PASS** for this concentrated runtime sample.
 
 One diagnostic remains intentionally open: HSBC first-party domains are covered by `financial_account`, while observed generic/shared dependencies such as `hsbc.edge.sdk.awswaf.com`, Tealium, LivePerson and analytics endpoints correctly remained on host MATCH/PROXY. This is not classified as a Core miss unless a first-party HSBC endpoint itself is observed falling through.
+
+
+## Stable concentrated runtime acceptance — Clash Verge Rev / macOS — 2026-09-22
+
+Environment: Stable Global Extension Script, real mixed node inventory containing both IP-form and domain-form Reality/Hysteria2 nodes, TUN enabled.
+
+Observed evidence:
+- Generated DNS block is present exactly as designed: Fake-IP, mainland bootstrap pair, independent `proxy-server-nameserver`, mainland `direct-nameserver`, and Cloudflare/Google DoH bound to `♻️ 自动选择 [系统]`.
+- Domain-form node `3xui.hcloudlab.cc.cd` was usable for both Reality and Hysteria2 traffic immediately after restart. This is runtime evidence that proxy-server bootstrap did not deadlock on the proxied DoH path.
+- Mainland traffic such as Baidu/BCE endpoints was observed as `DIRECT`.
+- YouTube domains / Googlevideo / ytimg matched `📺 YouTube [场景]` and used the Hrules automatic group.
+- ChatGPT / OpenAI and Claude matched `🔐 Claude / OpenAI [场景]`.
+- Gemini/Google AI session-critical `www.google.com` matched `🤖 AI 服务 [场景]`.
+- Telegram official IPs matched `💬 Telegram [场景]` and used the Hrules automatic group.
+- HSBC first-party `www.us.hsbc.com` matched `🔐 重要账户 [场景]`. This resolves the earlier HSBC runtime uncertainty: the first-party domain is correctly classified while generic AWS WAF / Tealium / LivePerson / analytics dependencies remain outside the financial scene.
+- No DNS loop or bootstrap failure was visible in this concentrated run.
+
+Assessment:
+- Stable routing + generated DNS integration: **PASS** for this concentrated real-device sample.
+- HSBC first-party routing: **PASS**.
+- Domain-form node bootstrap: **PASS** at functional level.
+- DIRECT mainland routing: **PASS**.
+- Overseas DoH configuration binding: **CONFIG PASS**; packet/log-level proof of the DoH socket egress is still a release-evidence item.
+- EdgeTunnel preferred-IP preservation and node-switch/restart repetition remain the final compatibility checks before release.
