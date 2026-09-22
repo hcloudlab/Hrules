@@ -22,3 +22,22 @@ Scene ID 是公共集成契约的一部分。底层服务域名和匹配规则�
 公共 Rule Provider 可以独立于产品版本持续更新。新增或修正某个服务域名通常属于规则数据维护，不意味着 Hrules 产品契约版本必须升级。
 
 → [版本与发布策略](releases.md)
+
+
+## Coverage audit gate
+
+A scene is not release-ready merely because its proxy group and rule-provider wiring exist. Before runtime acceptance, each scene must pass a coverage audit against mature upstream rule inventories and representative real services.
+
+Required audit chain:
+
+`upstream inventory → supported service → owned domains → Hrules scene → edition collapse → host integration`
+
+Rules:
+- Missing a representative first-party service (for example a major AI service, bank, brokerage, payment/financial account provider, or crypto exchange) is a Core coverage failure, not a runtime-test discovery task.
+- Shared third-party infrastructure (payment processors, analytics, generic CDN/WAF, tag managers) must not be absorbed into a scene solely because it appears during one site's session.
+- Runtime testing is for sampling and path verification; it must not be the primary mechanism for discovering basic service coverage.
+- Edition inheritance validation is necessary but does not substitute for Core coverage validation.
+
+### Audit opened 2026-09-22
+
+Current Core coverage is classified as **incomplete / not production-ready** pending a full inventory reconciliation. Real-device testing exposed representative omissions including Grok and financial-account services outside the current US-bank/brokerage/crypto lists. DNS promotion remains gated until this audit is complete so routing omissions are not misclassified as DNS failures.

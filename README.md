@@ -29,7 +29,7 @@
 
 当前公共场景覆盖：
 
-**AI** · **Claude / OpenAI** · **虚拟货币** · **美国银行** · **美股 / 券商** · **YouTube** · **中国大陆直连** · **私有网络直连**
+**AI（Gemini / Grok / Perplexity 等）** · **Claude / OpenAI** · **虚拟货币** · **美国银行** · **美股 / 券商** · **金融账户（PayPal / Wise / Payoneer 等）** · **Telegram** · **YouTube** · **中国大陆直连** · **私有网络直连**
 
 → [查看场景与规则说明](docs/scenes.md)
 

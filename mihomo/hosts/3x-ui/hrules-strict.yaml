@@ -41,6 +41,12 @@ proxy-groups:
   - PROXY
   - DIRECT
   include-all-proxies: true
+- name: 💳 金融账户 [场景]
+  type: select
+  proxies:
+  - PROXY
+  - DIRECT
+  include-all-proxies: true
 - name: 🚀 漏网之鱼 [自选]
   type: select
   proxies:
@@ -83,6 +89,20 @@ rule-providers:
     url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/us_banking_account.yaml
     path: ./providers/us_banking_account.yaml
     interval: 21600
+  hrules-financial-account:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/financial_account.yaml
+    path: ./providers/financial_account.yaml
+    interval: 21600
+  hrules-telegram:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/telegram.yaml
+    path: ./providers/telegram.yaml
+    interval: 21600
   hrules-general-ai:
     type: http
     behavior: classical
@@ -97,6 +117,20 @@ rule-providers:
     url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/youtube_media.yaml
     path: ./providers/youtube_media.yaml
     interval: 21600
+  hrules-cn-domain:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs
+    path: ./providers/hrules-cn-domain.mrs
+    interval: 21600
+  hrules-cn-ip:
+    type: http
+    behavior: ipcidr
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs
+    path: ./providers/hrules-cn-ip.mrs
+    interval: 21600
   hrules-cn-direct:
     type: http
     behavior: classical
@@ -110,7 +144,11 @@ rules:
 - RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]
 - RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]
 - RULE-SET,hrules-us-banking-account,🏦 美国银行 [场景]
+- RULE-SET,hrules-financial-account,💳 金融账户 [场景]
+- RULE-SET,hrules-telegram,💬 Telegram [场景]
 - RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]
 - RULE-SET,hrules-youtube-media,📺 YouTube [场景]
 - RULE-SET,hrules-cn-direct,DIRECT
+- RULE-SET,hrules-cn-domain,DIRECT
+- RULE-SET,hrules-cn-ip,DIRECT,no-resolve
 - MATCH,🚀 漏网之鱼 [自选]

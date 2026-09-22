@@ -1,12 +1,12 @@
-// GENERATED from Hrules Core edition contract. Do not edit directly.
+// Hrules Core edition contract artifact.
 // Hrules Mihomo Strict / 严格版
 const HRULES_EDITION = "strict";
-const HRULES_EDITION_SPEC = {"system_groups":["all","auto","fallback","load-balance"],"region_groups":true,"same_region_failover":true,"scene_groups":["sensitive_ai","crypto_account","us_banking_account","brokerage_account","general_ai","youtube_media"],"sensitive_exit_policy":"restricted"};
+const HRULES_EDITION_SPEC = {"system_groups":["all","auto","fallback","load-balance"],"region_groups":true,"same_region_failover":true,"scene_groups":["sensitive_ai","crypto_account","us_banking_account","brokerage_account","financial_account","general_ai","youtube_media"],"sensitive_exit_policy":"restricted"};
 
 // Hrules Clash Verge Rev Global Adapter v0.1
 // Paste this file into Clash Verge Rev -> Global Extension Script.
-// Hrules owns routing topology only. The active profile continues to own nodes,
-// providers, DNS, TUN, ports, and credentials.
+// Hrules owns routing topology and the validated DNS baseline. The active profile
+// continues to own nodes, providers, TUN, ports, and credentials.
 
 function main(config) {
   const HR = "Hrules";
@@ -48,7 +48,7 @@ function main(config) {
     "🛡️ 日本故障转移 [敏感]","🛡️ 新加坡故障转移 [敏感]","🛡️ 香港故障转移 [敏感]",
     "🛡️ 台湾故障转移 [敏感]","🛡️ 韩国故障转移 [敏感]","🛡️ 英国故障转移 [敏感]",
     "🛡️ 德国故障转移 [敏感]","🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]",
-    "🏦 美国银行 [场景]","📈 美股 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]",
+    "🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","🔐 重要账户 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]","💬 Telegram [场景]",
     "🚀 漏网之鱼 [自选]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
@@ -57,6 +57,9 @@ function main(config) {
   if (nodeNames.length) source.proxies = nodeNames;
   if (providerNames.length) source.use = providerNames;
   const health = { url: "https://www.gstatic.com/generate_204", interval: 300 };
+
+  const dnsProxyGroup = hasSystem("auto") ? "♻️ 自动选择 [系统]"
+    : hasSystem("all") ? "🌐 全部节点 [系统]" : null;
 
   const mk = (name, type, extra={}) => Object.assign({name,type}, source, extra);
   if (hasSystem("all")) groups.push(mk("🌐 全部节点 [系统]","select"));
@@ -114,10 +117,32 @@ function main(config) {
   if (hasScene("crypto_account")) groups.push({name:"💰 虚拟货币 [场景]",type:"select",proxies:sensitiveCandidates});
   if (hasScene("us_banking_account")) groups.push({name:"🏦 美国银行 [场景]",type:"select",proxies:sensitiveCandidates});
   if (hasScene("brokerage_account")) groups.push({name:"📈 美股 [场景]",type:"select",proxies:sensitiveCandidates});
+  if (hasScene("financial_account")) groups.push({name:"💳 金融账户 [场景]",type:"select",proxies:sensitiveCandidates});
   if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
   if (hasScene("youtube_media")) groups.push({name:"📺 YouTube [场景]",type:"select",proxies:mediaCandidates});
+  groups.push({name:"💬 Telegram [场景]",type:"select",proxies:normalCandidates});
   groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
   config["proxy-groups"] = groups;
+
+  // Keep bootstrap/node DNS independent from the proxy. Ordinary proxied DNS uses
+  // encrypted overseas resolvers through Hrules' automatic group; DIRECT traffic
+  // is re-resolved by mainland resolvers for domestic CDN/locality compatibility.
+  config["dns"] = {
+    enable: true,
+    ipv6: false,
+    "enhanced-mode": "fake-ip",
+    "fake-ip-range": "198.18.0.1/16",
+    "fake-ip-filter-mode": "blacklist",
+    "fake-ip-filter": ["*.lan","*.local"],
+    "default-nameserver": ["223.5.5.5","119.29.29.29"],
+    "proxy-server-nameserver": ["223.5.5.5","119.29.29.29"],
+    "direct-nameserver": ["223.5.5.5","119.29.29.29"],
+    "direct-nameserver-follow-policy": false,
+    nameserver: [
+      "https://1.1.1.1/dns-query#" + dnsProxyGroup,
+      "https://8.8.8.8/dns-query#" + dnsProxyGroup
+    ]
+  };
 
   const providers = Object.assign({}, config["rule-providers"] || {});
   const defs = [
@@ -126,6 +151,8 @@ function main(config) {
     ["hrules-crypto-account","crypto_account"],
     ["hrules-us-banking-account","us_banking_account"],
     ["hrules-brokerage-account","brokerage_account"],
+    ["hrules-financial-account","financial_account"],
+    ["hrules-telegram","telegram"],
     ["hrules-general-ai","general_ai"],
     ["hrules-youtube-media","youtube_media"],
     ["hrules-cn-direct","cn_direct"]
@@ -134,6 +161,12 @@ function main(config) {
     providers[key] = {type:"http",behavior:"classical",format:"yaml",
       url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600};
   }
+  providers["hrules-cn-domain"] = {type:"http",behavior:"domain",format:"mrs",
+    url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
+    path:"./providers/hrules-cn-domain.mrs",interval:21600};
+  providers["hrules-cn-ip"] = {type:"http",behavior:"ipcidr",format:"mrs",
+    url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs",
+    path:"./providers/hrules-cn-ip.mrs",interval:21600};
   config["rule-providers"] = providers;
 
   // Hrules is an overlay. Do not add its MATCH here: the host profile keeps
@@ -143,9 +176,13 @@ function main(config) {
   if (hasScene("crypto_account")) hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
   if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国银行 [场景]");
   if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,📈 美股 [场景]");
+  if (hasScene("financial_account")) hrulesRules.push("RULE-SET,hrules-financial-account,💳 金融账户 [场景]");
+  hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景]");
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 YouTube [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
+  hrulesRules.push("RULE-SET,hrules-cn-domain,DIRECT");
+  hrulesRules.push("RULE-SET,hrules-cn-ip,DIRECT,no-resolve");
   config.rules = hrulesRules.concat(originalRules);
   config.mode = "rule";
   return config;

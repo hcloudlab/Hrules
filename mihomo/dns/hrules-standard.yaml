@@ -1,0 +1,20 @@
+# Hrules DNS v0.1 candidate — Standard
+# Promoted baseline: mirrored by the Clash Verge Rev Standard adapter.
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter-mode: blacklist
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  proxy-server-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  fake-ip-filter:
+    - "*.lan"
+    - "*.local"
