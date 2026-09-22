@@ -5,8 +5,8 @@ const HRULES_EDITION_SPEC = {"system_groups":["all","auto"],"region_groups":fals
 
 // Hrules Clash Verge Rev Global Adapter v0.1
 // Paste this file into Clash Verge Rev -> Global Extension Script.
-// Hrules owns routing topology only. The active profile continues to own nodes,
-// providers, DNS, TUN, ports, and credentials.
+// Hrules owns routing topology and the validated Standard DNS baseline. The active
+// profile continues to own nodes, proxy providers, TUN, ports, and credentials.
 
 function main(config) {
   const HR = "Hrules";
@@ -120,6 +120,21 @@ function main(config) {
   groups.push({name:"💬 Telegram [场景]",type:"select",proxies:normalCandidates});
   groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
   config["proxy-groups"] = groups;
+
+  // DNS v0.1 Standard: conservative bootstrap-first baseline.
+  // Node-domain resolution is deliberately independent from any proxy so a
+  // domain-form node can be resolved before the proxy exists.
+  config["dns"] = {
+    enable: true,
+    ipv6: false,
+    "enhanced-mode": "fake-ip",
+    "fake-ip-range": "198.18.0.1/16",
+    "fake-ip-filter-mode": "blacklist",
+    "fake-ip-filter": ["*.lan","*.local"],
+    "default-nameserver": ["223.5.5.5","119.29.29.29"],
+    "proxy-server-nameserver": ["223.5.5.5","119.29.29.29"],
+    nameserver: ["223.5.5.5","119.29.29.29"]
+  };
 
   const providers = Object.assign({}, config["rule-providers"] || {});
   const defs = [
