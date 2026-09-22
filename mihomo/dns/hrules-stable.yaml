@@ -1,16 +1,16 @@
-# Hrules DNS v0.1 candidate — Stable
-# Experimental validation artifact, not a production include.
-#
-# IMPORTANT:
-# The two global DoH endpoints below are intentionally unbound in this static
-# candidate. The production adapter must append #<REAL_HRULES_GROUP> only after
-# the generated proxy-group inventory exists. This file therefore validates
-# resolver syntax/bootstrap behavior, not final DoH egress ownership.
+# Hrules DNS v0.1 — Stable
+# Production baseline mirrored by the Clash Verge Rev stable adapter.
+# Bootstrap/node resolution is independent; DIRECT uses mainland DNS; global DNS
+# uses encrypted DoH through the Hrules automatic group.
 dns:
   enable: true
   ipv6: false
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
+  fake-ip-filter-mode: blacklist
+  fake-ip-filter:
+    - "*.lan"
+    - "*.local"
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
@@ -20,9 +20,7 @@ dns:
   direct-nameserver:
     - 223.5.5.5
     - 119.29.29.29
+  direct-nameserver-follow-policy: false
   nameserver:
-    - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-query
-  fake-ip-filter:
-    - "*.lan"
-    - "*.local"
+    - "https://1.1.1.1/dns-query#♻️ 自动选择 [系统]"
+    - "https://8.8.8.8/dns-query#♻️ 自动选择 [系统]"
