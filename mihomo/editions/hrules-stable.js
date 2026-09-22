@@ -1,4 +1,4 @@
-// GENERATED from Hrules Core edition contract. Do not edit directly.
+// Hrules Core edition contract artifact.
 // Hrules Mihomo Stable / 稳定版
 const HRULES_EDITION = "stable";
 const HRULES_EDITION_SPEC = {"system_groups":["all","auto","fallback"],"region_groups":true,"same_region_failover":true,"scene_groups":["sensitive_ai","crypto_account","us_banking_account","brokerage_account","financial_account","general_ai","youtube_media"],"sensitive_exit_policy":"same_region_preferred"};
