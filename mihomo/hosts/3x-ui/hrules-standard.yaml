@@ -5,28 +5,28 @@ proxy-groups:
   proxies:
   - PROXY
   - DIRECT
-  include-all-proxies: true
+
 - name: 📺 YouTube [场景]
   type: select
   include-all-proxies: true
   proxies:
   - PROXY
   - DIRECT
-  include-all-proxies: true
+
 - name: 💬 Telegram [场景]
   type: select
   include-all-proxies: true
   proxies:
   - PROXY
   - DIRECT
-  include-all-proxies: true
+
 - name: 🚀 漏网之鱼 [自选]
   type: select
   include-all-proxies: true
   proxies:
   - PROXY
   - DIRECT
-  include-all-proxies: true
+
 rule-providers:
   hrules-private-direct:
     type: http
