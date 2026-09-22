@@ -121,3 +121,26 @@ DNS v0.1 remains **NOT fully production-ready**. Standard DNS ownership has now 
 - Stable / Strict still do **not** mutate host DNS. Their global DoH path remains a candidate until clean-start egress is observed.
 - Feature-branch adapters and 3X-UI artifacts are pinned to the same feature-branch Scene inventory during acceptance, preventing mixed `branch JS → main Scene` tests.
 - Core audit also removed `198.18.0.0/15` from `private_direct`: Mihomo Fake-IP uses the 198.18/15 benchmarking space, so forcing that range DIRECT would defeat rule evaluation for Fake-IP destinations.
+
+
+## Standard concentrated traffic acceptance — 2026-09-22
+
+The automatically generated Standard DNS block and expanded Core coverage were exercised together on Clash Verge Rev / macOS with the real node inventory.
+
+Observed routing evidence:
+- Wise: `wise.com`, `sst.wise.com` → `🔐 重要账户 [场景]` → `DMIT-reality`.
+- PayPal: `paypal.com`, `i.paypal.com`, `www.paypalobjects.com` → `🔐 重要账户 [场景]` → `DMIT-reality`.
+- Chase: `page-format.chase.com` and shared risk endpoints `online-metrix.net` → `🔐 重要账户 [场景]` → `DMIT-reality`.
+- Grok: `grok.com` and observed xAI/OAI user-content endpoint → `🤖 AI 服务 [场景]` → `DMIT-hysteria2`.
+- Gemini session-critical endpoints: `gemini.gstatic.com`, `accounts.google.com`, `www.google.com` → `🤖 AI 服务 [场景]` → `DMIT-hysteria2`.
+- Claude: `claude.ai`, `a.claude.ai`, `s-cdn.anthropic.com`, `assets-proxy.anthropic.com` → `🤖 AI 服务 [场景]` → `DMIT-hysteria2`.
+- OpenAI: `api.oaistatsig.com`, `cdn.openai.com` → `🤖 AI 服务 [场景]` → `DMIT-hysteria2`.
+- Telegram: web domains, `t.me`, `telegram.me`, and IP `149.154.167.91` → `💬 Telegram [场景]` → `♻️ 自动选择 [系统]`.
+- YouTube: `googlevideo.com`, `i.ytimg.com` → `📺 YouTube [场景]` → `♻️ 自动选择 [系统]`.
+- Mainland traffic samples including `kwai-pro.com` / `ap4r.com` were observed as `DIRECT`.
+
+Shared infrastructure remained outside account/AI scenes as designed (for example Stripe, generic analytics/CDN/WAF endpoints), preventing overmatching.
+
+Result: **Standard generated DNS + representative Core routing integration PASS** for this concentrated runtime sample.
+
+One diagnostic remains intentionally open: HSBC first-party domains are covered by `financial_account`, while observed generic/shared dependencies such as `hsbc.edge.sdk.awswaf.com`, Tealium, LivePerson and analytics endpoints correctly remained on host MATCH/PROXY. This is not classified as a Core miss unless a first-party HSBC endpoint itself is observed falling through.
