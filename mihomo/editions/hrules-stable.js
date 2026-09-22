@@ -58,6 +58,13 @@ function main(config) {
   if (providerNames.length) source.use = providerNames;
   const health = { url: "https://www.gstatic.com/generate_204", interval: 300 };
 
+  // DNS v0.1 integration helper. This is deliberately inert in the generated
+  // editions until runtime validation promotes DNS ownership to the adapter.
+  // When enabled later, Stable/Strict must bind global DoH to an Hrules-owned
+  // group that is guaranteed to exist for the current inventory.
+  const dnsProxyGroup = hasSystem("auto") ? "♻️ 自动选择 [系统]"
+    : hasSystem("all") ? "🌐 全部节点 [系统]" : null;
+
   const mk = (name, type, extra={}) => Object.assign({name,type}, source, extra);
   if (hasSystem("all")) groups.push(mk("🌐 全部节点 [系统]","select"));
   if (hasSystem("auto")) groups.push(mk("♻️ 自动选择 [系统]","url-test",Object.assign({},health,{tolerance:50})));
@@ -118,6 +125,10 @@ function main(config) {
   if (hasScene("youtube_media")) groups.push({name:"📺 YouTube [场景]",type:"select",proxies:mediaCandidates});
   groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
   config["proxy-groups"] = groups;
+
+  // Keep the host profile's DNS untouched for v0.1 validation.
+  // dnsProxyGroup is intentionally only a validated binding candidate here.
+  void dnsProxyGroup;
 
   const providers = Object.assign({}, config["rule-providers"] || {});
   const defs = [
