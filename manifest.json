@@ -281,7 +281,7 @@
     },
     {
       "path": "mihomo/hosts/3x-ui.yaml",
-      "sha256": "94e09595ce28d13f2970c608bec7a9a31f99b239b5c2608f4b4c8601add690bf",
+      "sha256": "6f3aca957b6b48f4e626da4910cf149773fd36b6f953ab89499c697fa93e7223",
       "client": "mihomo",
       "format": "host-routing-layer",
       "host": "3x-ui",
