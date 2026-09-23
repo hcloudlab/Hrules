@@ -5,11 +5,11 @@ ROOT=Path(__file__).resolve().parents[1]
 files=[ROOT/"mihomo"/"editions"/f"hrules-{e}.js" for e in ("standard","stable","strict")]
 files.append(ROOT/"mihomo"/"adapters"/"clash-verge-rev"/"hrules-global.js")
 errors=[]
-old=("📺 YouTube [场景]",)
 for p in files:
  s=p.read_text(encoding="utf-8")
- for x in old:
-  if x in s: errors.append(f"{p.name}: stale group {x}")
+ # Legacy group names are allowed in owned cleanup sets, but must never be emitted.
+ if 'sceneGroup("📺 YouTube [场景]"' in s or 'name:"📺 YouTube [场景]"' in s:
+  errors.append(f"{p.name}: emits stale YouTube group")
  for x in ("const sceneGroup","MATCH,🚀 漏网之鱼 [自选]","exclude-filter","DIRECT,no-resolve"):
   if x not in s: errors.append(f"{p.name}: missing {x}")
  if "editions" in str(p):
