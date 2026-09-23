@@ -294,7 +294,7 @@
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
       "edition": "standard",
-      "entries": 5
+      "entries": 7
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-stable.yaml",
@@ -303,7 +303,7 @@
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
       "edition": "stable",
-      "entries": 6
+      "entries": 7
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-strict.yaml",
