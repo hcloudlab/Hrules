@@ -48,7 +48,7 @@ function main(config) {
     "🛡️ 日本故障转移 [敏感]","🛡️ 新加坡故障转移 [敏感]","🛡️ 香港故障转移 [敏感]",
     "🛡️ 台湾故障转移 [敏感]","🛡️ 韩国故障转移 [敏感]","🛡️ 英国故障转移 [敏感]",
     "🛡️ 德国故障转移 [敏感]","🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]",
-    "🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","🔐 重要账户 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]","💬 Telegram [场景]",
+    "🏦 美国账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]","💬 Telegram [场景]",
     "🚀 漏网之鱼 [自选]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
@@ -114,21 +114,25 @@ function main(config) {
   const available = names => names.filter(n => groups.some(g => g.name === n));
   const normalCandidates = [...available(["♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]"]),...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
   const mediaCandidates = [...available(["♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]","⚖️ 负载均衡 [系统]"]),...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-  // Strict sensitive scenes intentionally exclude global all/auto/fallback/load-balance.
-  // Stable prefers same-region fallback but still permits explicit region/node selection.
-  const sensitiveCandidates = editionSpec.sensitive_exit_policy === "restricted"
-    ? [...sensitiveNames,...regionParent,...exact]
-    : [...sensitiveNames,...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-
-  if (hasScene("sensitive_ai")) groups.push({name:"🔐 Claude / OpenAI [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("crypto_account")) groups.push({name:"💰 虚拟货币 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("us_banking_account")) groups.push({name:"🏦 美国银行 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("brokerage_account")) groups.push({name:"📈 美股 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("financial_account")) groups.push({name:"💳 金融账户 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
-  if (hasScene("youtube_media")) groups.push({name:"📺 YouTube [场景]",type:"select",proxies:mediaCandidates});
-  groups.push({name:"💬 Telegram [场景]",type:"select",proxies:normalCandidates});
-  groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
+  const sensitiveByKey = {};
+  for (const [key,,sensitive] of regions) if (groups.some(g => g.name === sensitive)) sensitiveByKey[key] = sensitive;
+  const sceneCandidates = (preferKeys, denyKeys=[]) => {
+    const deny = new Set(denyKeys.map(k => sensitiveByKey[k]).filter(Boolean));
+    const first = preferKeys.map(k => sensitiveByKey[k]).filter(Boolean);
+    const rest = sensitiveNames.filter(n => !first.includes(n) && !deny.has(n));
+    const tail = editionSpec.sensitive_exit_policy === "restricted" ? [] : available(["🌐 全部节点 [系统]"]);
+    return [...first,...rest,...regionParent,...tail,...exact];
+  };
+  const aiCandidates = sceneCandidates(["us","jp","sg","tw","kr","gb","de"],["hk"]);
+  const cryptoCandidates = sceneCandidates(["jp","sg","hk","tw","kr"],["us"]);
+  const usCandidates = sceneCandidates(["us"]);
+  if (hasScene("sensitive_ai")) groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",aiCandidates));
+  if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",cryptoCandidates));
+  groups.push(sceneGroup("🏦 美国账户 [场景]",usCandidates));
+  if (hasScene("general_ai")) groups.push(sceneGroup("🤖 AI 服务 [场景]",normalCandidates));
+  if (hasScene("youtube_media")) groups.push(sceneGroup("📺 YouTube [场景]",mediaCandidates));
+  groups.push(sceneGroup("💬 Telegram [场景]",normalCandidates));
+  groups.push(sceneGroup("🚀 漏网之鱼 [自选]",mediaCandidates.length ? mediaCandidates : exact));
   config["proxy-groups"] = groups;
 
   // Keep bootstrap/node DNS independent from the proxy. Ordinary proxied DNS uses
@@ -181,9 +185,9 @@ function main(config) {
   const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT,no-resolve"];
   if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]");
   if (hasScene("crypto_account")) hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
-  if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国银行 [场景]");
-  if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,📈 美股 [场景]");
-  if (hasScene("financial_account")) hrulesRules.push("RULE-SET,hrules-financial-account,💳 金融账户 [场景]");
+  if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国账户 [场景]");
+  if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,🏦 美国账户 [场景]");
+  if (hasScene("financial_account")) hrulesRules.push("RULE-SET,hrules-financial-account,🏦 美国账户 [场景]");
   hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景],no-resolve");
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 YouTube [场景]");
