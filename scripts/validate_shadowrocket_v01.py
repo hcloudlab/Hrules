@@ -36,7 +36,7 @@ for line in general:
         settings[key.strip()] = value.strip()
 
 required_general = {
-    "dns-server": None,
+    "dns-server": "https://cloudflare-dns.com/dns-query,https://dns.google/dns-query",
     "direct-dns-server": None,
     "fallback-dns-server": "system",
     "ipv6": "false",
