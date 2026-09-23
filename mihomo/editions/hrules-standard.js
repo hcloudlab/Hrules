@@ -125,7 +125,8 @@ function main(config) {
 
   // DNS v0.1 Standard: conservative bootstrap-first baseline.
   // Node-domain resolution is deliberately independent from any proxy so a
-  // domain-form node can be resolved before the proxy exists.
+  // domain-form node can be resolved before the proxy exists. Use direct DoH
+  // resolvers here: proxy server hostnames must receive real IPs, never Fake-IP.
   config["dns"] = {
     enable: true,
     ipv6: false,
@@ -134,7 +135,7 @@ function main(config) {
     "fake-ip-filter-mode": "blacklist",
     "fake-ip-filter": ["+.lan","+.local","+.home.arpa","localhost.ptlogin2.qq.com","time.*.com","ntp.*.com","+.pool.ntp.org","+.msftconnecttest.com","+.msftncsi.com"],
     "default-nameserver": ["223.5.5.5","119.29.29.29"],
-    "proxy-server-nameserver": ["223.5.5.5","119.29.29.29"],
+    "proxy-server-nameserver": ["https://223.5.5.5/dns-query","https://1.1.1.1/dns-query","https://8.8.8.8/dns-query"],
     nameserver: ["223.5.5.5","119.29.29.29"]
   };
 
