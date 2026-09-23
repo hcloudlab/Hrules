@@ -68,7 +68,7 @@ function main(config) {
   const mk = (name, type, extra={}) => Object.assign({name,type}, source, extra);
   const sceneGroup = (name, list) => list.length
     ? {name,type:"select",proxies:list}
-    : {name,type:"select",use:providerNames};
+    : Object.assign({name,type:"select"}, source);
   if (hasSystem("all")) groups.push(mk("🌐 全部节点 [系统]","select"));
   if (hasSystem("auto")) groups.push(mk("♻️ 自动选择 [系统]","url-test",Object.assign({},health,{tolerance:50})));
   if (hasSystem("fallback")) groups.push(mk("🛡️ 故障转移 [系统]","fallback",health));
@@ -200,9 +200,12 @@ function main(config) {
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
   hrulesRules.push("RULE-SET,hrules-cn-domain,DIRECT");
   hrulesRules.push("RULE-SET,hrules-cn-ip,DIRECT,no-resolve");
-  const hasMatch = originalRules.some(r => typeof r === "string" && /^(MATCH|FINAL),/i.test(r.trim()));
-  if (!hasMatch) originalRules.push("MATCH,🚀 漏网之鱼 [自选]");
-  config.rules = hrulesRules.concat(originalRules);
+  // Strict owns the terminal decision. Preserve all host rules except their
+  // terminal MATCH/FINAL, then make Hrules the single auditable catch-all.
+  const nonTerminalRules = originalRules.filter(r =>
+    !(typeof r === "string" && /^(MATCH|FINAL),/i.test(r.trim()))
+  );
+  config.rules = hrulesRules.concat(nonTerminalRules, ["MATCH,🚀 漏网之鱼 [自选]"]);
   config.mode = "rule";
   return config;
 }
