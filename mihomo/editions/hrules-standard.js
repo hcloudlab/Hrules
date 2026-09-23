@@ -27,7 +27,7 @@ function main(config) {
   // Some airport subscriptions encode quota/expiry/homepage status as syntactically
   // valid proxies. They are profile metadata, not user egress choices. Excluding them
   // here also prevents tokens such as "236.29 GB" from becoming a false UK region.
-  const metadataNode = /(剩余流量|流量剩余|套餐到期|到期时间|有效期|官网|官方|(?:^|[\\s:：|｜_-])(traffic|remaining|expire|expiry|expires|quota|bandwidth|website|homepage)(?=[\\s:：|｜_-]|$))/i;
+  const metadataNode = /(剩余流量|流量剩余|套餐到期|到期时间|有效期|官网|官方|(?:^|[\s:：|｜_-])(traffic|remaining|expire|expiry|expires|quota|bandwidth|website|homepage)(?=[\s:：|｜_-]|$))/i;
   const nodeNames = rawNodeNames.filter(n => !metadataNode.test(n));
   const providerNames = config["proxy-providers"] && typeof config["proxy-providers"] === "object"
     ? Object.keys(config["proxy-providers"]) : [];
@@ -55,10 +55,17 @@ function main(config) {
 
   const source = {};
   if (nodeNames.length) source.proxies = nodeNames;
-  if (providerNames.length) source.use = providerNames;
+  if (providerNames.length) {
+    source.use = providerNames;
+    // Filter common quota/expiry/homepage pseudo-nodes exposed by providers.
+    source["exclude-filter"] = "剩余|到期|有效期|官网|官方|traffic|remaining|expire|expiry|quota|bandwidth|website|homepage";
+  }
   const health = { url: "https://www.gstatic.com/generate_204", interval: 300 };
 
   const mk = (name, type, extra={}) => Object.assign({name,type}, source, extra);
+  const sceneGroup = (name, list) => list.length
+    ? {name,type:"select",proxies:list}
+    : {name,type:"select",use:providerNames};
   if (hasSystem("all")) groups.push(mk("🌐 全部节点 [系统]","select"));
   if (hasSystem("auto")) groups.push(mk("♻️ 自动选择 [系统]","url-test",Object.assign({},health,{tolerance:50})));
   if (hasSystem("fallback")) groups.push(mk("🛡️ 故障转移 [系统]","fallback",health));
@@ -126,7 +133,7 @@ function main(config) {
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
     "fake-ip-filter-mode": "blacklist",
-    "fake-ip-filter": ["*.lan","*.local"],
+    "fake-ip-filter": ["+.lan","+.local","+.home.arpa","localhost.ptlogin2.qq.com","time.*.com","ntp.*.com","+.pool.ntp.org","+.msftconnecttest.com","+.msftncsi.com"],
     "default-nameserver": ["223.5.5.5","119.29.29.29"],
     "proxy-server-nameserver": ["223.5.5.5","119.29.29.29"],
     nameserver: ["223.5.5.5","119.29.29.29"]
@@ -147,7 +154,7 @@ function main(config) {
   ];
   for (const [key,id] of defs) {
     providers[key] = {type:"http",behavior:"classical",format:"yaml",
-      url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600};
+      url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600,proxy:dnsProxyGroup || undefined};
   }
   providers["hrules-cn-domain"] = {type:"http",behavior:"domain",format:"mrs",
     url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
@@ -159,18 +166,20 @@ function main(config) {
 
   // Hrules is an overlay. Do not add its MATCH here: the host profile keeps
   // ownership of its existing fallback/MATCH semantics.
-  const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT"];
+  const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT,no-resolve"];
   hrulesRules.push("RULE-SET,hrules-sensitive-ai,🤖 AI 服务 [场景]");
   hrulesRules.push("RULE-SET,hrules-crypto-account,🔐 重要账户 [场景]");
   hrulesRules.push("RULE-SET,hrules-us-banking-account,🔐 重要账户 [场景]");
   hrulesRules.push("RULE-SET,hrules-brokerage-account,🔐 重要账户 [场景]");
   hrulesRules.push("RULE-SET,hrules-financial-account,🔐 重要账户 [场景]");
-  hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景]");
+  hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景],no-resolve");
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 YouTube [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
   hrulesRules.push("RULE-SET,hrules-cn-domain,DIRECT");
   hrulesRules.push("RULE-SET,hrules-cn-ip,DIRECT,no-resolve");
+  const hasMatch = originalRules.some(r => typeof r === "string" && /^(MATCH|FINAL),/i.test(r.trim()));
+  if (!hasMatch) originalRules.push("MATCH,🚀 漏网之鱼 [自选]");
   config.rules = hrulesRules.concat(originalRules);
   config.mode = "rule";
   return config;
