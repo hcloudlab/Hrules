@@ -11,7 +11,7 @@ proxy-groups:
   - PROXY
   - DIRECT
   include-all-proxies: true
-- name: 📺 YouTube [场景]
+- name: 📺 影音媒体 [场景]
   type: select
   proxies:
   - PROXY
@@ -138,16 +138,24 @@ rule-providers:
     url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/cn_direct.yaml
     path: ./providers/cn_direct.yaml
     interval: 21600
+  hrules-network-test:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/network_test.yaml
+    path: ./providers/network_test.yaml
+    interval: 21600
 rules:
-- RULE-SET,hrules-private-direct,DIRECT
-- RULE-SET,hrules-brokerage-account,📈 美股 [场景]
-- RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]
+- RULE-SET,hrules-private-direct,DIRECT,no-resolve
+- RULE-SET,hrules-network-test,🔐 Claude / OpenAI [场景]
 - RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]
+- RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]
 - RULE-SET,hrules-us-banking-account,🏦 美国银行 [场景]
+- RULE-SET,hrules-brokerage-account,📈 美股 [场景]
 - RULE-SET,hrules-financial-account,💳 金融账户 [场景]
-- RULE-SET,hrules-telegram,💬 Telegram [场景]
+- RULE-SET,hrules-telegram,💬 Telegram [场景],no-resolve
 - RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]
-- RULE-SET,hrules-youtube-media,📺 YouTube [场景]
+- RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]
 - RULE-SET,hrules-cn-direct,DIRECT
 - RULE-SET,hrules-cn-domain,DIRECT
 - RULE-SET,hrules-cn-ip,DIRECT,no-resolve
