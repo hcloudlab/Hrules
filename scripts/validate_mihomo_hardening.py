@@ -22,12 +22,12 @@ for e in ("stable","strict"):
   if x not in s: errors.append(f"{e}: missing scene-aware contract {x}")
 s=(ROOT/"mihomo"/"editions"/"hrules-standard.js").read_text(encoding="utf-8")
 if 'const stableCandidates' not in s: errors.append("standard: missing manual-first sensitive candidates")
-if errors:
- print("\n".join(errors),file=sys.stderr); raise SystemExit(1)
-print("Hrules Mihomo hardening contracts: PASS")
-
 # P0: Strict/CVR terminal ownership must be explicit and singular.
 for p in (ROOT/"mihomo"/"editions"/"hrules-strict.js", ROOT/"mihomo"/"adapters"/"clash-verge-rev"/"hrules-global.js"):
  s=p.read_text(encoding="utf-8")
  for x in ("nonTerminalRules", '["MATCH,🚀 漏网之鱼 [自选]"]'):
   if x not in s: errors.append(f"{p.name}: missing Strict terminal ownership {x}")
+
+if errors:
+ print("\n".join(errors),file=sys.stderr); raise SystemExit(1)
+print("Hrules Mihomo hardening contracts: PASS")
