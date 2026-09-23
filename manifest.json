@@ -275,7 +275,7 @@
     },
     {
       "path": "mihomo/adapters/clash-verge-rev/hrules-global.js",
-      "sha256": "f3863cef39c50fed1ee3a148a10e68055b298ab2010baa1b3cc18d4837a3aa91",
+      "sha256": "de0d2540719ce4f9544a46bab5eabe58148c50a83542737904d67ba50612cda2",
       "client": "mihomo",
       "format": "clash-verge-rev-global-adapter"
     },
