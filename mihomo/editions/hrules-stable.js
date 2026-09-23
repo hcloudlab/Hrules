@@ -148,10 +148,14 @@ function main(config) {
     "proxy-server-nameserver": ["223.5.5.5","119.29.29.29"],
     "direct-nameserver": ["223.5.5.5","119.29.29.29"],
     "direct-nameserver-follow-policy": false,
-    nameserver: [
+    nameserver: dnsProxyGroup ? [
       "https://1.1.1.1/dns-query#" + dnsProxyGroup,
       "https://8.8.8.8/dns-query#" + dnsProxyGroup
-    ]
+    ] : ["https://1.1.1.1/dns-query","https://8.8.8.8/dns-query"],
+    "nameserver-policy": {
+      "+.lan,+.local,+.home.arpa": ["system"],
+      "rule-set:hrules-cn-domain": ["223.5.5.5","119.29.29.29"]
+    }
   };
 
   const providers = Object.assign({}, config["rule-providers"] || {});
