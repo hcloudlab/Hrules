@@ -36,7 +36,7 @@ for line in general:
         settings[key.strip()] = value.strip()
 
 required_general = {
-    "dns-server": None,
+    "dns-server": "https://cloudflare-dns.com/dns-query,https://dns.google/dns-query",
     "direct-dns-server": None,
     "fallback-dns-server": "system",
     "ipv6": "false",
@@ -110,7 +110,12 @@ for filename, policy in scene_policy.items():
         else:
             errors.append(f"{filename}: unsupported scene rule for Shadowrocket adapter: {payload}")
             continue
-        # geetest.com is intentionally not forced through PROXY in Shadowrocket:\n        # it is a shared CN verification dependency used outside crypto services.\n        if filename == "crypto_account.yaml" and expected == "DOMAIN-SUFFIX,geetest.com,PROXY":\n            continue\n        if expected not in normalized:\n            errors.append(f"{filename}: Shadowrocket parity missing {expected}")
+        # geetest.com is intentionally not forced through PROXY in Shadowrocket:
+        # it is a shared CN verification dependency used outside crypto services.
+        if filename == "crypto_account.yaml" and expected == "DOMAIN-SUFFIX,geetest.com,PROXY":
+            continue
+        if expected not in normalized:
+            errors.append(f"{filename}: Shadowrocket parity missing {expected}")
 
 if errors:
     print("Shadowrocket v0.1 validation FAILED")
