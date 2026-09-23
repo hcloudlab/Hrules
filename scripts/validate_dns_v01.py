@@ -41,6 +41,8 @@ for edition in ("standard", "stable", "strict"):
         for token in ("direct-nameserver:", "https://1.1.1.1/dns-query", "https://8.8.8.8/dns-query"):
             if token not in active:
                 errors.append(f"{edition}: missing active {token}")
+        if "nameserver-policy:" in active:
+            errors.append(f"{edition}: nameserver-policy must remain gated in DNS v0.1")
 
 
 
@@ -69,9 +71,6 @@ for edition in ("stable", "strict"):
                   '"https://1.1.1.1/dns-query#" + dnsProxyGroup',
                   '"https://8.8.8.8/dns-query#" + dnsProxyGroup',
                   '"fake-ip-filter-mode": "blacklist"',
-                  '"nameserver-policy"',
-                  '"+.lan,+.local,+.home.arpa"',
-                  '"rule-set:hrules-cn-domain"',
                   'hasSystem("auto")', 'hasSystem("all")',
                   '"♻️ 自动选择 [系统]"', '"🌐 全部节点 [系统]"'):
         if token not in js:
