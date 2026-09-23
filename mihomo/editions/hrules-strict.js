@@ -128,7 +128,9 @@ function main(config) {
   const usCandidates = sceneCandidates(["us"]);
   if (hasScene("sensitive_ai")) groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",aiCandidates));
   if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",cryptoCandidates));
-  groups.push(sceneGroup("🏦 美国账户 [场景]",usCandidates));
+  if (hasScene("us_banking_account")) groups.push(sceneGroup("🏦 美国银行 [场景]",usCandidates));
+  if (hasScene("brokerage_account")) groups.push(sceneGroup("📈 美股 [场景]",usCandidates));
+  if (hasScene("financial_account")) groups.push(sceneGroup("💳 金融账户 [场景]",usCandidates));
   if (hasScene("general_ai")) groups.push(sceneGroup("🤖 AI 服务 [场景]",normalCandidates));
   if (hasScene("youtube_media")) groups.push(sceneGroup("📺 影音媒体 [场景]",mediaCandidates));
   groups.push(sceneGroup("💬 Telegram [场景]",normalCandidates));
@@ -187,9 +189,9 @@ function main(config) {
   hrulesRules.push("RULE-SET,hrules-network-test,🔐 Claude / OpenAI [场景]");
   if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]");
   if (hasScene("crypto_account")) hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
-  if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国账户 [场景]");
-  if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,🏦 美国账户 [场景]");
-  if (hasScene("financial_account")) hrulesRules.push("RULE-SET,hrules-financial-account,🏦 美国账户 [场景]");
+  if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国银行 [场景]");
+  if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,📈 美股 [场景]");
+  if (hasScene("financial_account")) hrulesRules.push("RULE-SET,hrules-financial-account,💳 金融账户 [场景]");
   hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景],no-resolve");
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]");
