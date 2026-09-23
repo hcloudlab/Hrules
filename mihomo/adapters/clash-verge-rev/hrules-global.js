@@ -56,11 +56,13 @@ function main(config) {
     source["exclude-filter"] = "剩余|到期|有效期|官网|官方|traffic|remaining|expire|expiry|quota|bandwidth|website|homepage";
   }
   const health = { url: "https://www.gstatic.com/generate_204", interval: 300 };
+  const dnsProxyGroup = hasSystem("auto") ? "♻️ 自动选择 [系统]"
+    : hasSystem("all") ? "🌐 全部节点 [系统]" : null;
 
   const mk = (name, type, extra={}) => Object.assign({name,type}, source, extra);
   const sceneGroup = (name, list) => list.length
     ? {name,type:"select",proxies:list}
-    : {name,type:"select",use:providerNames};
+    : Object.assign({name,type:"select"}, source);
   if (hasSystem("all")) groups.push(mk("🌐 全部节点 [系统]","select"));
   if (hasSystem("auto")) groups.push(mk("♻️ 自动选择 [系统]","url-test",Object.assign({},health,{tolerance:50})));
   if (hasSystem("fallback")) groups.push(mk("🛡️ 故障转移 [系统]","fallback",health));
@@ -150,9 +152,12 @@ function main(config) {
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
-  const hasMatch = originalRules.some(r => typeof r === "string" && /^(MATCH|FINAL),/i.test(r.trim()));
-  if (!hasMatch) originalRules.push("MATCH,🚀 漏网之鱼 [自选]");
-  config.rules = hrulesRules.concat(originalRules);
+  // Strict owns the terminal decision. Preserve all host rules except their
+  // terminal MATCH/FINAL, then make Hrules the single auditable catch-all.
+  const nonTerminalRules = originalRules.filter(r =>
+    !(typeof r === "string" && /^(MATCH|FINAL),/i.test(r.trim()))
+  );
+  config.rules = hrulesRules.concat(nonTerminalRules, ["MATCH,🚀 漏网之鱼 [自选]"]);
   config.mode = "rule";
   return config;
 }
