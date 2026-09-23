@@ -34,6 +34,7 @@ Hrules 默认 DNS 采用分层设计：
 - DIRECT 流量：保留 `223.5.5.5` + `119.29.29.29`，用于中国大陆直连域名的本地解析/CDN 行为。
 - fallback：`system`，与默认 DoH 上游保持独立。
 - 当前不默认启用 `hijack-dns`。DoH 负责加密上游 DNS 传输；DNS 劫持属于另一类行为，没有必要在缺少实际需求时扩大默认配置影响范围。
+- 当前 Shadowrocket 配置设置 `ipv6 = false`，因此输出层不再生成 `IP-CIDR6` 规则；IPv6 数据仍保留在 Hrules canonical scenes 中，供启用 IPv6 的其他适配器使用。
 
 DoH 已完成两类真机 A/B 验证：正常运行状态切换，以及 Shadowrocket 完全退出后重新启动的冷启动。两种情况下 Fake-IP 接管、海外代理访问和中国大陆直连访问均正常，未观察到 DNS bootstrap 循环。
 

@@ -73,6 +73,9 @@ for rule in normalized:
 if len(normalized) != len(set(normalized)):
     errors.append("duplicate routing rules detected")
 
+if settings.get("ipv6", "").lower() == "false" and any(rule.startswith("IP-CIDR6,") for rule in normalized):
+    errors.append("IP-CIDR6 rules must not be emitted when ipv6=false")
+
 # CN direct routing must use maintained domain + IP datasets, not only .cn/GEOIP.
 cn_required = (
     "RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/ChinaMax/ChinaMax.list,DIRECT",
@@ -105,7 +108,11 @@ for filename, policy in scene_policy.items():
         kind = parts[0]
         if kind in ("DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD"):
             expected = f"{kind},{parts[1]},{policy}"
-        elif kind in ("IP-CIDR", "IP-CIDR6"):
+        elif kind == "IP-CIDR6" and settings.get("ipv6", "").lower() == "false":
+            # Canonical scenes keep IPv6 coverage for other adapters, but this
+            # Shadowrocket profile disables IPv6 and must not emit dead IPv6 rules.
+            continue
+        elif kind == "IP-CIDR":
             expected = f"{kind},{parts[1]},{policy}" + (",no-resolve" if "no-resolve" in parts[2:] else "")
         else:
             errors.append(f"{filename}: unsupported scene rule for Shadowrocket adapter: {payload}")
