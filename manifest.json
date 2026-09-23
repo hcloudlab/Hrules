@@ -325,10 +325,10 @@
     },
     {
       "path": "shadowrocket/hrules.conf",
-      "sha256": "PENDING",
+      "sha256": "70b554f1fe3b0dce5349cadfe21b9090531d809a772ad1941372e5840915cf01",
       "client": "shadowrocket",
       "format": "routing-layer",
-      "entries": 0
+      "entries": 305
     }
   ],
   "skipped_non_publishable_modules": [
