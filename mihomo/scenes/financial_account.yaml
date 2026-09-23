@@ -37,7 +37,7 @@ payload:
 - DOMAIN-SUFFIX,sc.com
 - DOMAIN-SUFFIX,standardchartered.com
 
-# Service-specific measurement endpoints observed/identified for Standard Chartered.
+# HSBC-specific AWS WAF endpoint observed during real-device account testing.\n# Keep this exact-host only; generic awswaf.com remains outside the financial scene.\n- DOMAIN,hsbc.edge.sdk.awswaf.com\n\n# Service-specific measurement endpoints observed/identified for Standard Chartered.
 - DOMAIN,standchartbank.sc.omtrdc.net
 - DOMAIN,standchartbank.tt.omtrdc.net
 
