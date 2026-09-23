@@ -48,7 +48,7 @@ function main(config) {
     "🛡️ 日本故障转移 [敏感]","🛡️ 新加坡故障转移 [敏感]","🛡️ 香港故障转移 [敏感]",
     "🛡️ 台湾故障转移 [敏感]","🛡️ 韩国故障转移 [敏感]","🛡️ 英国故障转移 [敏感]",
     "🛡️ 德国故障转移 [敏感]","🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]",
-    "🏦 美国账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]","💬 Telegram [场景]",
+    "🏦 美国账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🤖 AI 服务 [场景]","📺 影音媒体 [场景]","💬 Telegram [场景]",
     "🚀 漏网之鱼 [自选]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
@@ -132,7 +132,7 @@ function main(config) {
   if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",cryptoCandidates));
   groups.push(sceneGroup("🏦 美国账户 [场景]",usCandidates));
   if (hasScene("general_ai")) groups.push(sceneGroup("🤖 AI 服务 [场景]",normalCandidates));
-  if (hasScene("youtube_media")) groups.push(sceneGroup("📺 YouTube [场景]",mediaCandidates));
+  if (hasScene("youtube_media")) groups.push(sceneGroup("📺 影音媒体 [场景]",mediaCandidates));
   groups.push(sceneGroup("💬 Telegram [场景]",normalCandidates));
   groups.push(sceneGroup("🚀 漏网之鱼 [自选]",mediaCandidates.length ? mediaCandidates : exact));
   config["proxy-groups"] = groups;
@@ -195,7 +195,7 @@ function main(config) {
   hrulesRules.push("RULE-SET,hrules-financial-account,🏦 美国账户 [场景]");
   hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景],no-resolve");
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
-  if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 YouTube [场景]");
+  if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
   hrulesRules.push("RULE-SET,hrules-cn-domain,DIRECT");
   hrulesRules.push("RULE-SET,hrules-cn-ip,DIRECT,no-resolve");
