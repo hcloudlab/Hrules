@@ -9,7 +9,7 @@ function main(config) {
   const editionSpec = (typeof HRULES_EDITION_SPEC !== "undefined") ? HRULES_EDITION_SPEC : {
     system_groups:["all","auto","fallback","load-balance"], region_groups:true,
     same_region_failover:true,
-    scene_groups:["sensitive_ai","crypto_account","us_banking_account","brokerage_account","general_ai","youtube_media"],
+    scene_groups:["sensitive_ai","crypto_account","us_banking_account","brokerage_account","financial_account","general_ai","youtube_media"],
     sensitive_exit_policy:"restricted"
   };
   const hasSystem = id => editionSpec.system_groups.includes(id);
@@ -122,6 +122,7 @@ function main(config) {
   } else if (hasScene("us_banking_account") || hasScene("brokerage_account")) {
     groups.push(sceneGroup("🏦 美国账户 [场景]",sensitiveCandidates));
   }
+  if (hasScene("financial_account")) groups.push(sceneGroup("💳 金融账户 [场景]",sensitiveCandidates));
   if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
   if (hasScene("youtube_media")) groups.push({name:"📺 影音媒体 [场景]",type:"select",proxies:mediaCandidates});
   groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
@@ -135,6 +136,7 @@ function main(config) {
     ["hrules-crypto-account","crypto_account"],
     ["hrules-us-banking-account","us_banking_account"],
     ["hrules-brokerage-account","brokerage_account"],
+    ["hrules-financial-account","financial_account"],
     ["hrules-general-ai","general_ai"],
     ["hrules-youtube-media","youtube_media"],
     ["hrules-cn-direct","cn_direct"]
@@ -153,6 +155,7 @@ function main(config) {
   if (hasScene("crypto_account")) hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
   if (hasScene("us_banking_account")) hrulesRules.push(`RULE-SET,hrules-us-banking-account,${edition === "strict" ? "🏦 美国银行 [场景]" : "🏦 美国账户 [场景]"}`);
   if (hasScene("brokerage_account")) hrulesRules.push(`RULE-SET,hrules-brokerage-account,${edition === "strict" ? "📈 美股 [场景]" : "🏦 美国账户 [场景]"}`);
+  if (hasScene("financial_account")) hrulesRules.push(`RULE-SET,hrules-financial-account,${edition === "strict" ? "💳 金融账户 [场景]" : "🏦 美国账户 [场景]"}`);
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");

@@ -86,7 +86,7 @@ if not (sensitive_idx >= 0 and network_idx > sensitive_idx and baseline_idx > ne
 if settings.get("ipv6", "").lower() == "false" and any(rule.startswith("IP-CIDR6,") for rule in normalized):
     errors.append("IP-CIDR6 rules must not be emitted when ipv6=false")
 
-# CN direct routing must use maintained domain + IP datasets, not only .cn/GEOIP.
+# Real-device account consistency: observed Taobao dependencies must be explicit DIRECT,\n# and the HSBC-specific WAF host must share the financial PROXY exit.\nfor rule in (\n    "DOMAIN-SUFFIX,mmstat.com,DIRECT",\n    "DOMAIN-SUFFIX,aliapp.org,DIRECT",\n    "DOMAIN-SUFFIX,tdum.alibaba.com,DIRECT",\n    "DOMAIN-SUFFIX,antpcdn.com,DIRECT",\n    "DOMAIN,hsbc.edge.sdk.awswaf.com,PROXY",\n):\n    if rule not in normalized:\n        errors.append(f"missing account-egress consistency rule: {rule}")\n\n# CN direct routing must use maintained domain + IP datasets, not only .cn/GEOIP.
 cn_required = (
     "RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/ChinaMax/ChinaMax.list,DIRECT",
 )
