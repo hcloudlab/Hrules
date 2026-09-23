@@ -43,7 +43,7 @@ function main(config) {
     "🛡️ 日本故障转移 [敏感]","🛡️ 新加坡故障转移 [敏感]","🛡️ 香港故障转移 [敏感]",
     "🛡️ 台湾故障转移 [敏感]","🛡️ 韩国故障转移 [敏感]","🛡️ 英国故障转移 [敏感]",
     "🛡️ 德国故障转移 [敏感]","🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]",
-    "🏦 美国银行 [场景]","📈 美股 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]",
+    "🏦 美国账户 [场景]","🏦 美国账户 [场景]","🤖 AI 服务 [场景]","📺 影音媒体 [场景]",
     "🚀 漏网之鱼 [自选]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
@@ -114,16 +114,17 @@ function main(config) {
 
   if (hasScene("sensitive_ai")) groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sensitiveCandidates));
   if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",sensitiveCandidates));
-  if (hasScene("us_banking_account")) groups.push(sceneGroup("🏦 美国银行 [场景]",sensitiveCandidates));
-  if (hasScene("brokerage_account")) groups.push(sceneGroup("📈 美股 [场景]",sensitiveCandidates));
+  if (hasScene("us_banking_account")) groups.push(sceneGroup("🏦 美国账户 [场景]",sensitiveCandidates));
+  if (hasScene("brokerage_account")) groups.push(sceneGroup("🏦 美国账户 [场景]",sensitiveCandidates));
   if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
-  if (hasScene("youtube_media")) groups.push({name:"📺 YouTube [场景]",type:"select",proxies:mediaCandidates});
+  if (hasScene("youtube_media")) groups.push({name:"📺 影音媒体 [场景]",type:"select",proxies:mediaCandidates});
   groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
   config["proxy-groups"] = groups;
 
   const providers = Object.assign({}, config["rule-providers"] || {});
   const defs = [
     ["hrules-private-direct","private_direct"],
+    ["hrules-network-test","network_test"],
     ["hrules-sensitive-ai","sensitive_ai"],
     ["hrules-crypto-account","crypto_account"],
     ["hrules-us-banking-account","us_banking_account"],
@@ -141,12 +142,13 @@ function main(config) {
   // Hrules is an overlay. Do not add its MATCH here: the host profile keeps
   // ownership of its existing fallback/MATCH semantics.
   const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT,no-resolve"];
+  if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-network-test,🔐 Claude / OpenAI [场景]");
   if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]");
   if (hasScene("crypto_account")) hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
-  if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国银行 [场景]");
-  if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,📈 美股 [场景]");
+  if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国账户 [场景]");
+  if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,🏦 美国账户 [场景]");
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
-  if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 YouTube [场景]");
+  if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
   const hasMatch = originalRules.some(r => typeof r === "string" && /^(MATCH|FINAL),/i.test(r.trim()));
   if (!hasMatch) originalRules.push("MATCH,🚀 漏网之鱼 [自选]");
