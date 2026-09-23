@@ -10,6 +10,12 @@ Hrules for Shadowrocket 只提供 **一个完整配置**，不分标准、稳定
 
 在 Shadowrocket 中导入该远程配置后，继续使用你自己的订阅或自建节点。Hrules 只负责 DNS 与路由层，不提供节点，也不会替换你的节点订阅。
 
+### 导入后先检查“简单模式”
+
+使用 Hrules 时，请关闭 Shadowrocket 的 **简单模式**。
+
+如果简单模式开启，请求即使命中 `PROXY`，最终节点行为也可能与手动选择的主节点不一致，表现为不同请求自动落到不同节点。遇到“明明固定选择了一个节点，但请求日志里不断切换节点”时，先检查简单模式，而不是先修改 Hrules 规则。
+
 ## 当前路由结构
 
 1. 私有网络 / 局域网 → DIRECT
@@ -19,6 +25,17 @@ Hrules for Shadowrocket 只提供 **一个完整配置**，不分标准、稳定
 5. `DOMAIN-SUFFIX,cn,DIRECT`
 6. `GEOIP,CN,DIRECT`
 7. `FINAL,PROXY`
+
+## DNS 设计
+
+Hrules 默认 DNS 采用分层设计：
+
+- 默认上游：Cloudflare DoH + Google DoH，避免默认海外解析继续使用明文 UDP DNS。
+- DIRECT 流量：保留 `223.5.5.5` + `119.29.29.29`，用于中国大陆直连域名的本地解析/CDN 行为。
+- fallback：`system`，与默认 DoH 上游保持独立。
+- 当前不默认启用 `hijack-dns`。DoH 负责加密上游 DNS 传输；DNS 劫持属于另一类行为，没有必要在缺少实际需求时扩大默认配置影响范围。
+
+DoH 已完成两类真机 A/B 验证：正常运行状态切换，以及 Shadowrocket 完全退出后重新启动的冷启动。两种情况下 Fake-IP 接管、海外代理访问和中国大陆直连访问均正常，未观察到 DNS bootstrap 循环。
 
 ## 已验证
 
