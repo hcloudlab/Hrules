@@ -22,7 +22,7 @@ for e in ("stable","strict"):
   if x not in s: errors.append(f"{e}: missing scene-aware contract {x}")
 s=(ROOT/"mihomo"/"editions"/"hrules-standard.js").read_text(encoding="utf-8")
 if 'const stableCandidates' not in s: errors.append("standard: missing manual-first sensitive candidates")
-# P0: Strict/CVR terminal ownership must be explicit and singular.
+# CVR defaults to Strict, so banking and brokerage must remain independently selectable.\nadapter=(ROOT/"mihomo"/"adapters"/"clash-verge-rev"/"hrules-global.js").read_text(encoding="utf-8")\nfor x in ('edition === "strict"', '🏦 美国银行 [场景]', '📈 美股 [场景]'):\n if x not in adapter: errors.append(f"global adapter: missing Strict split contract {x}")\n# P0: Strict/CVR terminal ownership must be explicit and singular.
 for p in (ROOT/"mihomo"/"editions"/"hrules-strict.js", ROOT/"mihomo"/"adapters"/"clash-verge-rev"/"hrules-global.js"):
  s=p.read_text(encoding="utf-8")
  for x in ("nonTerminalRules", '["MATCH,🚀 漏网之鱼 [自选]"]'):
