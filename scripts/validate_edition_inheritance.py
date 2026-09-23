@@ -80,8 +80,8 @@ for text, where in ((standard_js, "standard js"), (standard_host, "standard 3x-u
 
 # Aggregate group must exist only where used, while Strict knows how to remove
 # stale lower-edition topology when users switch editions.
-require(standard_js, 'name:"🏦 美国账户 [场景]"', "standard js")
-require(stable_js, 'name:"🏦 美国账户 [场景]"', "stable js")
+require(standard_js, 'sceneGroup("🏦 美国账户 [场景]"', "standard js")
+require(stable_js, 'sceneGroup("🏦 美国账户 [场景]"', "stable js")
 require(strict_js, '"🏦 美国账户 [场景]"', "strict js legacy cleanup set")
 require(standard_host, "- name: 🏦 美国账户 [场景]", "standard 3x-ui")
 require(stable_host, "- name: 🏦 美国账户 [场景]", "stable 3x-ui")
