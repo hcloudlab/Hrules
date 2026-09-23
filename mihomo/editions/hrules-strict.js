@@ -162,6 +162,7 @@ function main(config) {
   const providers = Object.assign({}, config["rule-providers"] || {});
   const defs = [
     ["hrules-private-direct","private_direct"],
+    ["hrules-network-test","network_test"],
     ["hrules-sensitive-ai","sensitive_ai"],
     ["hrules-crypto-account","crypto_account"],
     ["hrules-us-banking-account","us_banking_account"],
@@ -187,6 +188,7 @@ function main(config) {
   // Hrules is an overlay. Do not add its MATCH here: the host profile keeps
   // ownership of its existing fallback/MATCH semantics.
   const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT,no-resolve"];
+  hrulesRules.push("RULE-SET,hrules-network-test,🔐 Claude / OpenAI [场景]");
   if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]");
   if (hasScene("crypto_account")) hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
   if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国账户 [场景]");
