@@ -116,8 +116,7 @@ function main(config) {
 
   if (hasScene("sensitive_ai")) groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sensitiveCandidates));
   if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",sensitiveCandidates));
-  if (hasScene("us_banking_account")) groups.push(sceneGroup("🏦 美国账户 [场景]",sensitiveCandidates));
-  if (hasScene("brokerage_account")) groups.push(sceneGroup("🏦 美国账户 [场景]",sensitiveCandidates));
+  if (hasScene("us_banking_account") || hasScene("brokerage_account")) groups.push(sceneGroup("🏦 美国账户 [场景]",sensitiveCandidates));
   if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
   if (hasScene("youtube_media")) groups.push({name:"📺 影音媒体 [场景]",type:"select",proxies:mediaCandidates});
   groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
