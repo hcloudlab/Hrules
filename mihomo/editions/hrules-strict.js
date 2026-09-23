@@ -27,7 +27,7 @@ function main(config) {
   // Some airport subscriptions encode quota/expiry/homepage status as syntactically
   // valid proxies. They are profile metadata, not user egress choices. Excluding them
   // here also prevents tokens such as "236.29 GB" from becoming a false UK region.
-  const metadataNode = /(剩余流量|流量剩余|套餐到期|到期时间|有效期|官网|官方|(?:^|[\\s:：|｜_-])(traffic|remaining|expire|expiry|expires|quota|bandwidth|website|homepage)(?=[\\s:：|｜_-]|$))/i;
+  const metadataNode = /(剩余流量|流量剩余|套餐到期|到期时间|有效期|官网|官方|(?:^|[\s:：|｜_-])(traffic|remaining|expire|expiry|expires|quota|bandwidth|website|homepage)(?=[\s:：|｜_-]|$))/i;
   const nodeNames = rawNodeNames.filter(n => !metadataNode.test(n));
   const providerNames = config["proxy-providers"] && typeof config["proxy-providers"] === "object"
     ? Object.keys(config["proxy-providers"]) : [];
@@ -48,20 +48,27 @@ function main(config) {
     "🛡️ 日本故障转移 [敏感]","🛡️ 新加坡故障转移 [敏感]","🛡️ 香港故障转移 [敏感]",
     "🛡️ 台湾故障转移 [敏感]","🛡️ 韩国故障转移 [敏感]","🛡️ 英国故障转移 [敏感]",
     "🛡️ 德国故障转移 [敏感]","🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]",
-    "🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","🔐 重要账户 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]","💬 Telegram [场景]",
+    "🏦 美国账户 [场景]","🔐 重要账户 [场景]","🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🤖 AI 服务 [场景]","📺 影音媒体 [场景]","📺 YouTube [场景]","💬 Telegram [场景]",
     "🚀 漏网之鱼 [自选]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
 
   const source = {};
   if (nodeNames.length) source.proxies = nodeNames;
-  if (providerNames.length) source.use = providerNames;
+  if (providerNames.length) {
+    source.use = providerNames;
+    // Filter common quota/expiry/homepage pseudo-nodes exposed by providers.
+    source["exclude-filter"] = "剩余|到期|有效期|官网|官方|traffic|remaining|expire|expiry|quota|bandwidth|website|homepage";
+  }
   const health = { url: "https://www.gstatic.com/generate_204", interval: 300 };
 
   const dnsProxyGroup = hasSystem("auto") ? "♻️ 自动选择 [系统]"
     : hasSystem("all") ? "🌐 全部节点 [系统]" : null;
 
   const mk = (name, type, extra={}) => Object.assign({name,type}, source, extra);
+  const sceneGroup = (name, list) => list.length
+    ? {name,type:"select",proxies:list}
+    : Object.assign({name,type:"select"}, source);
   if (hasSystem("all")) groups.push(mk("🌐 全部节点 [系统]","select"));
   if (hasSystem("auto")) groups.push(mk("♻️ 自动选择 [系统]","url-test",Object.assign({},health,{tolerance:50})));
   if (hasSystem("fallback")) groups.push(mk("🛡️ 故障转移 [系统]","fallback",health));
@@ -107,21 +114,27 @@ function main(config) {
   const available = names => names.filter(n => groups.some(g => g.name === n));
   const normalCandidates = [...available(["♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]"]),...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
   const mediaCandidates = [...available(["♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]","⚖️ 负载均衡 [系统]"]),...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-  // Strict sensitive scenes intentionally exclude global all/auto/fallback/load-balance.
-  // Stable prefers same-region fallback but still permits explicit region/node selection.
-  const sensitiveCandidates = editionSpec.sensitive_exit_policy === "restricted"
-    ? [...sensitiveNames,...regionParent,...exact]
-    : [...sensitiveNames,...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-
-  if (hasScene("sensitive_ai")) groups.push({name:"🔐 Claude / OpenAI [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("crypto_account")) groups.push({name:"💰 虚拟货币 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("us_banking_account")) groups.push({name:"🏦 美国银行 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("brokerage_account")) groups.push({name:"📈 美股 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("financial_account")) groups.push({name:"💳 金融账户 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
-  if (hasScene("youtube_media")) groups.push({name:"📺 YouTube [场景]",type:"select",proxies:mediaCandidates});
-  groups.push({name:"💬 Telegram [场景]",type:"select",proxies:normalCandidates});
-  groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
+  const sensitiveByKey = {};
+  for (const [key,,sensitive] of regions) if (groups.some(g => g.name === sensitive)) sensitiveByKey[key] = sensitive;
+  const sceneCandidates = (preferKeys, denyKeys=[]) => {
+    const deny = new Set(denyKeys.map(k => sensitiveByKey[k]).filter(Boolean));
+    const first = preferKeys.map(k => sensitiveByKey[k]).filter(Boolean);
+    const rest = sensitiveNames.filter(n => !first.includes(n) && !deny.has(n));
+    const tail = editionSpec.sensitive_exit_policy === "restricted" ? [] : available(["🌐 全部节点 [系统]"]);
+    return [...first,...rest,...regionParent,...tail,...exact];
+  };
+  const aiCandidates = sceneCandidates(["us","jp","sg","tw","kr","gb","de"],["hk"]);
+  const cryptoCandidates = sceneCandidates(["jp","sg","hk","tw","kr"],["us"]);
+  const usCandidates = sceneCandidates(["us"]);
+  if (hasScene("sensitive_ai")) groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",aiCandidates));
+  if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",cryptoCandidates));
+  if (hasScene("us_banking_account")) groups.push(sceneGroup("🏦 美国银行 [场景]",usCandidates));
+  if (hasScene("brokerage_account")) groups.push(sceneGroup("📈 美股 [场景]",usCandidates));
+  if (hasScene("financial_account")) groups.push(sceneGroup("💳 金融账户 [场景]",usCandidates));
+  if (hasScene("general_ai")) groups.push(sceneGroup("🤖 AI 服务 [场景]",normalCandidates));
+  if (hasScene("youtube_media")) groups.push(sceneGroup("📺 影音媒体 [场景]",mediaCandidates));
+  groups.push(sceneGroup("💬 Telegram [场景]",normalCandidates));
+  groups.push(sceneGroup("🚀 漏网之鱼 [自选]",mediaCandidates.length ? mediaCandidates : exact));
   config["proxy-groups"] = groups;
 
   // Keep bootstrap/node DNS independent from the proxy. Ordinary proxied DNS uses
@@ -133,20 +146,21 @@ function main(config) {
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
     "fake-ip-filter-mode": "blacklist",
-    "fake-ip-filter": ["*.lan","*.local"],
+    "fake-ip-filter": ["+.lan","+.local","+.home.arpa","localhost.ptlogin2.qq.com","time.*.com","ntp.*.com","+.pool.ntp.org","+.msftconnecttest.com","+.msftncsi.com"],
     "default-nameserver": ["223.5.5.5","119.29.29.29"],
     "proxy-server-nameserver": ["223.5.5.5","119.29.29.29"],
     "direct-nameserver": ["223.5.5.5","119.29.29.29"],
     "direct-nameserver-follow-policy": false,
-    nameserver: [
+    nameserver: dnsProxyGroup ? [
       "https://1.1.1.1/dns-query#" + dnsProxyGroup,
       "https://8.8.8.8/dns-query#" + dnsProxyGroup
-    ]
+    ] : ["https://1.1.1.1/dns-query","https://8.8.8.8/dns-query"]
   };
 
   const providers = Object.assign({}, config["rule-providers"] || {});
   const defs = [
     ["hrules-private-direct","private_direct"],
+    ["hrules-network-test","network_test"],
     ["hrules-sensitive-ai","sensitive_ai"],
     ["hrules-crypto-account","crypto_account"],
     ["hrules-us-banking-account","us_banking_account"],
@@ -159,7 +173,7 @@ function main(config) {
   ];
   for (const [key,id] of defs) {
     providers[key] = {type:"http",behavior:"classical",format:"yaml",
-      url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600};
+      url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600,proxy:dnsProxyGroup || undefined};
   }
   providers["hrules-cn-domain"] = {type:"http",behavior:"domain",format:"mrs",
     url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
@@ -171,19 +185,25 @@ function main(config) {
 
   // Hrules is an overlay. Do not add its MATCH here: the host profile keeps
   // ownership of its existing fallback/MATCH semantics.
-  const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT"];
+  const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT,no-resolve"];
+  hrulesRules.push("RULE-SET,hrules-network-test,🔐 Claude / OpenAI [场景]");
   if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]");
   if (hasScene("crypto_account")) hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
   if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国银行 [场景]");
   if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,📈 美股 [场景]");
   if (hasScene("financial_account")) hrulesRules.push("RULE-SET,hrules-financial-account,💳 金融账户 [场景]");
-  hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景]");
+  hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景],no-resolve");
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
-  if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 YouTube [场景]");
+  if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
   hrulesRules.push("RULE-SET,hrules-cn-domain,DIRECT");
   hrulesRules.push("RULE-SET,hrules-cn-ip,DIRECT,no-resolve");
-  config.rules = hrulesRules.concat(originalRules);
+  // Strict owns the terminal decision. Preserve all host rules except their
+  // terminal MATCH/FINAL, then make Hrules the single auditable catch-all.
+  const nonTerminalRules = originalRules.filter(r =>
+    !(typeof r === "string" && /^(MATCH|FINAL),/i.test(r.trim()))
+  );
+  config.rules = hrulesRules.concat(nonTerminalRules, ["MATCH,🚀 漏网之鱼 [自选]"]);
   config.mode = "rule";
   return config;
 }

@@ -15,6 +15,8 @@ on:
       - "scripts/validate_dns_v01.py"
       - "scripts/validate_edition_inheritance.py"
       - "scripts/validate_core_coverage.py"
+      - "scripts/validate_mihomo_hardening.py"
+      - "mihomo/adapters/clash-verge-rev/**"
       - ".github/workflows/dns-v01.yml"
 
 jobs:
@@ -28,3 +30,5 @@ jobs:
         run: python3 scripts/validate_edition_inheritance.py
       - name: Validate representative Core coverage
         run: python3 scripts/validate_core_coverage.py
+      - name: Validate Mihomo hardening contracts
+        run: python3 scripts/validate_mihomo_hardening.py

@@ -73,6 +73,16 @@ for rule in normalized:
 if len(normalized) != len(set(normalized)):
     errors.append("duplicate routing rules detected")
 
+# Ordering contract: diagnostics must be evaluated after sensitive AI rules but
+# before broad proxy baselines / FINAL, keeping them deterministic and observable.
+def first_index(prefix):
+    return next((i for i, rule in enumerate(normalized) if rule.startswith(prefix)), -1)
+network_idx = first_index("DOMAIN-SUFFIX,ipinfo.io,PROXY")
+sensitive_idx = first_index("DOMAIN-SUFFIX,openai.com,PROXY")
+baseline_idx = first_index("RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Google/Google.list,PROXY")
+if not (sensitive_idx >= 0 and network_idx > sensitive_idx and baseline_idx > network_idx):
+    errors.append("network diagnostics must follow sensitive AI and precede broad baseline rules")
+
 if settings.get("ipv6", "").lower() == "false" and any(rule.startswith("IP-CIDR6,") for rule in normalized):
     errors.append("IP-CIDR6 rules must not be emitted when ipv6=false")
 
@@ -89,6 +99,7 @@ for rule in cn_required:
 scene_policy = {
     "private_direct.yaml": "DIRECT",
     "sensitive_ai.yaml": "PROXY",
+    "network_test.yaml": "PROXY",
     "crypto_account.yaml": "PROXY",
     "us_banking_account.yaml": "PROXY",
     "brokerage_account.yaml": "PROXY",

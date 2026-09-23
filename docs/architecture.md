@@ -28,9 +28,9 @@ Lower editions may collapse multiple higher-edition scenes into fewer policy gro
 
 Current Mihomo collapse contract:
 
-- Standard: `sensitive_ai + general_ai → 🤖 AI 服务`; `crypto_account + us_banking_account + brokerage_account → 🔐 重要账户`.
-- Stable: `sensitive_ai → 🔐 Claude / OpenAI`; `general_ai → 🤖 AI 服务`; financial account scenes collapse to `🔐 重要账户`.
-- Strict: sensitive AI and each financial account scene keep independent groups.
+- Standard: `sensitive_ai → 🔐 Claude / OpenAI`; `general_ai → 🤖 AI 服务`; `crypto_account → 💰 虚拟货币`; `us_banking_account + brokerage_account + financial_account → 🏦 美国账户`; media routes to `📺 影音媒体`.
+- Stable: the same scene boundaries are retained, with region-consistency preferences added to candidate selection; the three US financial-account scenes remain consolidated under `🏦 美国账户`.
+- Strict: sensitive AI, crypto, US banking, brokerage and general financial accounts keep independent groups; media remains under `📺 影音媒体`.
 
 This invariant is enforced by CI for both Clash Verge Rev Global JS and 3X-UI Remote Routing outputs.
 

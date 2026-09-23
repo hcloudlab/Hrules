@@ -42,7 +42,8 @@ for edition in ("standard", "stable", "strict"):
             if token not in active:
                 errors.append(f"{edition}: missing active {token}")
         if "nameserver-policy:" in active:
-            errors.append(f"{edition}: nameserver-policy must remain gated")
+            errors.append(f"{edition}: nameserver-policy must remain gated in DNS v0.1")
+
 
 
 # Standard generated DNS and the static Standard artifact must keep the same
