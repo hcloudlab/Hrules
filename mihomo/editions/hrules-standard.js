@@ -117,7 +117,7 @@ function main(config) {
   groups.push(sceneGroup("🔐 Claude / OpenAI [场景]", stableCandidates));
   groups.push(sceneGroup("💰 虚拟货币 [场景]", stableCandidates));
   groups.push(sceneGroup("🏦 美国账户 [场景]", stableCandidates));
-  if (hasScene("general_ai")) groups.push(sceneGroup("🤖 AI 服务 [场景]", stableCandidates));
+  if (hasScene("general_ai")) groups.push(sceneGroup("🤖 AI 服务 [场景]", normalCandidates));
   if (hasScene("youtube_media")) groups.push(sceneGroup("📺 影音媒体 [场景]",mediaCandidates));
   groups.push(sceneGroup("💬 Telegram [场景]",normalCandidates));
   groups.push(sceneGroup("🚀 漏网之鱼 [自选]",mediaCandidates.length ? mediaCandidates : exact));
