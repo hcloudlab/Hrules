@@ -13,6 +13,12 @@ payload:
 - DOMAIN-SUFFIX,venmo.com
 - DOMAIN-SUFFIX,xoom.com
 
+# Stripe — keep payment/account traffic ahead of broad CN baseline lists.
+# Real-device Shadowrocket validation observed js.stripe.com and m.stripe.network
+# being classified DIRECT by the downstream ChinaMax baseline without this override.
+- DOMAIN-SUFFIX,stripe.com
+- DOMAIN-SUFFIX,stripe.network
+
 # Wise / TransferWise
 - DOMAIN-SUFFIX,wise.com
 - DOMAIN-SUFFIX,transferwise.com
