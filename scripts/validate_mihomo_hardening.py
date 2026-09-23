@@ -22,7 +22,7 @@ for e in ("stable","strict"):
   if x not in s: errors.append(f"{e}: missing scene-aware contract {x}")
 s=(ROOT/"mihomo"/"editions"/"hrules-standard.js").read_text(encoding="utf-8")
 if 'const stableCandidates' not in s: errors.append("standard: missing manual-first sensitive candidates")
-# CVR defaults to Strict, so banking and brokerage must remain independently selectable.\nadapter=(ROOT/"mihomo"/"adapters"/"clash-verge-rev"/"hrules-global.js").read_text(encoding="utf-8")\nfor x in ('edition === "strict"', '🏦 美国银行 [场景]', '📈 美股 [场景]'):\n if x not in adapter: errors.append(f"global adapter: missing Strict split contract {x}")\n# P0: Strict/CVR terminal ownership must be explicit and singular.
+# CVR defaults to Strict, so banking and brokerage must remain independently selectable.\nadapter=(ROOT/"mihomo"/"adapters"/"clash-verge-rev"/"hrules-global.js").read_text(encoding="utf-8")\nfor x in ('edition === "strict"', '🏦 美国银行 [场景]', '📈 美股 [场景]', 'hrules-financial-account', '💳 金融账户 [场景]'):\n if x not in adapter: errors.append(f"global adapter: missing Strict split contract {x}")\n# P0: Strict/CVR terminal ownership must be explicit and singular.
 for p in (ROOT/"mihomo"/"editions"/"hrules-strict.js", ROOT/"mihomo"/"adapters"/"clash-verge-rev"/"hrules-global.js"):
  s=p.read_text(encoding="utf-8")
  for x in ("nonTerminalRules", '["MATCH,🚀 漏网之鱼 [自选]"]'):
@@ -31,3 +31,4 @@ for p in (ROOT/"mihomo"/"editions"/"hrules-strict.js", ROOT/"mihomo"/"adapters"/
 if errors:
  print("\n".join(errors),file=sys.stderr); raise SystemExit(1)
 print("Hrules Mihomo hardening contracts: PASS")
+\n# Real-device regression contracts: Taobao dependencies stay deterministic DIRECT;\n# HSBC-specific WAF stays on the financial account scene without capturing all AWS WAF.\ncn=(ROOT/"mihomo"/"scenes"/"cn_direct.yaml").read_text(encoding="utf-8")\nfor x in ("mmstat.com","aliapp.org","tdum.alibaba.com","antpcdn.com"):\n if f"DOMAIN-SUFFIX,{x}" not in cn: errors.append(f"cn_direct: missing observed account dependency {x}")\nfin=(ROOT/"mihomo"/"scenes"/"financial_account.yaml").read_text(encoding="utf-8")\nif "DOMAIN,hsbc.edge.sdk.awswaf.com" not in fin: errors.append("financial_account: missing HSBC-specific AWS WAF host")\nif "DOMAIN-SUFFIX,awswaf.com" in fin: errors.append("financial_account: generic awswaf.com capture is forbidden")\n
