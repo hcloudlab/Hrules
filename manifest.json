@@ -275,7 +275,7 @@
     },
     {
       "path": "mihomo/adapters/clash-verge-rev/hrules-global.js",
-      "sha256": "de0d2540719ce4f9544a46bab5eabe58148c50a83542737904d67ba50612cda2",
+      "sha256": "6ce8c86f3bb9ba287fe93597666b459ffb19e7171f3a60204834a528186a8844",
       "client": "mihomo",
       "format": "clash-verge-rev-global-adapter"
     },
@@ -289,7 +289,7 @@
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-standard.yaml",
-      "sha256": "a69ad7b9558de46b855aa92a19b9f43ead0804fc747846fb57db934194d2530d",
+      "sha256": "cd5373a14ff634ee2580f5539f4b5d15abefafca017741135fb2e96ed32eef04",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
@@ -298,7 +298,7 @@
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-stable.yaml",
-      "sha256": "824685e6b26c5b10feb6ddfe63aa0d204aa8bfc26f7e39eed92cccba257a7393",
+      "sha256": "e27d6e5a0b7ccc0fdb66a22196d7b668cbf9fdd1cf74a731a6ef556f81b5d2c9",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
@@ -307,12 +307,21 @@
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-strict.yaml",
-      "sha256": "94e09595ce28d13f2970c608bec7a9a31f99b239b5c2608f4b4c8601add690bf",
+      "sha256": "6f3aca957b6b48f4e626da4910cf149773fd36b6f953ab89499c697fa93e7223",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
       "edition": "strict",
       "entries": 9
+    },
+    {
+      "path": "mihomo/scenes/network_test.yaml",
+      "sha256": "d712003ff9fe6bb546489dd45eaa308dcd7336a8a73ac49ead443e3a3c9ae4d1",
+      "scene": "network_test",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 10,
+      "modules": []
     }
   ],
   "skipped_non_publishable_modules": [
