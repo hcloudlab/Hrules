@@ -48,11 +48,17 @@ for key, expected in required_general.items():
     elif expected is not None and settings[key].lower() != expected:
         errors.append(f"invalid [General] setting: {key}={settings[key]}")
 
-# Real-device regression: any active skip-proxy setting caused slow config saves,
-# slow latency tests, and hostname-based node latency timeouts. Local/private
-# traffic remains covered by tun-excluded-routes plus explicit DIRECT rules.
+# Keep skip-proxy absent from the public baseline. Real-device testing showed
+# it can amplify slow save / latency-test behavior on macOS, but it is not the
+# root cause of hostname-node Fake-IP bootstrap failures.
 if "skip-proxy" in settings:
-    errors.append("skip-proxy must remain absent: real-device latency/save regression")
+    errors.append("skip-proxy must remain absent from the public baseline")
+
+# Do not solve hostname-node Fake-IP bootstrap by forcing every domain to real IP.
+# A global wildcard changes Shadowrocket's Fake-IP model and is intentionally
+# outside the shared Hrules baseline. Affected node hostnames are user-specific.
+if settings.get("always-real-ip", "").replace(" ", "") == "*":
+    errors.append("global always-real-ip=* is forbidden in the shared baseline")
 
 rules = section_lines("Rule")
 normalized = [",".join(x.strip() for x in rule.split(",")) for rule in rules]
