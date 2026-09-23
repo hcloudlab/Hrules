@@ -40,9 +40,8 @@ for edition in EDITIONS:
         require(js, f"hrules-{scene.replace('_','-')}", f"{edition} js")
         require(host, f"hrules-{scene.replace('_','-')}", f"{edition} 3x-ui")
 
-# Standard collapses sensitive AI into general AI and financial account scenes
-# into one important-account group. No supported higher-edition scene may fall
-# through to host MATCH merely because Standard has fewer groups.
+# Standard keeps sensitive AI and crypto explicit while the three US financial
+# scenes share one account group.
 standard_js = read("mihomo/editions/hrules-standard.js")
 standard_host = read("mihomo/hosts/3x-ui/hrules-standard.yaml")
 for text, where in ((standard_js, "standard js"), (standard_host, "standard 3x-ui")):
@@ -52,14 +51,14 @@ for text, where in ((standard_js, "standard js"), (standard_host, "standard 3x-u
     for scene in ("us-banking-account", "brokerage-account", "financial-account"):
         require(text, f"RULE-SET,hrules-{scene},🏦 美国账户 [场景]", where)
 
-# Stable keeps Claude/OpenAI separate, while financial account scenes are
-# collapsed into one important-account group.
+# Stable keeps Claude/OpenAI and crypto separate; US financial scenes share one group.
 stable_js = read("mihomo/editions/hrules-stable.js")
 stable_host = read("mihomo/hosts/3x-ui/hrules-stable.yaml")
 for text, where in ((stable_js, "stable js"), (stable_host, "stable 3x-ui")):
     require(text, "RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]", where)
     require(text, "RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]", where)
-    for scene in ("crypto-account", "us-banking-account", "brokerage-account", "financial-account"):
+    require(text, "RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]", where)
+    for scene in ("us-banking-account", "brokerage-account", "financial-account"):
         require(text, f"RULE-SET,hrules-{scene},🏦 美国账户 [场景]", where)
 
 # Strict keeps banking, brokerage and general financial scenes independently selectable.
@@ -75,7 +74,11 @@ for text, where in ((strict_js, "strict js"), (strict_host, "strict 3x-ui")):
     for scene, target in strict_targets.items():
         require(text, f"RULE-SET,hrules-{scene},{target}", where)
 
-# Telegram remains explicit in every edition.\nfor text, where in ((standard_js, "standard js"), (standard_host, "standard 3x-ui"), (stable_js, "stable js"), (stable_host, "stable 3x-ui"), (strict_js, "strict js"), (strict_host, "strict 3x-ui")):\n    require(text, "RULE-SET,hrules-telegram,💬 Telegram [场景]", where)\n\n# Aggregate group must exist only where used, while Strict knows how to remove
+# Telegram remains explicit in every edition.
+for text, where in ((standard_js, "standard js"), (standard_host, "standard 3x-ui"), (stable_js, "stable js"), (stable_host, "stable 3x-ui"), (strict_js, "strict js"), (strict_host, "strict 3x-ui")):
+    require(text, "RULE-SET,hrules-telegram,💬 Telegram [场景]", where)
+
+# Aggregate group must exist only where used, while Strict knows how to remove
 # stale lower-edition topology when users switch editions.
 require(standard_js, 'name:"🏦 美国账户 [场景]"', "standard js")
 require(stable_js, 'name:"🏦 美国账户 [场景]"', "stable js")
