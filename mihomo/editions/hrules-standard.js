@@ -48,7 +48,7 @@ function main(config) {
     "🛡️ 日本故障转移 [敏感]","🛡️ 新加坡故障转移 [敏感]","🛡️ 香港故障转移 [敏感]",
     "🛡️ 台湾故障转移 [敏感]","🛡️ 韩国故障转移 [敏感]","🛡️ 英国故障转移 [敏感]",
     "🛡️ 德国故障转移 [敏感]","🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]",
-    "🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","🔐 重要账户 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]","💬 Telegram [场景]",
+    "🏦 美国账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]","💬 Telegram [场景]",
     "🚀 漏网之鱼 [自选]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
@@ -107,21 +107,18 @@ function main(config) {
   // guessed region or sensitive same-region fallback groups.
 
   const exact = nodeNames.slice();
-  const regionParent = regionNames.length ? ["🌍 地区 [系统]"] : [];
   const available = names => names.filter(n => groups.some(g => g.name === n));
-  const normalCandidates = [...available(["♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]"]),...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-  const mediaCandidates = [...available(["♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]","⚖️ 负载均衡 [系统]"]),...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-  // Strict sensitive scenes intentionally exclude global all/auto/fallback/load-balance.
-  // Stable prefers same-region fallback but still permits explicit region/node selection.
-  const sensitiveCandidates = editionSpec.sensitive_exit_policy === "restricted"
-    ? [...sensitiveNames,...regionParent,...exact]
-    : [...sensitiveNames,...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-
-  groups.push({name:"🔐 重要账户 [场景]",type:"select",proxies:normalCandidates});
-  if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
-  if (hasScene("youtube_media")) groups.push({name:"📺 YouTube [场景]",type:"select",proxies:mediaCandidates});
-  groups.push({name:"💬 Telegram [场景]",type:"select",proxies:normalCandidates});
-  groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
+  const normalCandidates = [...available(["♻️ 自动选择 [系统]"]),...available(["🌐 全部节点 [系统]"]),...exact];
+  const mediaCandidates = [...available(["♻️ 自动选择 [系统]"]),...available(["🌐 全部节点 [系统]"]),...exact];
+  // Sensitive scenes are manual-first in Standard: never default account traffic to url-test.
+  const stableCandidates = [...available(["🌐 全部节点 [系统]"]),...exact,...available(["♻️ 自动选择 [系统]"])];
+  groups.push(sceneGroup("🔐 Claude / OpenAI [场景]", stableCandidates));
+  groups.push(sceneGroup("💰 虚拟货币 [场景]", stableCandidates));
+  groups.push(sceneGroup("🏦 美国账户 [场景]", stableCandidates));
+  if (hasScene("general_ai")) groups.push(sceneGroup("🤖 AI 服务 [场景]", stableCandidates));
+  if (hasScene("youtube_media")) groups.push(sceneGroup("📺 YouTube [场景]",mediaCandidates));
+  groups.push(sceneGroup("💬 Telegram [场景]",normalCandidates));
+  groups.push(sceneGroup("🚀 漏网之鱼 [自选]",mediaCandidates.length ? mediaCandidates : exact));
   config["proxy-groups"] = groups;
 
   // DNS v0.1 Standard: conservative bootstrap-first baseline.
@@ -168,10 +165,10 @@ function main(config) {
   // ownership of its existing fallback/MATCH semantics.
   const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT,no-resolve"];
   hrulesRules.push("RULE-SET,hrules-sensitive-ai,🤖 AI 服务 [场景]");
-  hrulesRules.push("RULE-SET,hrules-crypto-account,🔐 重要账户 [场景]");
-  hrulesRules.push("RULE-SET,hrules-us-banking-account,🔐 重要账户 [场景]");
-  hrulesRules.push("RULE-SET,hrules-brokerage-account,🔐 重要账户 [场景]");
-  hrulesRules.push("RULE-SET,hrules-financial-account,🔐 重要账户 [场景]");
+  hrulesRules.push("RULE-SET,hrules-crypto-account,🏦 美国账户 [场景]");
+  hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国账户 [场景]");
+  hrulesRules.push("RULE-SET,hrules-brokerage-account,🏦 美国账户 [场景]");
+  hrulesRules.push("RULE-SET,hrules-financial-account,🏦 美国账户 [场景]");
   hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景],no-resolve");
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 YouTube [场景]");
