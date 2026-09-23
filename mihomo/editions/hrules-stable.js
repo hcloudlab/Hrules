@@ -70,7 +70,7 @@ function main(config) {
   const mk = (name, type, extra={}) => Object.assign({name,type}, source, extra);
   const sceneGroup = (name, list) => list.length
     ? {name,type:"select",proxies:list}
-    : {name,type:"select",use:providerNames};
+    : Object.assign({name,type:"select"}, source);
   if (hasSystem("all")) groups.push(mk("🌐 全部节点 [系统]","select"));
   if (hasSystem("auto")) groups.push(mk("♻️ 自动选择 [系统]","url-test",Object.assign({},health,{tolerance:50})));
   if (hasSystem("fallback")) groups.push(mk("🛡️ 故障转移 [系统]","fallback",health));
@@ -189,7 +189,7 @@ function main(config) {
   const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT,no-resolve"];
   hrulesRules.push("RULE-SET,hrules-network-test,🔐 Claude / OpenAI [场景]");
   if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]");
-  hrulesRules.push("RULE-SET,hrules-crypto-account,🏦 美国账户 [场景]");
+  hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
   hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国账户 [场景]");
   hrulesRules.push("RULE-SET,hrules-brokerage-account,🏦 美国账户 [场景]");
   hrulesRules.push("RULE-SET,hrules-financial-account,🏦 美国账户 [场景]");
