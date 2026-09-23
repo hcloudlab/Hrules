@@ -64,6 +64,7 @@ function main(config) {
 
   // DNS egress is bound to an Hrules-owned group that exists for this edition.
   // Node-domain bootstrap remains independent from the proxy to avoid a loop.
+  // proxy-server-nameserver uses direct DoH and must return real IPs, never Fake-IP.
   const dnsProxyGroup = hasSystem("auto") ? "♻️ 自动选择 [系统]"
     : hasSystem("all") ? "🌐 全部节点 [系统]" : null;
 
@@ -145,7 +146,7 @@ function main(config) {
     "fake-ip-filter-mode": "blacklist",
     "fake-ip-filter": ["+.lan","+.local","+.home.arpa","localhost.ptlogin2.qq.com","time.*.com","ntp.*.com","+.pool.ntp.org","+.msftconnecttest.com","+.msftncsi.com"],
     "default-nameserver": ["223.5.5.5","119.29.29.29"],
-    "proxy-server-nameserver": ["223.5.5.5","119.29.29.29"],
+    "proxy-server-nameserver": ["https://223.5.5.5/dns-query","https://1.1.1.1/dns-query","https://8.8.8.8/dns-query"],
     "direct-nameserver": ["223.5.5.5","119.29.29.29"],
     "direct-nameserver-follow-policy": false,
     nameserver: dnsProxyGroup ? [
