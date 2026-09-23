@@ -13,6 +13,15 @@ payload:
 - DOMAIN-SUFFIX,venmo.com
 - DOMAIN-SUFFIX,xoom.com
 
+# Stripe payment infrastructure — explicit namespaces observed during real-device testing.
+- DOMAIN-SUFFIX,stripe.com
+- DOMAIN-SUFFIX,stripe.network
+- DOMAIN-SUFFIX,stripecdn.com
+- DOMAIN-SUFFIX,stripeassets.com
+- DOMAIN-SUFFIX,stripe.dev
+- DOMAIN-SUFFIX,stripe.global
+- DOMAIN-SUFFIX,stripe.partners
+
 # Wise / TransferWise
 - DOMAIN-SUFFIX,wise.com
 - DOMAIN-SUFFIX,transferwise.com
