@@ -36,7 +36,7 @@ for line in general:
         settings[key.strip()] = value.strip()
 
 required_general = {
-    "dns-server": "https://cloudflare-dns.com/dns-query,https://dns.google/dns-query",
+    "dns-server": "https://223.5.5.5/dns-query,https://1.12.12.12/dns-query",
     "direct-dns-server": None,
     "fallback-dns-server": "system",
     "ipv6": "false",
@@ -47,6 +47,12 @@ for key, expected in required_general.items():
         errors.append(f"missing active [General] setting: {key}")
     elif expected is not None and settings[key].lower() != expected:
         errors.append(f"invalid [General] setting: {key}={settings[key]}")
+
+# Real-device regression: any active skip-proxy setting caused slow config saves,
+# slow latency tests, and hostname-based node latency timeouts. Local/private
+# traffic remains covered by tun-excluded-routes plus explicit DIRECT rules.
+if "skip-proxy" in settings:
+    errors.append("skip-proxy must remain absent: real-device latency/save regression")
 
 rules = section_lines("Rule")
 normalized = [",".join(x.strip() for x in rule.split(",")) for rule in rules]
