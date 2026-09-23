@@ -116,7 +116,12 @@ function main(config) {
 
   if (hasScene("sensitive_ai")) groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sensitiveCandidates));
   if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",sensitiveCandidates));
-  if (hasScene("us_banking_account") || hasScene("brokerage_account")) groups.push(sceneGroup("🏦 美国账户 [场景]",sensitiveCandidates));
+  if (edition === "strict") {
+    if (hasScene("us_banking_account")) groups.push(sceneGroup("🏦 美国银行 [场景]",sensitiveCandidates));
+    if (hasScene("brokerage_account")) groups.push(sceneGroup("📈 美股 [场景]",sensitiveCandidates));
+  } else if (hasScene("us_banking_account") || hasScene("brokerage_account")) {
+    groups.push(sceneGroup("🏦 美国账户 [场景]",sensitiveCandidates));
+  }
   if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
   if (hasScene("youtube_media")) groups.push({name:"📺 影音媒体 [场景]",type:"select",proxies:mediaCandidates});
   groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
@@ -146,8 +151,8 @@ function main(config) {
   if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-network-test,🔐 Claude / OpenAI [场景]");
   if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]");
   if (hasScene("crypto_account")) hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
-  if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国账户 [场景]");
-  if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,🏦 美国账户 [场景]");
+  if (hasScene("us_banking_account")) hrulesRules.push(`RULE-SET,hrules-us-banking-account,${edition === "strict" ? "🏦 美国银行 [场景]" : "🏦 美国账户 [场景]"}`);
+  if (hasScene("brokerage_account")) hrulesRules.push(`RULE-SET,hrules-brokerage-account,${edition === "strict" ? "📈 美股 [场景]" : "🏦 美国账户 [场景]"}`);
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
