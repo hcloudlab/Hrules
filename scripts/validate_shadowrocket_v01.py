@@ -38,6 +38,7 @@ for line in general:
 required_general = {
     "dns-server": "https://cloudflare-dns.com/dns-query,https://dns.google/dns-query",
     "direct-dns-server": None,
+    "proxy-dns-server": "1.1.1.1,8.8.8.8",
     "fallback-dns-server": "system",
     "ipv6": "false",
     "update-url": None,
