@@ -38,13 +38,27 @@ v0.1 的场景规则只决定 `DIRECT / PROXY`，不会创建“AI 美国节点�
 
 Hrules 默认 DNS 采用分层设计：
 
-- 默认上游：Cloudflare DoH + Google DoH，避免默认海外解析继续使用明文 UDP DNS。
+- 默认上游：`https://223.5.5.5/dns-query` + `https://1.12.12.12/dns-query`。真机 A/B 中，相比域名形式的海外 DoH，网页首开明显更快；IP 形式也减少 DoH 上游自身的 hostname bootstrap 依赖。
 - DIRECT 流量：保留 `223.5.5.5` + `119.29.29.29`，用于中国大陆直连域名的本地解析/CDN 行为。
 - fallback：`system`，与默认 DoH 上游保持独立。
 - 当前不默认启用 `hijack-dns`。DoH 负责加密上游 DNS 传输；DNS 劫持属于另一类行为，没有必要在缺少实际需求时扩大默认配置影响范围。
 - 当前 Shadowrocket 配置设置 `ipv6 = false`，因此输出层不再生成 `IP-CIDR6` 规则；IPv6 数据仍保留在 Hrules canonical scenes 中，供启用 IPv6 的其他适配器使用。
 
-DoH 已完成两类真机 A/B 验证：正常运行状态切换，以及 Shadowrocket 完全退出后重新启动的冷启动。两种情况下 Fake-IP 接管、海外代理访问和中国大陆直连访问均正常，未观察到 DNS bootstrap 循环。
+### macOS：域名节点测速 / Fake-IP
+
+macOS Shadowrocket 开启 TUN 后，系统 DNS 可能对普通域名返回 `198.18.0.0/15` Fake-IP。Fake-IP 本身属于 Shadowrocket 的正常 TUN DNS 模型；但真机测试发现，个别“节点服务器地址本身使用域名”的场景会出现节点测速无延迟，而同一节点改用真实 IP 后正常。
+
+实测故障链路中，节点域名在 Shadowrocket 断开时解析为真实公网 IP，连接 TUN 后系统 resolver 返回 `198.18.x.x`；显式查询公共 DNS 仍能得到正确公网 IP。将该节点 hostname 加入 `always-real-ip` 后，节点测速立即恢复。
+
+因此 Hrules **不会默认使用 `always-real-ip = *`**。公共配置无法预先知道每个用户的机场、自建 VPS、EdgeTunnel 等节点域名，而且全局关闭 Fake-IP 会扩大行为变化。若 macOS 上出现“IP 节点可测速、域名节点无延迟”的现象，可在 `[General]` 中按需加入实际节点域名：
+
+```ini
+always-real-ip = node.example.com,*.nodes.example.com
+```
+
+多个域名用逗号分隔。只添加实际受影响的节点 hostname；不要把普通网站域名批量加入。
+
+Shadowrocket 还提供 `proxy-dns-server`，用于指定“节点域名”的独立解析 DNS；未设置时节点域名默认使用 `dns-server`。它解决的是节点 hostname 的 DNS 上游选择，与 `always-real-ip` 控制 TUN DNS 返回真实 IP / Fake-IP 不是同一层。当前 Hrules 不再把 `proxy-dns-server` 作为默认修复，因为本次真机故障已经通过精确 `always-real-ip` 得到直接验证。
 
 ## QUIC / UDP
 
