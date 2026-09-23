@@ -20,6 +20,12 @@ for p in editions + [adapter_path]:
                 errors.append(f"{p.name}: missing {x}")
     if "proxies:[]" in s or "#null" in s:
         errors.append(f"{p.name}: unsafe empty/null token")
+    if p in editions:
+        bootstrap='"proxy-server-nameserver": ["https://223.5.5.5/dns-query","https://1.1.1.1/dns-query","https://8.8.8.8/dns-query"]'
+        if bootstrap not in s:
+            errors.append(f"{p.name}: missing real-IP proxy hostname bootstrap DNS")
+        if '"proxy-server-nameserver": ["223.5.5.5","119.29.29.29"]' in s:
+            errors.append(f"{p.name}: stale UDP-only proxy hostname bootstrap DNS")
 
 for e in ("stable", "strict"):
     s = (ROOT / "mihomo" / "editions" / f"hrules-{e}.js").read_text(encoding="utf-8")
