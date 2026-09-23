@@ -322,6 +322,13 @@
       "format": "rule-provider/classical",
       "entries": 10,
       "modules": []
+    },
+    {
+      "path": "shadowrocket/hrules.conf",
+      "sha256": "PENDING",
+      "client": "shadowrocket",
+      "format": "routing-layer",
+      "entries": 0
     }
   ],
   "skipped_non_publishable_modules": [
@@ -544,7 +551,7 @@
       "public_names": [
         "Shadowrocket"
       ],
-      "status": "planned"
+      "status": "validating"
     },
     "sing-box": {
       "public_names": [
