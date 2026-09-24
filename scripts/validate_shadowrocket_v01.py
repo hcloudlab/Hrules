@@ -48,9 +48,9 @@ for key, expected in required_general.items():
     elif expected is not None and settings[key].lower() != expected:
         errors.append(f"invalid [General] setting: {key}={settings[key]}")
 
-# Keep skip-proxy absent from the public baseline. Real-device testing showed
-# it can amplify slow save / latency-test behavior on macOS, but it is not the
-# root cause of hostname-node Fake-IP bootstrap failures.
+# Keep skip-proxy absent from the public baseline. The routing rules already
+# cover the core private/local DIRECT paths, while macOS real-device testing
+# showed measurably slower node-latency checks when skip-proxy was enabled.
 if "skip-proxy" in settings:
     errors.append("skip-proxy must remain absent from the public baseline")
 
