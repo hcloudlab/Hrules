@@ -1,7 +1,7 @@
 // Hrules Core edition contract artifact.
 // Hrules Mihomo Stable / 稳定版
 const HRULES_EDITION = "stable";
-const HRULES_EDITION_SPEC = {"system_groups":["all","auto","fallback"],"region_groups":true,"same_region_failover":true,"scene_groups":["sensitive_ai","crypto_account","us_banking_account","brokerage_account","financial_account","general_ai","youtube_media"],"sensitive_exit_policy":"same_region_preferred"};
+const HRULES_EDITION_SPEC = {"system_groups":[],"region_groups":true,"same_region_failover":false,"scene_groups":["sensitive_ai","crypto_account","us_banking_account","brokerage_account","financial_account","general_ai","youtube_media"],"sensitive_exit_policy":"manual_region_or_node"};
 
 // Hrules Clash Verge Rev Global Adapter v0.1
 // Paste this file into Clash Verge Rev -> Global Extension Script.
@@ -12,10 +12,10 @@ function main(config) {
   const HR = "Hrules";
   const edition = (typeof HRULES_EDITION !== "undefined") ? HRULES_EDITION : "strict";
   const editionSpec = (typeof HRULES_EDITION_SPEC !== "undefined") ? HRULES_EDITION_SPEC : {
-    system_groups:["all","auto","fallback","load-balance"], region_groups:true,
-    same_region_failover:true,
+    system_groups:[], region_groups:true,
+    same_region_failover:false,
     scene_groups:["sensitive_ai","crypto_account","us_banking_account","brokerage_account","general_ai","youtube_media"],
-    sensitive_exit_policy:"restricted"
+    sensitive_exit_policy:"manual_region_or_node"
   };
   const hasSystem = id => editionSpec.system_groups.includes(id);
   const hasScene = id => editionSpec.scene_groups.includes(id);
@@ -65,77 +65,65 @@ function main(config) {
   // DNS egress is bound to an Hrules-owned group that exists for this edition.
   // Node-domain bootstrap remains independent from the proxy to avoid a loop.
   // proxy-server-nameserver uses direct DoH and must return real IPs, never Fake-IP.
-  const dnsProxyGroup = hasSystem("auto") ? "♻️ 自动选择 [系统]"
-    : hasSystem("all") ? "🌐 全部节点 [系统]" : null;
+  const dnsProxyGroup = null;
 
   const mk = (name, type, extra={}) => Object.assign({name,type}, source, extra);
   const sceneGroup = (name, list) => list.length
     ? {name,type:"select",proxies:list}
     : Object.assign({name,type:"select"}, source);
-  if (hasSystem("all")) groups.push(mk("🌐 全部节点 [系统]","select"));
-  if (hasSystem("auto")) groups.push(mk("♻️ 自动选择 [系统]","url-test",Object.assign({},health,{tolerance:50})));
-  if (hasSystem("fallback")) groups.push(mk("🛡️ 故障转移 [系统]","fallback",health));
-  if (hasSystem("load-balance")) groups.push(mk("⚖️ 负载均衡 [系统]","load-balance",Object.assign({},health,{strategy:"consistent-hashing"})));
+  // Preserve airport-owned proxy groups, but Hrules does not create global automatic
+  // groups of its own. Scene egress stays explicit and auditable.
 
   const regions = [
-    ["us","🇺🇸 美国 [地区]","🛡️ 美国故障转移 [敏感]",/(美国|United States|Los Angeles|San Jose|Seattle|Dallas|New York|🇺🇸|(^|[^A-Za-z])US([^A-Za-z]|$)|(^|[^A-Za-z])USA([^A-Za-z]|$))/i],
-    ["jp","🇯🇵 日本 [地区]","🛡️ 日本故障转移 [敏感]",/(日本|Japan|Tokyo|Osaka|🇯🇵|(^|[^A-Za-z])JP([^A-Za-z]|$))/i],
-    ["sg","🇸🇬 新加坡 [地区]","🛡️ 新加坡故障转移 [敏感]",/(新加坡|Singapore|🇸🇬|(^|[^A-Za-z])SG([^A-Za-z]|$))/i],
-    ["hk","🇭🇰 香港 [地区]","🛡️ 香港故障转移 [敏感]",/(香港|Hong Kong|🇭🇰|(^|[^A-Za-z])HK([^A-Za-z]|$))/i],
-    ["tw","🇹🇼 台湾 [地区]","🛡️ 台湾故障转移 [敏感]",/(台湾|台灣|Taiwan|🇹🇼|(^|[^A-Za-z])TW([^A-Za-z]|$))/i],
-    ["kr","🇰🇷 韩国 [地区]","🛡️ 韩国故障转移 [敏感]",/(韩国|韓國|Korea|Seoul|🇰🇷|(^|[^A-Za-z])KR([^A-Za-z]|$))/i],
-    ["gb","🇬🇧 英国 [地区]","🛡️ 英国故障转移 [敏感]",/(英国|英國|United Kingdom|London|🇬🇧|(^|[^A-Za-z])UK([^A-Za-z]|$)|(^|[^A-Za-z])GB([^A-Za-z]|$))/i],
-    ["de","🇩🇪 德国 [地区]","🛡️ 德国故障转移 [敏感]",/(德国|德國|Germany|Frankfurt|🇩🇪|(^|[^A-Za-z])DE([^A-Za-z]|$))/i]
+    ["us","🇺🇸 美国 [地区]",/(美国|United States|Los Angeles|San Jose|Seattle|Dallas|New York|🇺🇸|(^|[^A-Za-z])US([^A-Za-z]|$)|(^|[^A-Za-z])USA([^A-Za-z]|$))/i],
+    ["jp","🇯🇵 日本 [地区]",/(日本|Japan|Tokyo|Osaka|🇯🇵|(^|[^A-Za-z])JP([^A-Za-z]|$))/i],
+    ["sg","🇸🇬 新加坡 [地区]",/(新加坡|Singapore|🇸🇬|(^|[^A-Za-z])SG([^A-Za-z]|$))/i],
+    ["hk","🇭🇰 香港 [地区]",/(香港|Hong Kong|🇭🇰|(^|[^A-Za-z])HK([^A-Za-z]|$))/i],
+    ["tw","🇹🇼 台湾 [地区]",/(台湾|台灣|Taiwan|🇹🇼|(^|[^A-Za-z])TW([^A-Za-z]|$))/i],
+    ["kr","🇰🇷 韩国 [地区]",/(韩国|韓國|Korea|Seoul|🇰🇷|(^|[^A-Za-z])KR([^A-Za-z]|$))/i],
+    ["gb","🇬🇧 英国 [地区]",/(英国|英國|United Kingdom|London|🇬🇧|(^|[^A-Za-z])UK([^A-Za-z]|$)|(^|[^A-Za-z])GB([^A-Za-z]|$))/i],
+    ["de","🇩🇪 德国 [地区]",/(德国|德國|Germany|Frankfurt|🇩🇪|(^|[^A-Za-z])DE([^A-Za-z]|$))/i]
   ];
 
-  const regionNames = [], sensitiveNames = [], matched = new Set();
+  const regionNames = [], matched = new Set();
   if (nodeNames.length && editionSpec.region_groups) {
-    for (const [,name,sensitive,re] of regions) {
+    for (const [,name,re] of regions) {
       const members = nodeNames.filter(n => re.test(n));
       members.forEach(n => matched.add(n));
       if (!members.length) continue;
       regionNames.push(name);
-      groups.push({name,type:"select",proxies:members});
-      if (editionSpec.same_region_failover) {
-        sensitiveNames.push(sensitive);
-        groups.push({name:sensitive,type:"fallback",proxies:members,...health});
-      }
+      // Region is the only automatic boundary Hrules creates: url-test may switch
+      // nodes inside this region, but can never drift to another region.
+      groups.push({name,type:"url-test",proxies:members,...health,tolerance:50});
     }
     const other = nodeNames.filter(n => !matched.has(n));
     if (other.length) {
       regionNames.push("🌐 未分类 [地区]");
       groups.push({name:"🌐 未分类 [地区]",type:"select",proxies:other});
     }
-    if (regionNames.length) groups.push({name:"🌍 地区 [系统]",type:"select",proxies:regionNames});
   }
-  // Provider-only profiles cannot be safely enumerated by a synchronous CVR script.
-  // They still receive safe Hrules system/scene groups through Mihomo 'use', but no
-  // guessed region or sensitive same-region fallback groups.
+  // Provider-only profiles cannot be synchronously enumerated into safe regions.
+  // In that case scenes expose the provider nodes directly and remain manual.
 
   const exact = nodeNames.slice();
-  const regionParent = regionNames.length ? ["🌍 地区 [系统]"] : [];
-  const available = names => names.filter(n => groups.some(g => g.name === n));
-  const normalCandidates = [...available(["♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]"]),...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-  const mediaCandidates = [...available(["♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]","⚖️ 负载均衡 [系统]"]),...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-  const sensitiveByKey = {};
-  for (const [key,,sensitive] of regions) if (groups.some(g => g.name === sensitive)) sensitiveByKey[key] = sensitive;
-  const sceneCandidates = (preferKeys, denyKeys=[]) => {
-    const deny = new Set(denyKeys.map(k => sensitiveByKey[k]).filter(Boolean));
-    const first = preferKeys.map(k => sensitiveByKey[k]).filter(Boolean);
-    const rest = sensitiveNames.filter(n => !first.includes(n) && !deny.has(n));
-    const tail = editionSpec.sensitive_exit_policy === "restricted" ? [] : available(["🌐 全部节点 [系统]"]);
-    return [...first,...rest,...regionParent,...tail,...exact];
-  };
-  const aiCandidates = sceneCandidates(["us","jp","sg","tw","kr","gb","de"],["hk"]);
-  const cryptoCandidates = sceneCandidates(["jp","sg","hk","tw","kr"],["us"]);
-  const usCandidates = sceneCandidates(["us"]);
-  if (hasScene("sensitive_ai")) groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",aiCandidates));
-  if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",cryptoCandidates));
-  groups.push(sceneGroup("🏦 美国账户 [场景]",usCandidates));
-  if (hasScene("general_ai")) groups.push(sceneGroup("🤖 AI 服务 [场景]",normalCandidates));
-  if (hasScene("youtube_media")) groups.push(sceneGroup("📺 影音媒体 [场景]",mediaCandidates));
-  groups.push(sceneGroup("💬 Telegram [场景]",normalCandidates));
-  groups.push(sceneGroup("🚀 漏网之鱼 [自选]",mediaCandidates.length ? mediaCandidates : exact));
+  // Scene groups expose only two Hrules choices: a concrete region or a concrete node.
+  // Choosing a region permits automatic switching only inside that region; choosing
+  // a node pins the scene to that node. No Hrules global auto/fallback/all-nodes group
+  // is inserted into a scene.
+  const sceneCandidates = [...regionNames,...exact];
+  if (hasScene("sensitive_ai")) groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sceneCandidates));
+  if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",sceneCandidates));
+  if (edition === "strict") {
+    if (hasScene("us_banking_account")) groups.push(sceneGroup("🏦 美国银行 [场景]",sceneCandidates));
+    if (hasScene("brokerage_account")) groups.push(sceneGroup("📈 美股 [场景]",sceneCandidates));
+    if (hasScene("financial_account")) groups.push(sceneGroup("💳 金融账户 [场景]",sceneCandidates));
+  } else {
+    groups.push(sceneGroup("🏦 美国账户 [场景]",sceneCandidates));
+  }
+  if (hasScene("general_ai")) groups.push(sceneGroup("🤖 AI 服务 [场景]",sceneCandidates));
+  if (hasScene("youtube_media")) groups.push(sceneGroup("📺 影音媒体 [场景]",sceneCandidates));
+  groups.push(sceneGroup("💬 Telegram [场景]",sceneCandidates));
+  groups.push(sceneGroup("🚀 漏网之鱼 [自选]",sceneCandidates.length ? sceneCandidates : exact));
   config["proxy-groups"] = groups;
 
   config["dns"] = {
