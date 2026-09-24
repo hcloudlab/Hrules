@@ -31,7 +31,13 @@
 
 **AI** · **Claude / OpenAI** · **虚拟货币** · **美国银行** · **美股 / 券商** · **YouTube** · **主流国际服务** · **Apple / iCloud** · **Apple Intelligence / Private Relay** · **中国大陆直连** · **私有网络直连**
 
-当前已发布的主流国际服务规则包括 TikTok、Instagram、Facebook、WhatsApp、X / Twitter、Discord、Reddit、GitHub、Netflix、Disney+、Prime Video、Spotify、Twitch。\n\nApple 中国大陆服务保持 DIRECT 优先，国际 Apple / iCloud 使用独立场景；Apple Intelligence 与 Private Relay 单独识别。\n\n> DNS 仍由客户端 / Host 配置负责，Hrules 当前不向 Mihomo 主配置注入 `dns:`。\n\n→ [查看场景与规则说明](docs/scenes.md) · [DNS 与分流说明](docs/dns.md)
+当前已发布的主流国际服务规则包括 TikTok、Instagram、Facebook、WhatsApp、X / Twitter、Discord、Reddit、GitHub、Netflix、Disney+、Prime Video、Spotify、Twitch。
+
+Apple 中国大陆服务保持 DIRECT 优先，国际 Apple / iCloud 使用独立场景；Apple Intelligence 与 Private Relay 单独识别。
+
+> DNS 仍由客户端 / Host 配置负责，Hrules 当前不向 Mihomo 主配置注入 `dns:`。
+
+→ [查看场景与规则说明](docs/scenes.md) · [DNS 与分流说明](docs/dns.md)
 
 ## 推荐服务
 
