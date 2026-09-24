@@ -20,7 +20,7 @@ Hrules 的目标是让用户能够明确看到：**哪些请求被归到哪个�
 | --- | --- | --- |
 | **Clash Verge Rev** | ✅ Available | [进入安装中心](docs/kernels/mihomo.md#clash-verge-rev) |
 | **Mihomo / Clash Meta 客户端** | ✅ Available | [进入安装中心](docs/kernels/mihomo.md) |
-| **Shadowrocket** | ✅ Available | [进入安装说明](docs/kernels/shadowrocket.md) |
+| **Shadowrocket** | 🟡 Validating | [进入安装说明](docs/kernels/shadowrocket.md) |
 | **sing-box / SFM** | 🧪 Planned | 待开放 |
 | **v2rayN / v2rayNG** | 🧪 Planned | 待开放 |
 | **Karing** | 🧪 Planned | 待开放 |
@@ -114,7 +114,7 @@ Hrules 在 **Clash Verge Rev / Mihomo** 中同时提供经过实机验证的 DNS
 
 当前公共版本：**v0.1.0-rc1**
 
-当前已经完成 **Clash Verge Rev / Mihomo** 多订阅真实客户端验证、**3X-UI Remote Routing** 真实链路验证，以及 **Shadowrocket** 真机路由验证。Shadowrocket 采用单一完整配置，不分标准 / 稳定 / 严格。其他客户端会在完成实现与真实验收后逐步开放。
+当前已经完成 **Clash Verge Rev / Mihomo** 多订阅真实客户端验证，以及 **3X-UI Remote Routing** 真实链路验证。**Shadowrocket v0.1 已恢复当前 Core 规则生成与发布链，正在进行最终真实客户端验收，因此暂标记为 Validating。** Shadowrocket 采用单一完整配置，不分标准 / 稳定 / 严格。其他客户端会在完成实现与真实验收后逐步开放。
 
 \`main\` 提供持续更新的公共运行时与规则；版本 Tag / Release 提供固定的产品契约快照。
 
