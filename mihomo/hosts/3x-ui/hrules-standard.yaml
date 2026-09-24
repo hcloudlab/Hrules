@@ -1,23 +1,5 @@
 proxy-groups:
-- name: 🔐 Claude / OpenAI [场景]
-  type: select
-  proxies:
-  - PROXY
-  - DIRECT
-  include-all-proxies: true
 - name: 🤖 AI 服务 [场景]
-  type: select
-  proxies:
-  - PROXY
-  - DIRECT
-  include-all-proxies: true
-- name: 💰 虚拟货币 [场景]
-  type: select
-  proxies:
-  - PROXY
-  - DIRECT
-  include-all-proxies: true
-- name: 🏦 美国账户 [场景]
   type: select
   proxies:
   - PROXY
@@ -135,12 +117,12 @@ rule-providers:
     interval: 21600
 rules:
 - RULE-SET,hrules-private-direct,DIRECT,no-resolve
-- RULE-SET,hrules-network-test,🔐 Claude / OpenAI [场景]
-- RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]
-- RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]
-- RULE-SET,hrules-us-banking-account,🏦 美国账户 [场景]
-- RULE-SET,hrules-brokerage-account,🏦 美国账户 [场景]
-- RULE-SET,hrules-financial-account,🏦 美国账户 [场景]
+- RULE-SET,hrules-network-test,🤖 AI 服务 [场景]
+- RULE-SET,hrules-sensitive-ai,🤖 AI 服务 [场景]
+- RULE-SET,hrules-crypto-account,🤖 AI 服务 [场景]
+- RULE-SET,hrules-us-banking-account,🤖 AI 服务 [场景]
+- RULE-SET,hrules-brokerage-account,🤖 AI 服务 [场景]
+- RULE-SET,hrules-financial-account,🤖 AI 服务 [场景]
 - RULE-SET,hrules-telegram,💬 Telegram [场景],no-resolve
 - RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]
 - RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]
