@@ -9,7 +9,7 @@ function main(config) {
   const editionSpec = (typeof HRULES_EDITION_SPEC !== "undefined") ? HRULES_EDITION_SPEC : {
     system_groups:["all","auto","fallback","load-balance"], region_groups:true,
     same_region_failover:true,
-    scene_groups:["sensitive_ai","crypto_account","us_banking_account","brokerage_account","general_ai","youtube_media","mainstream_proxy","apple_global"],
+    scene_groups:["sensitive_ai","crypto_account","us_banking_account","brokerage_account","financial_account","general_ai","youtube_media"],
     sensitive_exit_policy:"restricted"
   };
   const hasSystem = id => editionSpec.system_groups.includes(id);
@@ -22,7 +22,7 @@ function main(config) {
   // Some airport subscriptions encode quota/expiry/homepage status as syntactically
   // valid proxies. They are profile metadata, not user egress choices. Excluding them
   // here also prevents tokens such as "236.29 GB" from becoming a false UK region.
-  const metadataNode = /(剩余流量|流量剩余|套餐到期|到期时间|有效期|官网|官方|(?:^|[\\s:：|｜_-])(traffic|remaining|expire|expiry|expires|quota|bandwidth|website|homepage)(?=[\\s:：|｜_-]|$))/i;
+  const metadataNode = /(剩余流量|流量剩余|套餐到期|到期时间|有效期|官网|官方|(?:^|[\s:：|｜_-])(traffic|remaining|expire|expiry|expires|quota|bandwidth|website|homepage)(?=[\s:：|｜_-]|$))/i;
   const nodeNames = rawNodeNames.filter(n => !metadataNode.test(n));
   const providerNames = config["proxy-providers"] && typeof config["proxy-providers"] === "object"
     ? Object.keys(config["proxy-providers"]) : [];
@@ -43,17 +43,26 @@ function main(config) {
     "🛡️ 日本故障转移 [敏感]","🛡️ 新加坡故障转移 [敏感]","🛡️ 香港故障转移 [敏感]",
     "🛡️ 台湾故障转移 [敏感]","🛡️ 韩国故障转移 [敏感]","🛡️ 英国故障转移 [敏感]",
     "🛡️ 德国故障转移 [敏感]","🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]",
-    "🏦 美国银行 [场景]","📈 美股 [场景]","🤖 AI 服务 [场景]","📺 YouTube [场景]","🌐 国际服务 [场景]","🍎 Apple / iCloud [场景]",
+    "🏦 美国账户 [场景]","🔐 重要账户 [场景]","🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","🏦 美国账户 [场景]","🤖 AI 服务 [场景]","📺 影音媒体 [场景]","📺 YouTube [场景]",
     "🚀 漏网之鱼 [自选]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
 
   const source = {};
   if (nodeNames.length) source.proxies = nodeNames;
-  if (providerNames.length) source.use = providerNames;
+  if (providerNames.length) {
+    source.use = providerNames;
+    // Filter common quota/expiry/homepage pseudo-nodes exposed by providers.
+    source["exclude-filter"] = "剩余|到期|有效期|官网|官方|traffic|remaining|expire|expiry|quota|bandwidth|website|homepage";
+  }
   const health = { url: "https://www.gstatic.com/generate_204", interval: 300 };
+  const dnsProxyGroup = hasSystem("auto") ? "♻️ 自动选择 [系统]"
+    : hasSystem("all") ? "🌐 全部节点 [系统]" : null;
 
   const mk = (name, type, extra={}) => Object.assign({name,type}, source, extra);
+  const sceneGroup = (name, list) => list.length
+    ? {name,type:"select",proxies:list}
+    : Object.assign({name,type:"select"}, source);
   if (hasSystem("all")) groups.push(mk("🌐 全部节点 [系统]","select"));
   if (hasSystem("auto")) groups.push(mk("♻️ 自动选择 [系统]","url-test",Object.assign({},health,{tolerance:50})));
   if (hasSystem("fallback")) groups.push(mk("🛡️ 故障转移 [系统]","fallback",health));
@@ -105,54 +114,65 @@ function main(config) {
     ? [...sensitiveNames,...regionParent,...exact]
     : [...sensitiveNames,...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
 
-  if (hasScene("sensitive_ai")) groups.push({name:"🔐 Claude / OpenAI [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("crypto_account")) groups.push({name:"💰 虚拟货币 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("us_banking_account")) groups.push({name:"🏦 美国银行 [场景]",type:"select",proxies:sensitiveCandidates});
-  if (hasScene("brokerage_account")) groups.push({name:"📈 美股 [场景]",type:"select",proxies:sensitiveCandidates});
+  if (hasScene("sensitive_ai")) groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sensitiveCandidates));
+  if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",sensitiveCandidates));
+  if (edition === "strict") {
+    if (hasScene("us_banking_account")) groups.push(sceneGroup("🏦 美国银行 [场景]",sensitiveCandidates));
+    if (hasScene("brokerage_account")) groups.push(sceneGroup("📈 美股 [场景]",sensitiveCandidates));
+  } else if (hasScene("us_banking_account") || hasScene("brokerage_account")) {
+    groups.push(sceneGroup("🏦 美国账户 [场景]",sensitiveCandidates));
+  }
+  if (hasScene("financial_account")) groups.push(sceneGroup("💳 金融账户 [场景]",sensitiveCandidates));
   if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
-  if (hasScene("youtube_media")) groups.push({name:"📺 YouTube [场景]",type:"select",proxies:mediaCandidates});
-  if (hasScene("mainstream_proxy")) groups.push({name:"🌐 国际服务 [场景]",type:"select",proxies:mediaCandidates});
-  if (hasScene("apple_global")) groups.push({name:"🍎 Apple / iCloud [场景]",type:"select",proxies:normalCandidates});
+  if (hasScene("youtube_media")) groups.push({name:"📺 影音媒体 [场景]",type:"select",proxies:mediaCandidates});
   groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
   config["proxy-groups"] = groups;
 
   const providers = Object.assign({}, config["rule-providers"] || {});
   const defs = [
     ["hrules-private-direct","private_direct"],
+    ["hrules-network-test","network_test"],
     ["hrules-sensitive-ai","sensitive_ai"],
     ["hrules-crypto-account","crypto_account"],
     ["hrules-us-banking-account","us_banking_account"],
     ["hrules-brokerage-account","brokerage_account"],
+    ["hrules-financial-account","financial_account"],
     ["hrules-general-ai","general_ai"],
     ["hrules-youtube-media","youtube_media"],
-    ["hrules-mainstream-proxy","mainstream_proxy"],
-    ["hrules-apple-global","apple_global"],
-    ["hrules-apple-intelligence-route","apple_intelligence_route"],
-    ["hrules-apple-private-relay-route","apple_private_relay_route"],
     ["hrules-cn-direct","cn_direct"]
   ];
   for (const [key,id] of defs) {
     providers[key] = {type:"http",behavior:"classical",format:"yaml",
-      url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600};
+      url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600,proxy:dnsProxyGroup || undefined};
   }
   config["rule-providers"] = providers;
 
   // Hrules is an overlay. Do not add its MATCH here: the host profile keeps
   // ownership of its existing fallback/MATCH semantics.
-  const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT","RULE-SET,hrules-cn-direct,DIRECT"];
+  const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT,no-resolve"];
+  if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-network-test,🔐 Claude / OpenAI [场景]");
   if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]");
   if (hasScene("crypto_account")) hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
-  if (hasScene("us_banking_account")) hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国银行 [场景]");
-  if (hasScene("brokerage_account")) hrulesRules.push("RULE-SET,hrules-brokerage-account,📈 美股 [场景]");
+  if (hasScene("us_banking_account")) hrulesRules.push(`RULE-SET,hrules-us-banking-account,${edition === "strict" ? "🏦 美国银行 [场景]" : "🏦 美国账户 [场景]"}`);
+  if (hasScene("brokerage_account")) hrulesRules.push(`RULE-SET,hrules-brokerage-account,${edition === "strict" ? "📈 美股 [场景]" : "🏦 美国账户 [场景]"}`);
+  if (hasScene("financial_account")) hrulesRules.push(`RULE-SET,hrules-financial-account,${edition === "strict" ? "💳 金融账户 [场景]" : "🏦 美国账户 [场景]"}`);
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
-  if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 YouTube [场景]");
-  if (hasScene("mainstream_proxy")) hrulesRules.push("RULE-SET,hrules-mainstream-proxy,🌐 国际服务 [场景]");
-  if (hasScene("apple_global")) {
-    hrulesRules.push("RULE-SET,hrules-apple-intelligence-route,🤖 AI 服务 [场景]");
-    hrulesRules.push("RULE-SET,hrules-apple-private-relay-route,🍎 Apple / iCloud [场景]");
-    hrulesRules.push("RULE-SET,hrules-apple-global,🍎 Apple / iCloud [场景]");
-  }
-  config.rules = hrulesRules.concat(originalRules);
+  if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]");
+  hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
+  // Strict owns the terminal decision. Preserve all host rules except their
+  // terminal MATCH/FINAL, then make Hrules the single auditable catch-all.
+  const nonTerminalRules = originalRules.filter(r =>
+    !(typeof r === "string" && /^(MATCH|FINAL),/i.test(r.trim()))
+  );
+  config.rules = hrulesRules.concat(nonTerminalRules, ["MATCH,🚀 漏网之鱼 [自选]"]);
   config.mode = "rule";
   return config;
 }
+
+// Recovery note: current Core also publishes hrules-mainstream-proxy. Edition adapters own its scene mapping.
+
+// Recovery note: current Core also publishes hrules-apple-global. Edition adapters own its scene mapping.
+
+// Recovery note: current Core also publishes hrules-apple-intelligence-route. Edition adapters own its scene mapping.
+
+// Recovery note: current Core also publishes hrules-apple-private-relay-route. Edition adapters own its scene mapping.
