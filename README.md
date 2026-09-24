@@ -7,7 +7,7 @@
 | 模式 | 主要目标 | 典型行为 | 典型场景 |
 | --- | --- | --- | --- |
 | 🟢 **标准** | 可用性与日常体验 | 允许自动选择和常规故障切换 | 普通网页、YouTube / 视频、一般网络服务 |
-| 🟡 **稳定** | 尽量保持地区一致 | 优先同地区选择与同地区故障切换 | Claude、ChatGPT、Netflix 等地区敏感服务 |
+| 🟡 **稳定** | 尽量保持敏感场景地区一致 | 对已实现同地区策略的敏感场景优先同地区选择与故障切换 | Claude / OpenAI 等敏感 AI 场景 |
 | 🔴 **严格** | 出口更可预测 | 限制自动漂移，优先明确/固定的允许出口 | 银行、证券 / 券商、虚拟货币等重要账户 |
 
 → [了解三种路由模式](docs/routing-modes.md)
@@ -29,9 +29,15 @@
 
 当前公共场景覆盖：
 
-**AI** · **Claude / OpenAI** · **虚拟货币** · **美国银行** · **美股 / 券商** · **YouTube** · **中国大陆直连** · **私有网络直连**
+**AI** · **Claude / OpenAI** · **虚拟货币** · **美国银行** · **美股 / 券商** · **YouTube** · **主流国际服务** · **Apple / iCloud** · **Apple Intelligence / Private Relay** · **中国大陆直连** · **私有网络直连**
 
-→ [查看场景与规则说明](docs/scenes.md)
+当前已发布的主流国际服务规则包括 TikTok、Instagram、Facebook、WhatsApp、X / Twitter、Discord、Reddit、GitHub、Netflix、Disney+、Prime Video、Spotify、Twitch。
+
+Apple 中国大陆服务保持 DIRECT 优先，国际 Apple / iCloud 使用独立场景；Apple Intelligence 与 Private Relay 单独识别。
+
+> DNS 仍由客户端 / Host 配置负责，Hrules 当前不向 Mihomo 主配置注入 `dns:`。
+
+→ [查看场景与规则说明](docs/scenes.md) · [DNS 与分流说明](docs/dns.md)
 
 ## 推荐服务
 
