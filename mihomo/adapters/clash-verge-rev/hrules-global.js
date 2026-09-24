@@ -1,18 +1,22 @@
 // Hrules Clash Verge Rev Global Adapter v0.1
-// Paste this file into Clash Verge Rev -> Global Extension Script.
-// Hrules owns routing topology only. The active profile continues to own nodes,
-// providers, DNS, TUN, ports, and credentials.
+// Fine-grained capability profile; public per-subscription use should prefer edition scripts.
+const HRULES_EDITION = "strict";
+const HRULES_EDITION_SPEC = {"system_groups":[],"region_groups":true,"same_region_failover":false,"scene_groups":["sensitive_ai","crypto_account","us_banking_account","brokerage_account","financial_account","general_ai","youtube_media","mainstream_proxy","apple_global"],"sensitive_exit_policy":"manual_region_or_node"};
+
+// Hrules Clash Verge Rev Subscription Adapter v0.1
+// Paste this file into the target subscription's Extension Script.
+// Hrules owns routing topology and the validated DNS baseline. The active profile
+// continues to own nodes, providers, TUN, ports, and credentials.
 
 function main(config) {
   const HR = "Hrules";
   const edition = (typeof HRULES_EDITION !== "undefined") ? HRULES_EDITION : "strict";
   const editionSpec = (typeof HRULES_EDITION_SPEC !== "undefined") ? HRULES_EDITION_SPEC : {
-    system_groups:["all","auto","fallback","load-balance"], region_groups:true,
-    same_region_failover:true,
-    scene_groups:["sensitive_ai","crypto_account","us_banking_account","brokerage_account","financial_account","general_ai","youtube_media"],
-    sensitive_exit_policy:"restricted"
+    system_groups:[], region_groups:true,
+    same_region_failover:false,
+    scene_groups:["sensitive_ai","crypto_account","us_banking_account","brokerage_account","general_ai","youtube_media"],
+    sensitive_exit_policy:"manual_region_or_node"
   };
-  const hasSystem = id => editionSpec.system_groups.includes(id);
   const hasScene = id => editionSpec.scene_groups.includes(id);
   const providerBase = "https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes";
   const rawNodeNames = Array.isArray(config.proxies)
@@ -37,14 +41,8 @@ function main(config) {
   const existingGroups = Array.isArray(config["proxy-groups"]) ? config["proxy-groups"] : [];
   const owned = new Set([
     "🌐 全部节点 [系统]","♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]","⚖️ 负载均衡 [系统]",
-    "🌍 地区 [系统]","🇺🇸 美国 [地区]","🇯🇵 日本 [地区]","🇸🇬 新加坡 [地区]",
-    "🇭🇰 香港 [地区]","🇹🇼 台湾 [地区]","🇰🇷 韩国 [地区]","🇬🇧 英国 [地区]",
-    "🇩🇪 德国 [地区]","🌐 未分类 [地区]","🛡️ 美国故障转移 [敏感]",
-    "🛡️ 日本故障转移 [敏感]","🛡️ 新加坡故障转移 [敏感]","🛡️ 香港故障转移 [敏感]",
-    "🛡️ 台湾故障转移 [敏感]","🛡️ 韩国故障转移 [敏感]","🛡️ 英国故障转移 [敏感]",
-    "🛡️ 德国故障转移 [敏感]","🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]",
-    "🏦 美国账户 [场景]","🔐 重要账户 [场景]","🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","🏦 美国账户 [场景]","🤖 AI 服务 [场景]","📺 影音媒体 [场景]","📺 YouTube [场景]",
-    "🚀 漏网之鱼 [自选]"
+    "🌍 地区 [系统]","🇺🇸 美国 [地区]","🇯🇵 日本 [地区]","🇸🇬 新加坡 [地区]","🇭🇰 香港 [地区]","🇹🇼 台湾 [地区]","🇰🇷 韩国 [地区]","🇬🇧 英国 [地区]","🇩🇪 德国 [地区]","🌐 未分类 [地区]",
+    "🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]","🏦 美国账户 [场景]","🔐 重要账户 [场景]","🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","📺 影音媒体 [场景]","📺 YouTube [场景]","💬 Telegram [场景]","🌐 国际服务 [场景]","🍎 Apple / iCloud [场景]","🌐 海外应用 [场景]","📺 流媒体 [场景]","💳 金融服务 [场景]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
 
@@ -56,77 +54,84 @@ function main(config) {
     source["exclude-filter"] = "剩余|到期|有效期|官网|官方|traffic|remaining|expire|expiry|quota|bandwidth|website|homepage";
   }
   const health = { url: "https://www.gstatic.com/generate_204", interval: 300 };
-  const dnsProxyGroup = hasSystem("auto") ? "♻️ 自动选择 [系统]"
-    : hasSystem("all") ? "🌐 全部节点 [系统]" : null;
 
-  const mk = (name, type, extra={}) => Object.assign({name,type}, source, extra);
+  const dnsProxyGroup = null;
+
   const sceneGroup = (name, list) => list.length
     ? {name,type:"select",proxies:list}
     : Object.assign({name,type:"select"}, source);
-  if (hasSystem("all")) groups.push(mk("🌐 全部节点 [系统]","select"));
-  if (hasSystem("auto")) groups.push(mk("♻️ 自动选择 [系统]","url-test",Object.assign({},health,{tolerance:50})));
-  if (hasSystem("fallback")) groups.push(mk("🛡️ 故障转移 [系统]","fallback",health));
-  if (hasSystem("load-balance")) groups.push(mk("⚖️ 负载均衡 [系统]","load-balance",Object.assign({},health,{strategy:"consistent-hashing"})));
+  // Preserve airport-owned proxy groups, but Hrules does not create global automatic
+  // groups of its own. Scene egress stays explicit and auditable.
 
   const regions = [
-    ["us","🇺🇸 美国 [地区]","🛡️ 美国故障转移 [敏感]",/(美国|United States|Los Angeles|San Jose|Seattle|Dallas|New York|🇺🇸|(^|[^A-Za-z])US([^A-Za-z]|$)|(^|[^A-Za-z])USA([^A-Za-z]|$))/i],
-    ["jp","🇯🇵 日本 [地区]","🛡️ 日本故障转移 [敏感]",/(日本|Japan|Tokyo|Osaka|🇯🇵|(^|[^A-Za-z])JP([^A-Za-z]|$))/i],
-    ["sg","🇸🇬 新加坡 [地区]","🛡️ 新加坡故障转移 [敏感]",/(新加坡|Singapore|🇸🇬|(^|[^A-Za-z])SG([^A-Za-z]|$))/i],
-    ["hk","🇭🇰 香港 [地区]","🛡️ 香港故障转移 [敏感]",/(香港|Hong Kong|🇭🇰|(^|[^A-Za-z])HK([^A-Za-z]|$))/i],
-    ["tw","🇹🇼 台湾 [地区]","🛡️ 台湾故障转移 [敏感]",/(台湾|台灣|Taiwan|🇹🇼|(^|[^A-Za-z])TW([^A-Za-z]|$))/i],
-    ["kr","🇰🇷 韩国 [地区]","🛡️ 韩国故障转移 [敏感]",/(韩国|韓國|Korea|Seoul|🇰🇷|(^|[^A-Za-z])KR([^A-Za-z]|$))/i],
-    ["gb","🇬🇧 英国 [地区]","🛡️ 英国故障转移 [敏感]",/(英国|英國|United Kingdom|London|🇬🇧|(^|[^A-Za-z])UK([^A-Za-z]|$)|(^|[^A-Za-z])GB([^A-Za-z]|$))/i],
-    ["de","🇩🇪 德国 [地区]","🛡️ 德国故障转移 [敏感]",/(德国|德國|Germany|Frankfurt|🇩🇪|(^|[^A-Za-z])DE([^A-Za-z]|$))/i]
+    ["us","🇺🇸 美国 [地区]",/(美国|United States|Los Angeles|San Jose|Seattle|Dallas|New York|🇺🇸|(^|[^A-Za-z])US([^A-Za-z]|$)|(^|[^A-Za-z])USA([^A-Za-z]|$))/i],
+    ["jp","🇯🇵 日本 [地区]",/(日本|Japan|Tokyo|Osaka|🇯🇵|(^|[^A-Za-z])JP([^A-Za-z]|$))/i],
+    ["sg","🇸🇬 新加坡 [地区]",/(新加坡|Singapore|🇸🇬|(^|[^A-Za-z])SG([^A-Za-z]|$))/i],
+    ["hk","🇭🇰 香港 [地区]",/(香港|Hong Kong|🇭🇰|(^|[^A-Za-z])HK([^A-Za-z]|$))/i],
+    ["tw","🇹🇼 台湾 [地区]",/(台湾|台灣|Taiwan|🇹🇼|(^|[^A-Za-z])TW([^A-Za-z]|$))/i],
+    ["kr","🇰🇷 韩国 [地区]",/(韩国|韓國|Korea|Seoul|🇰🇷|(^|[^A-Za-z])KR([^A-Za-z]|$))/i],
+    ["gb","🇬🇧 英国 [地区]",/(英国|英國|United Kingdom|London|🇬🇧|(^|[^A-Za-z])UK([^A-Za-z]|$)|(^|[^A-Za-z])GB([^A-Za-z]|$))/i],
+    ["de","🇩🇪 德国 [地区]",/(德国|德國|Germany|Frankfurt|🇩🇪|(^|[^A-Za-z])DE([^A-Za-z]|$))/i]
   ];
 
-  const regionNames = [], sensitiveNames = [], matched = new Set();
+  const regionNames = [], matched = new Set();
   if (nodeNames.length && editionSpec.region_groups) {
-    for (const [,name,sensitive,re] of regions) {
+    for (const [,name,re] of regions) {
       const members = nodeNames.filter(n => re.test(n));
       members.forEach(n => matched.add(n));
       if (!members.length) continue;
       regionNames.push(name);
-      groups.push({name,type:"select",proxies:members});
-      if (editionSpec.same_region_failover) {
-        sensitiveNames.push(sensitive);
-        groups.push({name:sensitive,type:"fallback",proxies:members,...health});
-      }
+      // Region is the only automatic boundary Hrules creates: url-test may switch
+      // nodes inside this region, but can never drift to another region.
+      groups.push({name,type:"url-test",proxies:members,...health,tolerance:50});
     }
     const other = nodeNames.filter(n => !matched.has(n));
     if (other.length) {
       regionNames.push("🌐 未分类 [地区]");
       groups.push({name:"🌐 未分类 [地区]",type:"select",proxies:other});
     }
-    if (regionNames.length) groups.push({name:"🌍 地区 [系统]",type:"select",proxies:regionNames});
   }
-  // Provider-only profiles cannot be safely enumerated by a synchronous CVR script.
-  // They still receive safe Hrules system/scene groups through Mihomo 'use', but no
-  // guessed region or sensitive same-region fallback groups.
+  // Provider-only profiles cannot be synchronously enumerated into safe regions.
+  // In that case scenes expose the provider nodes directly and remain manual.
 
   const exact = nodeNames.slice();
-  const regionParent = regionNames.length ? ["🌍 地区 [系统]"] : [];
-  const available = names => names.filter(n => groups.some(g => g.name === n));
-  const normalCandidates = [...available(["♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]"]),...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-  const mediaCandidates = [...available(["♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]","⚖️ 负载均衡 [系统]"]),...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-  // Strict sensitive scenes intentionally exclude global all/auto/fallback/load-balance.
-  // Stable prefers same-region fallback but still permits explicit region/node selection.
-  const sensitiveCandidates = editionSpec.sensitive_exit_policy === "restricted"
-    ? [...sensitiveNames,...regionParent,...exact]
-    : [...sensitiveNames,...regionParent,...available(["🌐 全部节点 [系统]"]),...exact];
-
-  if (hasScene("sensitive_ai")) groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sensitiveCandidates));
-  if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",sensitiveCandidates));
-  if (edition === "strict") {
-    if (hasScene("us_banking_account")) groups.push(sceneGroup("🏦 美国银行 [场景]",sensitiveCandidates));
-    if (hasScene("brokerage_account")) groups.push(sceneGroup("📈 美股 [场景]",sensitiveCandidates));
-  } else if (hasScene("us_banking_account") || hasScene("brokerage_account")) {
-    groups.push(sceneGroup("🏦 美国账户 [场景]",sensitiveCandidates));
-  }
-  if (hasScene("financial_account")) groups.push(sceneGroup("💳 金融账户 [场景]",sensitiveCandidates));
-  if (hasScene("general_ai")) groups.push({name:"🤖 AI 服务 [场景]",type:"select",proxies:normalCandidates});
-  if (hasScene("youtube_media")) groups.push({name:"📺 影音媒体 [场景]",type:"select",proxies:mediaCandidates});
-  groups.push({name:"🚀 漏网之鱼 [自选]",type:"select",proxies:mediaCandidates.length ? mediaCandidates : exact});
+  // Scene groups expose only two Hrules choices: a concrete region or a concrete node.
+  // Choosing a region permits automatic switching only inside that region; choosing
+  // a node pins the scene to that node. No Hrules global auto/fallback/all-nodes group
+  // is inserted into a scene.
+  const sceneCandidates = [...regionNames,...exact];
+  // Fine-grained edition keeps AI unified, but demonstrates deeper financial
+  // classification and gives Apple / iCloud its own egress control.
+  groups.push(sceneGroup("🌐 海外应用 [场景]",sceneCandidates));
+  groups.push(sceneGroup("📺 流媒体 [场景]",sceneCandidates));
+  groups.push(sceneGroup("🤖 AI 服务 [场景]",sceneCandidates));
+  groups.push(sceneGroup("🍎 Apple / iCloud [场景]",sceneCandidates));
+  groups.push(sceneGroup("🏦 银行服务 [场景]",sceneCandidates));
+  groups.push(sceneGroup("📈 证券 / 券商 [场景]",sceneCandidates));
+  groups.push(sceneGroup("💳 支付 / 跨境金融 [场景]",sceneCandidates));
+  groups.push(sceneGroup("💰 虚拟货币 [场景]",sceneCandidates));
+  groups.push(sceneGroup("🚀 漏网之鱼 [自选]",sceneCandidates.length ? sceneCandidates : exact));
   config["proxy-groups"] = groups;
+
+  // Keep bootstrap/node DNS independent from the proxy. Overseas DoH is not bound
+  // to an Hrules global auto group; DIRECT traffic is re-resolved by mainland
+  // resolvers for domestic CDN/locality compatibility.
+  config["dns"] = {
+    enable: true,
+    ipv6: false,
+    "enhanced-mode": "fake-ip",
+    "fake-ip-range": "198.18.0.1/16",
+    "fake-ip-filter-mode": "blacklist",
+    "fake-ip-filter": ["+.lan","+.local","+.home.arpa","localhost.ptlogin2.qq.com","time.*.com","ntp.*.com","+.pool.ntp.org","+.msftconnecttest.com","+.msftncsi.com"],
+    "default-nameserver": ["223.5.5.5","119.29.29.29"],
+    "proxy-server-nameserver": ["https://223.5.5.5/dns-query","https://1.1.1.1/dns-query","https://8.8.8.8/dns-query"],
+    "direct-nameserver": ["223.5.5.5","119.29.29.29"],
+    "direct-nameserver-follow-policy": false,
+    nameserver: dnsProxyGroup ? [
+      "https://1.1.1.1/dns-query#" + dnsProxyGroup,
+      "https://8.8.8.8/dns-query#" + dnsProxyGroup
+    ] : ["https://1.1.1.1/dns-query","https://8.8.8.8/dns-query"]
+  };
 
   const providers = Object.assign({}, config["rule-providers"] || {});
   const defs = [
@@ -137,29 +142,49 @@ function main(config) {
     ["hrules-us-banking-account","us_banking_account"],
     ["hrules-brokerage-account","brokerage_account"],
     ["hrules-financial-account","financial_account"],
+    ["hrules-telegram","telegram"],
     ["hrules-general-ai","general_ai"],
     ["hrules-youtube-media","youtube_media"],
+    ["hrules-streaming-media","streaming_media"],
+    ["hrules-mainstream-proxy","mainstream_proxy"],
+    ["hrules-apple-global","apple_global"],
+    ["hrules-apple-intelligence-route","apple_intelligence_route"],
+    ["hrules-apple-private-relay-route","apple_private_relay_route"],
     ["hrules-cn-direct","cn_direct"]
   ];
   for (const [key,id] of defs) {
     providers[key] = {type:"http",behavior:"classical",format:"yaml",
       url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600,proxy:dnsProxyGroup || undefined};
   }
+  providers["hrules-cn-domain"] = {type:"http",behavior:"domain",format:"mrs",
+    url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
+    path:"./providers/hrules-cn-domain.mrs",interval:21600};
+  providers["hrules-cn-ip"] = {type:"http",behavior:"ipcidr",format:"mrs",
+    url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs",
+    path:"./providers/hrules-cn-ip.mrs",interval:21600};
   config["rule-providers"] = providers;
 
   // Hrules is an overlay. Do not add its MATCH here: the host profile keeps
   // ownership of its existing fallback/MATCH semantics.
   const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT,no-resolve"];
-  if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-network-test,🔐 Claude / OpenAI [场景]");
-  if (hasScene("sensitive_ai")) hrulesRules.push("RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]");
-  if (hasScene("crypto_account")) hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
-  if (hasScene("us_banking_account")) hrulesRules.push(`RULE-SET,hrules-us-banking-account,${edition === "strict" ? "🏦 美国银行 [场景]" : "🏦 美国账户 [场景]"}`);
-  if (hasScene("brokerage_account")) hrulesRules.push(`RULE-SET,hrules-brokerage-account,${edition === "strict" ? "📈 美股 [场景]" : "🏦 美国账户 [场景]"}`);
-  if (hasScene("financial_account")) hrulesRules.push(`RULE-SET,hrules-financial-account,${edition === "strict" ? "💳 金融账户 [场景]" : "🏦 美国账户 [场景]"}`);
-  if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
-  if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]");
+  hrulesRules.push("RULE-SET,hrules-network-test,🤖 AI 服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-sensitive-ai,🤖 AI 服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-apple-intelligence-route,🤖 AI 服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
+  hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 银行服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-brokerage-account,📈 证券 / 券商 [场景]");
+  hrulesRules.push("RULE-SET,hrules-financial-account,💳 支付 / 跨境金融 [场景]");
+  hrulesRules.push("RULE-SET,hrules-streaming-media,📺 流媒体 [场景]");
+  hrulesRules.push("RULE-SET,hrules-youtube-media,🌐 海外应用 [场景]");
+  hrulesRules.push("RULE-SET,hrules-telegram,🌐 海外应用 [场景],no-resolve");
+  hrulesRules.push("RULE-SET,hrules-apple-private-relay-route,🍎 Apple / iCloud [场景]");
+  hrulesRules.push("RULE-SET,hrules-apple-global,🍎 Apple / iCloud [场景]");
+  hrulesRules.push("RULE-SET,hrules-mainstream-proxy,🌐 海外应用 [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
-  // Strict owns the terminal decision. Preserve all host rules except their
+  hrulesRules.push("RULE-SET,hrules-cn-domain,DIRECT");
+  hrulesRules.push("RULE-SET,hrules-cn-ip,DIRECT,no-resolve");
+  // Fine-grained edition owns the terminal decision. Preserve all host rules except their
   // terminal MATCH/FINAL, then make Hrules the single auditable catch-all.
   const nonTerminalRules = originalRules.filter(r =>
     !(typeof r === "string" && /^(MATCH|FINAL),/i.test(r.trim()))
@@ -168,11 +193,3 @@ function main(config) {
   config.mode = "rule";
   return config;
 }
-
-// Recovery note: current Core also publishes hrules-mainstream-proxy. Edition adapters own its scene mapping.
-
-// Recovery note: current Core also publishes hrules-apple-global. Edition adapters own its scene mapping.
-
-// Recovery note: current Core also publishes hrules-apple-intelligence-route. Edition adapters own its scene mapping.
-
-// Recovery note: current Core also publishes hrules-apple-private-relay-route. Edition adapters own its scene mapping.
