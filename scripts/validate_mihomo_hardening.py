@@ -15,7 +15,10 @@ for p in editions + [adapter_path]:
         if x not in s:
             errors.append(f"{p.name}: missing {x}")
     if p in editions:
-        for x in ("hrules-network-test", "📺 影音媒体 [场景]", "🏦 美国账户 [场景]"):
+        required = ["hrules-network-test", "📺 影音媒体 [场景]"]
+        if p.name != "hrules-standard.js":
+            required.append("🏦 美国账户 [场景]")
+        for x in required:
             if x not in s:
                 errors.append(f"{p.name}: missing {x}")
     if "proxies:[]" in s or "#null" in s:
@@ -33,16 +36,36 @@ for p in editions + [adapter_path]:
 # groups and legacy per-region sensitive fallback groups must not be emitted.
 for e in ("standard", "stable", "strict"):
     s = (ROOT / "mihomo" / "editions" / f"hrules-{e}.js").read_text(encoding="utf-8")
-    for x in (
+    required = [
         'const sceneCandidates = [...regionNames,...exact];',
         'groups.push({name,type:"url-test",proxies:members,...health,tolerance:50});',
-        'groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sceneCandidates))',
-        'groups.push(sceneGroup("💰 虚拟货币 [场景]",sceneCandidates))',
         'groups.push(sceneGroup("🤖 AI 服务 [场景]",sceneCandidates))',
         'groups.push(sceneGroup("📺 影音媒体 [场景]",sceneCandidates))',
-    ):
+    ]
+    if e != "standard":
+        required += [
+            'groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sceneCandidates))',
+            'groups.push(sceneGroup("💰 虚拟货币 [场景]",sceneCandidates))',
+        ]
+    for x in required:
         if x not in s:
             errors.append(f"{e}: missing controlled-egress contract {x}")
+
+# Standard deliberately keeps Core coverage while collapsing user-facing scenes.
+standard = (ROOT / "mihomo" / "editions" / "hrules-standard.js").read_text(encoding="utf-8")
+for stale in (
+    'groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sceneCandidates))',
+    'groups.push(sceneGroup("💰 虚拟货币 [场景]",sceneCandidates))',
+    'groups.push(sceneGroup("🏦 美国账户 [场景]",sceneCandidates))',
+):
+    if stale in standard:
+        errors.append(f"standard: unexpectedly emits fine-grained scene {stale}")
+for provider in (
+    "hrules-sensitive-ai","hrules-crypto-account","hrules-us-banking-account",
+    "hrules-brokerage-account","hrules-financial-account",
+):
+    if f"RULE-SET,{provider},🤖 AI 服务 [场景]" not in standard:
+        errors.append(f"standard: {provider} is not collapsed into AI scene")
     for x in (
         'groups.push(mk("🌐 全部节点 [系统]"',
         'groups.push(mk("♻️ 自动选择 [系统]"',
