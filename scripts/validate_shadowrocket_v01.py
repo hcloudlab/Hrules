@@ -54,11 +54,23 @@ for key, expected in required_general.items():
 if "skip-proxy" in settings:
     errors.append("skip-proxy must remain absent from the public baseline")
 
-# Do not solve hostname-node Fake-IP bootstrap by forcing every domain to real IP.
-# A global wildcard changes Shadowrocket's Fake-IP model and is intentionally
-# outside the shared Hrules baseline. Affected node hostnames are user-specific.
-if settings.get("always-real-ip", "").replace(" ", "") == "*":
+# Keep a narrow, compatibility-focused real-IP baseline. These entries are
+# widely used by mature Shadowrocket/Surge-style profiles for connectivity and
+# console/STUN services. Arbitrary proxy-node hostnames remain user-specific.
+real_ip_required = {
+    "*.msftconnecttest.com",
+    "*.msftncsi.com",
+    "*.srv.nintendo.net",
+    "*.stun.playstation.net",
+    "xbox.*.microsoft.com",
+    "*.xboxlive.com",
+}
+real_ip_value = settings.get("always-real-ip", "")
+real_ip_items = {x.strip() for x in real_ip_value.split(",") if x.strip()}
+if "*" in real_ip_items:
     errors.append("global always-real-ip=* is forbidden in the shared baseline")
+for host in sorted(real_ip_required - real_ip_items):
+    errors.append(f"missing always-real-ip compatibility host: {host}")
 
 rules = section_lines("Rule")
 normalized = [",".join(x.strip() for x in rule.split(",")) for rule in rules]
