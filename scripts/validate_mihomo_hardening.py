@@ -54,9 +54,11 @@ for e in ("standard", "strict"):
 # Standard deliberately keeps Core coverage while collapsing user-facing scenes.
 standard = (ROOT / "mihomo" / "editions" / "hrules-standard.js").read_text(encoding="utf-8")
 for stale in (
-    'groups.push(sceneGroup("🤖 AI 服务 [场景]",sceneCandidates))',
     'groups.push(sceneGroup("💰 虚拟货币 [场景]",sceneCandidates))',
     'groups.push(sceneGroup("🏦 银行服务 [场景]",sceneCandidates))',
+    'groups.push(sceneGroup("📈 证券 / 券商 [场景]",sceneCandidates))',
+    'groups.push(sceneGroup("💳 支付 / 跨境金融 [场景]",sceneCandidates))',
+    'groups.push(sceneGroup("🍎 Apple / iCloud [场景]",sceneCandidates))',
 ):
     if stale in standard:
         errors.append(f"standard: unexpectedly emits fine-grained scene {stale}")
@@ -79,9 +81,9 @@ for e in ("standard", "strict"):
             errors.append(f"{e}: stale Hrules global/sensitive automatic group {x}")
 
 adapter = adapter_path.read_text(encoding="utf-8")
-for x in ('edition === "strict"', "🏦 美国银行 [场景]", "📈 美股 [场景]", "hrules-financial-account", "💳 金融账户 [场景]"):
+for x in ('const HRULES_EDITION = "strict"', "🏦 银行服务 [场景]", "📈 证券 / 券商 [场景]", "hrules-financial-account", "💳 支付 / 跨境金融 [场景]"):
     if x not in adapter:
-        errors.append(f"global adapter: missing Strict/financial contract {x}")
+        errors.append(f"global adapter: missing Fine-grained/financial contract {x}")
 
 for p in (ROOT / "mihomo" / "editions" / "hrules-strict.js", adapter_path):
     s = p.read_text(encoding="utf-8")
