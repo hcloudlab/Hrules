@@ -3,8 +3,8 @@
 const HRULES_EDITION = "standard";
 const HRULES_EDITION_SPEC = {"system_groups":[],"region_groups":true,"same_region_failover":false,"scene_groups":["sensitive_ai","crypto_account","us_banking_account","brokerage_account","financial_account","general_ai","youtube_media"],"sensitive_exit_policy":"manual_region_or_node"};
 
-// Hrules Clash Verge Rev Global Adapter v0.1
-// Paste this file into Clash Verge Rev -> Global Extension Script.
+// Hrules Clash Verge Rev Subscription Adapter v0.1
+// Paste this file into the target subscription's Extension Script.
 // Hrules owns routing topology and the validated Standard DNS baseline. The active
 // profile continues to own nodes, proxy providers, TUN, ports, and credentials.
 
@@ -17,7 +17,6 @@ function main(config) {
     scene_groups:["sensitive_ai","crypto_account","us_banking_account","brokerage_account","general_ai","youtube_media"],
     sensitive_exit_policy:"manual_region_or_node"
   };
-  const hasSystem = id => editionSpec.system_groups.includes(id);
   const hasScene = id => editionSpec.scene_groups.includes(id);
   const providerBase = "https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes";
   const rawNodeNames = Array.isArray(config.proxies)
@@ -63,7 +62,6 @@ function main(config) {
   const health = { url: "https://www.gstatic.com/generate_204", interval: 300 };
   const dnsProxyGroup = null;
 
-  const mk = (name, type, extra={}) => Object.assign({name,type}, source, extra);
   const sceneGroup = (name, list) => list.length
     ? {name,type:"select",proxies:list}
     : Object.assign({name,type:"select"}, source);
