@@ -6,22 +6,21 @@ Hrules 不提供节点。开始前，请先准备一个可正常使用的机场�
 
 | 客户端 / 接入方式 | 当前状态 | 入口 |
 | --- | --- | --- |
-| Clash Verge Rev / Mihomo | Available | [Mihomo 安装说明](install.md) |
+| Clash Verge Rev | Available | [Mihomo 安装说明](install.md) |
+| 其他 Mihomo / Clash Meta 客户端 | Compatibility entry | [兼容说明](kernels/mihomo.md#其他-mihomo--clash-meta-客户端) |
 | 3X-UI → Mihomo Remote Routing | Available | [3X-UI 安装说明](install.md#3x-ui-remote-routing) |
-| Shadowrocket | Planned | 尚未公开 |
+| Shadowrocket | Validating | [安装说明](kernels/shadowrocket.md) |
 | sing-box / SFM | Planned | 尚未公开 |
 | v2rayN / v2rayNG | Planned | 尚未公开 |
 | Karing | Planned | 尚未公开 |
 
 Planned 不代表已经可用。只有通过对应客户端真实验收的实现才会开放。
 
-## 2. 选择路由模式
+## 2. 选择 Mihomo 版本
 
-Hrules 使用三种用户模式：**标准、稳定、严格**。
+Hrules 当前 Mihomo 公共产品提供两种模式：**标准版 Standard** 与 **精细版 Fine-grained**。两者共享同一套 Core，区别是用户界面暴露多少独立场景与出口控制点，不是安全等级。
 
-当前 v0.1 RC 的 Mihomo 场景拓扑已经包含普通场景与敏感场景的不同出口策略；统一的三档模式属于长期公共产品契约，具体客户端映射会随各客户端实现逐步完成。
-
-→ [路由模式说明](routing-modes.md)
+→ [版本与出口控制说明](routing-modes.md)
 
 ## 3. 安装
 

@@ -19,7 +19,7 @@ Hrules 的目标是让用户能够明确看到：**哪些请求被归到哪个�
 | 客户端 / 接入方式 | 状态 | 安装 / 下载 |
 | --- | --- | --- |
 | **Clash Verge Rev** | ✅ Available | [进入安装中心](docs/kernels/mihomo.md#clash-verge-rev) |
-| **Mihomo / Clash Meta 客户端** | ✅ Available | [进入安装中心](docs/kernels/mihomo.md) |
+| **其他 Mihomo / Clash Meta 客户端** | 🟡 Compatibility entry | [查看兼容说明](docs/kernels/mihomo.md#其他-mihomo--clash-meta-客户端) |
 | **Shadowrocket** | 🟡 Validating | [进入安装说明](docs/kernels/shadowrocket.md) |
 | **sing-box / SFM** | 🧪 Planned | 待开放 |
 | **v2rayN / v2rayNG** | 🧪 Planned | 待开放 |
@@ -40,22 +40,22 @@ Hrules 公共 Mihomo 产品收敛为 **标准版 / 精细版** 两种模式。�
 
 ### 当前 Core 覆盖的主要场景规则
 
-- **Claude / OpenAI** — Claude、OpenAI 及已纳入 Core 的相关请求
-- **通用 AI** — Gemini、Grok、Perplexity 等已纳入 Core 的 AI 服务
+- **AI 服务** — Claude、ChatGPT / OpenAI、Gemini、Grok、Perplexity 等已纳入 Core 的 AI 请求
 - **虚拟货币**
 - **美国银行**
 - **美股 / 券商**
 - **金融账户**
 - **Telegram**
-- **影音媒体** — 包括 YouTube 等已纳入 Core 的影音服务
+- **流媒体** — Netflix、Disney+、Prime Video、Spotify、Twitch 等已纳入 Core 的流媒体服务
+- **海外应用** — YouTube、Telegram、TikTok、Instagram、Facebook、WhatsApp、X / Twitter、Discord、Reddit、GitHub 等已纳入 Core 的海外应用
 - **中国大陆直连**
 - **私有网络直连**
 
-`🚀 漏网之鱼 [自选]` 不是一个网站分类规则集，而是用于承接最终未命中前置规则的流量；Standard / Stable 保留宿主配置已有的 MATCH / FINAL 时，以宿主终端规则为准。
+`🚀 漏网之鱼 [自选]` 不是网站分类规则集，而是承接最终未命中前置规则的流量。当前 Standard / 精细版均提供明确的最终兜底；不同接入方式仍以实际生成配置为准。
 
 Hrules 的场景规则会根据真实使用和流量验证持续补充。**“场景”表示 Hrules 已识别并归类的相关请求集合，不表示能够识别某个网站或账户产生的全部网络请求。**
 
-当前新增的主流国际服务与 Apple 规则继续保留：TikTok、Instagram、Facebook、WhatsApp、X / Twitter、Discord、Reddit、GitHub、Netflix、Disney+、Prime Video、Spotify、Twitch 等归入主流国际服务；Apple 中国大陆服务保持 DIRECT 优先，国际 Apple / iCloud 使用独立场景，Apple Intelligence 与 Private Relay 单独识别。
+当前 Core 继续覆盖主流海外应用、流媒体与 Apple 相关规则：TikTok、Instagram、Facebook、WhatsApp、X / Twitter、Discord、Reddit、GitHub 等进入海外应用；Netflix、Disney+、Prime Video、Spotify、Twitch 等进入流媒体。Apple 中国大陆服务保持 DIRECT 优先；精细版将国际 Apple / iCloud 独立为场景，标准版则归入海外应用；Apple Intelligence 与 Private Relay 保持独立识别后再映射到对应产品场景。
 
 → [查看场景与规则说明](docs/scenes.md)
 
@@ -65,7 +65,7 @@ Hrules 在 **Clash Verge Rev / Mihomo** 中同时提供经过实机验证的 DNS
 
 - **节点解析与代理 DNS 分离**：节点域名使用独立的 bootstrap / `proxy-server-nameserver`，避免“代理还没建立，却先要求通过代理解析 DNS”的循环依赖。
 - **中国大陆直连解析**：DIRECT 流量使用国内 DNS，兼顾国内网站访问与 CDN 调度。
-- **海外 DNS**：稳定版 / 严格版使用加密 DoH；节点启动解析保持独立，不依赖 Hrules 自建的全局自动代理组。
+- **海外 DNS**：精细版使用加密 DoH；节点启动解析保持独立，不依赖 Hrules 自建的全局自动代理组。
 - **Fake-IP 兼容**：保留局域网域名真实解析，同时避免把 Fake-IP 地址段误判为 DIRECT。
 - **不改写节点传输参数**：不会修改节点的 `server`、SNI、Host；EdgeTunnel / Cloudflare 优选 IP 可以继续保持“优选 IP + 原域名 SNI / Host”的结构。
 - **IPv6**：DNS v0.1 默认关闭 IPv6 DNS，优先保证复杂网络环境下的兼容性。
@@ -113,7 +113,7 @@ Hrules 在 **Clash Verge Rev / Mihomo** 中同时提供经过实机验证的 DNS
 
 当前公共版本：**v0.1.0-rc1**
 
-当前已经完成 **Clash Verge Rev / Mihomo** 多订阅真实客户端验证，以及 **3X-UI Remote Routing** 真实链路验证。**Shadowrocket v0.1 已恢复当前 Core 规则生成与发布链，正在进行最终真实客户端验收，因此暂标记为 Validating。** Shadowrocket 采用单一完整配置，不跟随 Mihomo 的标准版 / 精细版划分。其他客户端会在完成实现与真实验收后逐步开放。
+当前已经完成 **Clash Verge Rev** 多订阅真实客户端验证，以及 **3X-UI Remote Routing → Mihomo** 真实链路验证。其他 Mihomo / Clash Meta 客户端当前只提供兼容入口，完成对应客户端实测后再标记为 Available。**Shadowrocket v0.1 已恢复当前 Core 规则生成与发布链，正在进行最终真实客户端验收，因此暂标记为 Validating。** Shadowrocket 采用单一完整配置，不跟随 Mihomo 的标准版 / 精细版划分。其他客户端会在完成实现与真实验收后逐步开放。
 
 \`main\` 提供持续更新的公共运行时与规则；版本 Tag / Release 提供固定的产品契约快照。
 
