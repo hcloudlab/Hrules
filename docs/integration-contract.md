@@ -39,9 +39,9 @@
 
 ## 3. 集成模式
 
-### A. Clash Verge Rev Global Adapter
+### A. Clash Verge Rev Subscription Extension Script
 
-推荐给普通订阅用户。Adapter 从当前配置读取可用节点/Provider，不要求合作方修改订阅格式。
+推荐给普通订阅用户。版本化脚本从当前订阅读取可见真实节点，不要求合作方修改订阅格式。
 
 ### B. Host Adapter
 
@@ -56,7 +56,7 @@
 ## 4. 必须保持的行为
 
 - Hrules 场景规则必须位于会提前截获同类流量的通用规则之前。
-- Host 原有 fallback / MATCH 应继续由 Host 所有；全局 overlay 不应擅自替换。
+- 接入层必须明确终态规则所有权，避免出现多个相互冲突的 MATCH / FINAL；当前版本化 Mihomo 产物提供可审计的最终兜底。
 - 订阅刷新后，Hrules 接入应可重建或继续存在。
 - 不得把机场状态行、流量余额、到期时间、官网提示等伪节点当作真实节点。
 - 对敏感场景不得把跨地区自动切换包装成“同地区故障转移”。
