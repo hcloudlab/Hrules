@@ -44,23 +44,15 @@ Hrules 默认 DNS 采用分层设计：
 - 当前不默认启用 `hijack-dns`。DoH 负责加密上游 DNS 传输；DNS 劫持属于另一类行为，没有必要在缺少实际需求时扩大默认配置影响范围。
 - 当前 Shadowrocket 配置设置 `ipv6 = false`，因此输出层不再生成 `IP-CIDR6` 规则；IPv6 数据仍保留在 Hrules canonical scenes 中，供启用 IPv6 的其他适配器使用。
 
-### macOS：域名节点测速 / Fake-IP
+### macOS：节点测速、Fake-IP 与“包括所有网络”
 
-macOS Shadowrocket 开启 TUN 后，系统 DNS 可能对普通域名返回 `198.18.0.0/15` Fake-IP。Fake-IP 本身属于 Shadowrocket 的正常 TUN DNS 模型；但真机测试发现，个别“节点服务器地址本身使用域名”的场景会出现节点测速无延迟，而同一节点改用真实 IP 后正常。
+macOS 真机 A/B 测试确认：Shadowrocket 的 **“包括所有网络”** 开启时，节点服务器使用域名的场景曾出现无法得到延迟的现象；关闭该选项后，无需把私人节点域名加入 `always-real-ip`，节点域名即可恢复真实公网 IP 解析并正常测速。因此，Hrules 不再把“为节点 hostname 追加 `always-real-ip`”作为该故障的默认修复方案。
 
-实测故障链路中，节点域名在 Shadowrocket 断开时解析为真实公网 IP，连接 TUN 后系统 resolver 返回 `198.18.x.x`；显式查询公共 DNS 仍能得到正确公网 IP。将该节点 hostname 加入 `always-real-ip` 后，节点测速立即恢复。
+`always-real-ip` 仍保留一组窄范围兼容基线：Microsoft 网络连通性检测，以及 Nintendo / PlayStation STUN / Xbox 等特殊服务。它控制的是特定域名在 Fake-IP DNS 模式下返回真实 IP，与“包括所有网络”的路由范围不是同一个功能层。Hrules **不会使用 `always-real-ip = *`**。
 
-Hrules 公共配置只预置一组窄范围的 Real-IP 兼容项：Microsoft 网络连通性检测，以及 Nintendo / PlayStation STUN / Xbox 等在成熟配置中长期共同出现的条目。它们解决的是服务本身对 Fake-IP 不兼容的问题，不等于能够自动识别用户自己的代理节点域名。
+Hrules 当前也不启用 `skip-proxy`。私网和本地域名的核心直连需求已经由 `[Rule]` 中的 DIRECT 规则覆盖；真机验证删除 `skip-proxy` 后，`192.168.0.1` 局域网管理地址与 `localhost → 127.0.0.1` 均正常，同时节点延迟测试更快。这里不宣称 DIRECT 与 `skip-proxy` 在所有系统级场景完全等价；若特殊局域网发现或应用环境确有需求，应按实际场景单独处理。
 
-Hrules **不会使用 `always-real-ip = *`**。公共配置无法预先知道每个用户的机场、自建 VPS、EdgeTunnel 等节点域名，而且全局 Real-IP 会扩大 DNS 行为变化。若 macOS 上出现“IP 节点可测速、域名节点无延迟”的现象，应在现有 `always-real-ip` 列表末尾追加实际节点域名：
-
-```ini
-always-real-ip = *.msftconnecttest.com,*.msftncsi.com,*.srv.nintendo.net,*.stun.playstation.net,xbox.*.microsoft.com,*.xboxlive.com,node.example.com,*.nodes.example.com
-```
-
-多个域名用逗号分隔。只添加实际受影响的节点 hostname；不要把普通网站域名批量加入。
-
-Shadowrocket 还提供 `proxy-dns-server`，用于指定“节点域名”的独立解析 DNS；未设置时节点域名默认使用 `dns-server`。它解决的是节点 hostname 的 DNS 上游选择，与 `always-real-ip` 控制 TUN DNS 返回真实 IP / Fake-IP 不是同一层。当前 Hrules 不再把 `proxy-dns-server` 作为默认修复，因为本次真机故障已经通过精确 `always-real-ip` 得到直接验证。
+Shadowrocket 还提供 `proxy-dns-server`，用于节点 hostname 的独立 DNS 上游选择。它与 `always-real-ip` 以及“包括所有网络”属于不同层面的设置；当前 Hrules 不把 `proxy-dns-server` 作为默认项。
 
 ## QUIC / UDP
 
