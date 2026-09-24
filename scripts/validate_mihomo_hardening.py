@@ -89,7 +89,7 @@ for p in (ROOT / "mihomo" / "editions" / "hrules-strict.js", adapter_path):
     s = p.read_text(encoding="utf-8")
     for x in ("nonTerminalRules", '["MATCH,🚀 漏网之鱼 [自选]"]'):
         if x not in s:
-            errors.append(f"{p.name}: missing Strict terminal ownership {x}")
+            errors.append(f"{p.name}: missing Fine-grained terminal ownership {x}")
 
 cn = (ROOT / "mihomo" / "scenes" / "cn_direct.yaml").read_text(encoding="utf-8")
 for x in ("mmstat.com", "aliapp.org", "tdum.alibaba.com", "antpcdn.com"):
