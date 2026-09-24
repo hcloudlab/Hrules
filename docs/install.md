@@ -20,6 +20,18 @@ Hrules 不替换你的订阅。之后仍按原来的方式更新机场订阅。
 
 全局脚本采用节点名称进行保守分类。名称中没有可靠地区信息的节点会进入“未分类”。如果你需要更强的 GeoIP/精确节点编排，应使用自己的完整 Mihomo 配置集成公共 Hrules providers，而不是依赖名称猜测。
 
+## Shadowrocket（Validating）
+
+Shadowrocket v0.1 使用完整远程配置，不需要选择 Standard / Stable / Strict。
+
+1. 打开 [Shadowrocket v0.1 安装说明](kernels/shadowrocket.md)。
+2. 通过远程配置导入 Hrules。
+3. 关闭 Shadowrocket 的 **简单模式**。
+4. 选择你希望 PROXY 流量使用的主节点。
+5. 最终验收时通过请求日志确认 `域名 → 命中规则 → DIRECT / PROXY → 最终节点`。
+
+当前配置已进入公共发布链，但仍处于 **Validating**；完成最终真实客户端验收后才会标记为 Available。
+
 ## 3X-UI Remote Routing
 
 使用公共文件 \`mihomo/hosts/3x-ui.yaml\` 作为 Remote Routing 配置。
