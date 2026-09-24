@@ -3,7 +3,7 @@
   "version": "v0.1.0-rc1",
   "channel": "rc",
   "release_status": "release_candidate",
-  "generated_from_commit": "f17c1ee81a645feaad1f6114446f97fa533f5416",
+  "generated_from_commit": "1cecba283a34717aa8bc25cd57022518b4a0a28f",
   "source": "hcloudlab/Hrules-core",
   "artifacts": [
     {
