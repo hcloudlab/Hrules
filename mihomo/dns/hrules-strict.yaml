@@ -1,7 +1,7 @@
 # Hrules DNS v0.1 — Strict
 # Production baseline mirrored by the Clash Verge Rev strict adapter.
 # Bootstrap/node resolution is independent; DIRECT uses mainland DNS; global DNS
-# uses encrypted DoH through the Hrules automatic group.
+# uses encrypted DoH without depending on an Hrules-created global automatic group.
 dns:
   enable: true
   ipv6: false
@@ -29,5 +29,5 @@ dns:
     - 119.29.29.29
   direct-nameserver-follow-policy: false
   nameserver:
-    - "https://1.1.1.1/dns-query#♻️ 自动选择 [系统]"
-    - "https://8.8.8.8/dns-query#♻️ 自动选择 [系统]"
+    - "https://1.1.1.1/dns-query"
+    - "https://8.8.8.8/dns-query"
