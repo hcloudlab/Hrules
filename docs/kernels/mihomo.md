@@ -1,59 +1,130 @@
 # Mihomo 安装中心
 
-## 选择客户端 / 接入方式
+Hrules 在 Mihomo / Clash Meta 生态中使用同一套 Core 规则。不同客户端的区别主要在**接入方式**，不是规则本身。
 
-先根据你的节点来源和客户端使用方式选择接入路径，再选择 **标准 / 稳定 / 严格** 对应链接。
+## 先选接入方式
 
-## 选择 Hrules 版本
+| 你的使用方式 | 应该进入哪里 |
+| --- | --- |
+| 使用 **Clash Verge Rev**，并希望给现有订阅叠加 Hrules | [Clash Verge Rev — 订阅扩展脚本](#clash-verge-rev--订阅扩展脚本) |
+| 使用 **3X-UI Remote Routing** 给 Mihomo / Clash Verge Rev 提供自建节点 | [3X-UI — Remote Routing](#3x-ui--remote-routing) |
+| 使用其他 **Mihomo / Clash Meta 客户端** | [其他 Mihomo / Clash Meta 客户端](#其他-mihomo--clash-meta-客户端) |
 
-Hrules 的核心原则是 **安全、可控**。三个版本共用同一套 Hrules Core 和规则基础，**安全性完全相同**；区别不是安全等级，而是场景归类的颗粒度，以及你能多精确地掌控哪个节点用在哪条线路上。
+如果你只是想最快完成安装，先选客户端入口，不需要先理解全部规则结构。
 
-> **Standard 更简单，Stable 更细化，Strict 更精准；三者安全性完全相同，区别是你能更精确地掌控哪个节点用在哪条线路上。**
+## Hrules 版本怎么选
 
-| 版本 | 场景颗粒度 | 适合谁 |
+Hrules 公共 Mihomo 产品分为 **标准版 / 精细版**。两者共用同一套 Core；区别是用户界面里暴露多少独立场景，以及你能把不同业务分别控制到多细的出口。
+
+| 版本 | 用户可见场景 | 适合谁 |
 | --- | --- | --- |
-| 🟢 **标准 Standard** | 基础场景：AI、影音、Telegram、漏网之鱼 | 普通上网用户；保留完整 Core 规则覆盖，但把细分规则归并到少量常用场景，减少日常选择复杂度 |
-| 🟡 **稳定 Stable** | 细化场景：在基础场景上拆出 Claude / OpenAI、虚拟货币、美国账户等 | 希望针对不同实际用途分别指定地区或具体节点的用户 |
-| 🔴 **严格 Strict** | 精准场景：继续细分美国银行、美股 / 券商、金融账户等 | 希望把不同业务线路分别控制到更具体出口的用户；同时由 Strict 接管最终 MATCH / FINAL |
+| 🟢 **标准 Standard** | 海外应用、流媒体、AI 服务、金融服务、漏网之鱼 | 大多数用户；界面更简单，适合日常直接使用 |
+| 🔵 **精细 Fine-grained** | 海外应用、流媒体、AI 服务、Apple / iCloud、银行服务、证券 / 券商、支付 / 跨境金融、虚拟货币、漏网之鱼 | 需要更细金融出口控制，或希望展示 Hrules 业务识别能力 |
 
-**版本变化的是场景映射，不是 Core 安全性。** 例如 Standard 不删除 Claude / OpenAI、虚拟货币、银行、券商、金融账户等 Core 规则，而是把这些规则统一归入 `🤖 AI 服务 [场景]`；Stable / Strict 再把同一批规则拆成更具体的用户可控场景。
+### 标准版场景
 
-### 地区与节点怎么选
+界面顺序：
 
-三个版本的 Hrules 场景出口都遵循同一套控制原则：
+\`🌐 海外应用 → 📺 流媒体 → 🤖 AI 服务 → 💳 金融服务 → 🚀 漏网之鱼\`
 
-- 选择 **地区**：例如 `🇺🇸 美国 [地区]`，Hrules 允许在美国节点范围内自动选择，但不会自动切换到日本、新加坡、香港等其他地区。
-- 选择 **具体节点**：例如 `🇺🇸 美国2`，该场景直接使用这个节点；Hrules 不再替你自动切换到其他节点。
-- **机场原有代理组不会被删除**：Hrules 是叠加在现有订阅之上的路由层，不破坏机场原本提供的自动选择、故障转移、负载均衡等代理组。
+主要映射：
 
-> 普通上网、希望界面简单，先用 **Standard**；需要把不同重要用途分别指定出口，用 **Stable**；需要进一步拆分具体业务线路，用 **Strict**。
+- **海外应用**：YouTube、Telegram，以及普通国际应用；标准版中的 Apple / iCloud 也归入这里。
+- **流媒体**：Netflix、Disney+、Prime Video、Spotify、Twitch 等真正的流媒体服务。
+- **AI 服务**：Claude、ChatGPT / OpenAI、Gemini、Grok、Perplexity 等 AI 服务。
+- **金融服务**：银行、证券 / 券商、支付 / 跨境金融、虚拟货币。
+- **漏网之鱼**：承接最终未命中的流量。
 
-### Clash Verge Rev — Subscription Extension Script
+### 精细版场景
 
-适用于机场订阅、普通 Mihomo 订阅等已经在 Clash Verge Rev 中正常使用的配置。
+界面顺序：
 
-| 版本 | Raw |
+\`🌐 海外应用 → 📺 流媒体 → 🤖 AI 服务 → 🍎 Apple / iCloud → 🏦 银行服务 → 📈 证券 / 券商 → 💳 支付 / 跨境金融 → 💰 虚拟货币 → 🚀 漏网之鱼\`
+
+精细版**不拆 AI**。它主要把金融业务进一步拆开，并把 Apple / iCloud 独立出来。
+
+> 精细版当前继续沿用原 \`hrules-strict.js\` / \`hrules-strict.yaml\` 文件名，以保持现有 Raw URL 兼容。Stable 不再作为公开产品模式。
+
+## 地区与节点怎么选
+
+两个版本都遵循同一套出口控制原则：
+
+- 选择 **地区**：例如 \`🇺🇸 美国 [地区]\`，Hrules 只允许在这个地区已有节点之间自动选择，不会跨地区切换。
+- 选择 **具体节点**：该场景固定走这个节点，Hrules 不再替你自动切换到其他节点。
+- **机场原有代理组继续保留**：Hrules 是路由叠加层，不删除机场已有的自动选择、故障转移、负载均衡等代理组。
+
+---
+
+## Clash Verge Rev — 订阅扩展脚本
+
+适合：你已经在 Clash Verge Rev 中正常使用某个机场订阅、Mihomo 订阅或自建订阅，只想给这个订阅叠加 Hrules。
+
+### 1. 选择版本
+
+| 版本 | Raw JS |
 | --- | --- |
-| 🟢 标准 | [打开 Raw JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-standard.js) |
-| 🟡 稳定 | [打开 Raw JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-stable.js) |
-| 🔴 严格 | [打开 Raw JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-strict.js) |
+| 🟢 标准版 | [打开 Standard Raw JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-standard.js) |
+| 🔵 精细版 | [打开 Fine-grained Raw JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-strict.js) |
 
-打开对应链接后复制完整 JS 内容，粘贴到对应订阅的 **Subscription Extension Script / 订阅扩展脚本** 中。这样 Hrules 只作用于当前订阅，便于同一客户端同时保留原始订阅和不同 Hrules 版本进行对照。
+### 2. 在 Clash Verge Rev 中添加
 
-> **严格版前置条件：** 只有当前 Clash Verge Rev 配置暴露具体顶层 `proxies` 节点时，才使用严格版。若订阅配置只有 `proxy-providers`、没有可见的顶层 `proxies`，请不要使用严格版；此时脚本无法枚举 Provider 运行时节点，敏感场景无法建立有效的受限出口候选。可改用 标准 / 稳定，或使用能读取完整 `proxies` 清单的完整配置转换路径。
+1. 打开目标订阅的 **Subscription Extension Script / 订阅扩展脚本**。
+2. 打开上表对应的 Raw JS。
+3. 复制完整 JS 内容并粘贴到该订阅的扩展脚本中。
+4. 保存并重新更新该订阅。
+5. 回到代理组页面，确认 Hrules 场景组已经出现，并能读取当前订阅中的真实节点。
 
-### 3X-UI — Remote Routing
+这样 Hrules 只作用于当前订阅，不会把所有订阅强行混在一起，也方便保留原始订阅进行对照。
 
-适用于通过 3X-UI 向 Mihomo / Clash Verge Rev 提供自建节点，并使用 Remote Routing 的场景。
+### 3. 应该看到什么
 
-| 版本 | Raw |
+标准版应出现：
+
+\`海外应用 / 流媒体 / AI 服务 / 金融服务 / 漏网之鱼\`
+
+精细版应出现：
+
+\`海外应用 / 流媒体 / AI 服务 / Apple / iCloud / 银行服务 / 证券 / 券商 / 支付 / 跨境金融 / 虚拟货币 / 漏网之鱼\`
+
+地区组会根据当前订阅中的真实节点生成。选择地区时只在同地区内切换；选择具体节点时固定到该节点。
+
+---
+
+## 3X-UI — Remote Routing
+
+适合：你使用 3X-UI 提供自建节点，并通过 Remote Routing 向 Mihomo / Clash Verge Rev 下发路由配置。
+
+### 1. 选择版本
+
+| 版本 | Remote Routing Raw |
 | --- | --- |
-| 🟢 标准 | `https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-standard.yaml` |
-| 🟡 稳定 | `https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-stable.yaml` |
-| 🔴 严格 | `https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-strict.yaml` |
+| 🟢 标准版 | \`https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-standard.yaml\` |
+| 🔵 精细版 | \`https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-strict.yaml\` |
 
-> **接入说明：** Clash Verge Rev 的三版 JS 与 3X-UI Remote Routing 共用 Canonical Rules / Scenes。3X-UI Remote Routing 已通过真机验证：`include-all-proxies` 可以读取最终配置中的面板真实节点，因此 标准 / 稳定 / 严格 的场景选择器可以直接暴露具体节点；`PROXY` / `DIRECT` 继续作为显式回退。
+### 2. 接入说明
 
-### 其他 Mihomo / Clash Meta 客户端
+把对应 Raw URL 填入 3X-UI 的 Remote Routing。
 
-根据客户端支持能力使用完整 YAML、Providers 或对应 Adapter。
+当前 3X-UI Remote Routing 路径使用 \`include-all-proxies\` 读取最终配置中的真实节点，因此 Hrules 场景选择器可以直接暴露面板实际节点；\`PROXY\` / \`DIRECT\` 继续作为显式回退。
+
+3X-UI 与 Clash Verge Rev 的接入方式不同，但底层使用的是同一套 Hrules Core / Scenes 和相同的 Standard / 精细版场景映射。
+
+---
+
+## 其他 Mihomo / Clash Meta 客户端
+
+Clash Verge Rev 本身也是 Mihomo 客户端，只是它提供了方便的 JavaScript 订阅扩展入口。
+
+其他 Mihomo / Clash Meta 客户端如果**不支持 Subscription Extension Script**，就不能直接照搬 Clash Verge Rev 的 JS 安装步骤。它们仍然使用相同的 Hrules Core，但需要通过客户端支持的方式接入，例如完整 YAML、配置覆写 / Mixin、Rule Provider 或对应 Adapter。
+
+目前这一部分只作为兼容入口，不把尚未完成真实客户端验证的操作写成“可直接跟做”的正式教程。后续完成 FlClash、ClashMi 等客户端验证后，再分别补充具体安装步骤。
+
+---
+
+## 结构说明
+
+Hrules 的关系可以概括为：
+
+**同一套 Hrules Core → Standard / 精细版场景映射 → 不同客户端 Adapter / 接入方式**
+
+因此后续新增一个 AI、金融或流媒体规则时，应优先更新 Core，再由不同客户端接入层复用，而不是为 Clash Verge Rev、3X-UI 和其他 Mihomo 客户端分别维护三套业务规则。

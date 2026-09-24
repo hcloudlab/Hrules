@@ -4,7 +4,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 errors = []
-editions = [ROOT / "mihomo" / "editions" / f"hrules-{e}.js" for e in ("standard", "stable", "strict")]
+editions = [ROOT / "mihomo" / "editions" / f"hrules-{e}.js" for e in ("standard", "strict")]
 adapter_path = ROOT / "mihomo" / "adapters" / "clash-verge-rev" / "hrules-global.js"
 
 for p in editions + [adapter_path]:
@@ -15,9 +15,9 @@ for p in editions + [adapter_path]:
         if x not in s:
             errors.append(f"{p.name}: missing {x}")
     if p in editions:
-        required = ["hrules-network-test", "📺 影音媒体 [场景]"]
+        required = ["hrules-network-test", "📺 流媒体 [场景]"]
         if p.name != "hrules-standard.js":
-            required.append("🏦 美国账户 [场景]")
+            required.append("🏦 银行服务 [场景]")
         for x in required:
             if x not in s:
                 errors.append(f"{p.name}: missing {x}")
@@ -34,17 +34,17 @@ for p in editions + [adapter_path]:
 # Every edition must expose only region groups + concrete nodes in Hrules scenes.
 # Region automation is bounded to members of that region; global Hrules automatic
 # groups and legacy per-region sensitive fallback groups must not be emitted.
-for e in ("standard", "stable", "strict"):
+for e in ("standard", "strict"):
     s = (ROOT / "mihomo" / "editions" / f"hrules-{e}.js").read_text(encoding="utf-8")
     required = [
         'const sceneCandidates = [...regionNames,...exact];',
         'groups.push({name,type:"url-test",proxies:members,...health,tolerance:50});',
         'groups.push(sceneGroup("🤖 AI 服务 [场景]",sceneCandidates))',
-        'groups.push(sceneGroup("📺 影音媒体 [场景]",sceneCandidates))',
+        'groups.push(sceneGroup("📺 流媒体 [场景]",sceneCandidates))',
     ]
     if e != "standard":
         required += [
-            'groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sceneCandidates))',
+            'groups.push(sceneGroup("🤖 AI 服务 [场景]",sceneCandidates))',
             'groups.push(sceneGroup("💰 虚拟货币 [场景]",sceneCandidates))',
         ]
     for x in required:
@@ -54,18 +54,22 @@ for e in ("standard", "stable", "strict"):
 # Standard deliberately keeps Core coverage while collapsing user-facing scenes.
 standard = (ROOT / "mihomo" / "editions" / "hrules-standard.js").read_text(encoding="utf-8")
 for stale in (
-    'groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sceneCandidates))',
     'groups.push(sceneGroup("💰 虚拟货币 [场景]",sceneCandidates))',
-    'groups.push(sceneGroup("🏦 美国账户 [场景]",sceneCandidates))',
+    'groups.push(sceneGroup("🏦 银行服务 [场景]",sceneCandidates))',
+    'groups.push(sceneGroup("📈 证券 / 券商 [场景]",sceneCandidates))',
+    'groups.push(sceneGroup("💳 支付 / 跨境金融 [场景]",sceneCandidates))',
+    'groups.push(sceneGroup("🍎 Apple / iCloud [场景]",sceneCandidates))',
 ):
     if stale in standard:
         errors.append(f"standard: unexpectedly emits fine-grained scene {stale}")
-for provider in (
-    "hrules-sensitive-ai","hrules-crypto-account","hrules-us-banking-account",
-    "hrules-brokerage-account","hrules-financial-account",
-):
+for provider in ("hrules-sensitive-ai", "hrules-general-ai"):
     if f"RULE-SET,{provider},🤖 AI 服务 [场景]" not in standard:
-        errors.append(f"standard: {provider} is not collapsed into AI scene")
+        errors.append(f"standard: {provider} is not mapped into AI scene")
+for provider in ("hrules-crypto-account", "hrules-us-banking-account", "hrules-brokerage-account", "hrules-financial-account"):
+    if f"RULE-SET,{provider},💳 金融服务 [场景]" not in standard:
+        errors.append(f"standard: {provider} is not mapped into financial scene")
+for e in ("standard", "strict"):
+    edition_text = (ROOT / "mihomo" / "editions" / f"hrules-{e}.js").read_text(encoding="utf-8")
     for x in (
         'groups.push(mk("🌐 全部节点 [系统]"',
         'groups.push(mk("♻️ 自动选择 [系统]"',
@@ -73,13 +77,13 @@ for provider in (
         'groups.push(mk("⚖️ 负载均衡 [系统]"',
         'groups.push({name:sensitive',
     ):
-        if x in s:
+        if x in edition_text:
             errors.append(f"{e}: stale Hrules global/sensitive automatic group {x}")
 
 adapter = adapter_path.read_text(encoding="utf-8")
-for x in ('edition === "strict"', "🏦 美国银行 [场景]", "📈 美股 [场景]", "hrules-financial-account", "💳 金融账户 [场景]"):
+for x in ('const HRULES_EDITION = "strict"', "🏦 银行服务 [场景]", "📈 证券 / 券商 [场景]", "hrules-financial-account", "💳 支付 / 跨境金融 [场景]"):
     if x not in adapter:
-        errors.append(f"global adapter: missing Strict/financial contract {x}")
+        errors.append(f"global adapter: missing Fine-grained/financial contract {x}")
 
 for p in (ROOT / "mihomo" / "editions" / "hrules-strict.js", adapter_path):
     s = p.read_text(encoding="utf-8")

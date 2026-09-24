@@ -20,7 +20,7 @@ FORBIDDEN_ALL = ["respect-rules: true", "geosite:cn", "dhcp://", "- system"]
 FORBIDDEN_STANDARD = ["1.1.1.1", "8.8.8.8", "nameserver-policy:", "direct-nameserver:"]
 
 errors = []
-for edition in ("standard", "stable", "strict"):
+for edition in ("standard", "strict"):
     path = DNS / f"hrules-{edition}.yaml"
     data = path.read_text(encoding="utf-8")
     active = "\n".join(
@@ -57,14 +57,13 @@ for forbidden in ("https://1.1.1.1/dns-query", "https://8.8.8.8/dns-query", "dir
         errors.append(f"standard dns artifact: unexpected {forbidden}")
 
 # Integration gates.
-# All editions own their DNS baseline. Standard is conservative; Stable/Strict
-# keep node bootstrap independent while using encrypted overseas DoH.
+# Both public editions own their DNS baseline. Standard is conservative; Fine-grained\n# (legacy strict filename) keeps node bootstrap independent while using encrypted overseas DoH.
 standard_js = (ROOT / "mihomo" / "editions" / "hrules-standard.js").read_text(encoding="utf-8")
 for token in ('config["dns"] =', '"proxy-server-nameserver"', '"223.5.5.5"', '"119.29.29.29"', '"fake-ip-filter-mode": "blacklist"'):
     if token not in standard_js:
         errors.append(f"standard edition: generated DNS baseline missing {token}")
 
-for edition in ("stable", "strict"):
+for edition in ("strict",):
     js = (ROOT / "mihomo" / "editions" / f"hrules-{edition}.js").read_text(encoding="utf-8")
     for token in ('config["dns"] =', '"proxy-server-nameserver"', '"direct-nameserver"',
                   '"direct-nameserver-follow-policy": false',
@@ -74,7 +73,7 @@ for edition in ("stable", "strict"):
         if token not in js:
             errors.append(f"{edition} edition: production DNS contract missing {token}")
 
-for edition in ("stable", "strict"):
+for edition in ("strict",):
     data = (DNS / f"hrules-{edition}.yaml").read_text(encoding="utf-8")
     for token in ("fake-ip-filter-mode: blacklist", "direct-nameserver-follow-policy: false",
                   "https://1.1.1.1/dns-query",

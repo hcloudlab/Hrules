@@ -61,7 +61,7 @@ if "198.18.0.0/15" in private_text or "198.18.0.0/16" in private_text:
 
 # Mature CN routing datasets must be wired into every integration; a bare .cn
 # suffix is not an acceptable mainland-China direct-routing implementation.
-for edition in ("standard", "stable", "strict"):
+for edition in ("standard", "strict"):
     for rel in (f"mihomo/editions/hrules-{edition}.js", f"mihomo/hosts/3x-ui/hrules-{edition}.yaml"):
         text=(ROOT/rel).read_text(encoding="utf-8")
         for needle in ("MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",
