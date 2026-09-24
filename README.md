@@ -18,7 +18,7 @@
 | --- | --- | --- |
 | **Clash Verge Rev** | ✅ Available | [进入安装中心](docs/kernels/mihomo.md#clash-verge-rev) |
 | **Mihomo / Clash Meta 客户端** | ✅ Available | [进入安装中心](docs/kernels/mihomo.md) |
-| **Shadowrocket** | 🧪 Planned | 待开放 |
+| **Shadowrocket** | 🟡 Validating | [进入安装说明](docs/kernels/shadowrocket.md) |
 | **sing-box / SFM** | 🧪 Planned | 待开放 |
 | **v2rayN / v2rayNG** | 🧪 Planned | 待开放 |
 | **Karing** | 🧪 Planned | 待开放 |
@@ -35,7 +35,7 @@
 
 Apple 中国大陆服务保持 DIRECT 优先，国际 Apple / iCloud 使用独立场景；Apple Intelligence 与 Private Relay 单独识别。
 
-> DNS 仍由客户端 / Host 配置负责，Hrules 当前不向 Mihomo 主配置注入 `dns:`。
+> DNS 由客户端 / Host 配置负责。Mihomo 当前不由 Hrules 主配置注入 `dns:`；Shadowrocket v0.1 则随完整配置提供已验证基线 DNS 参数。
 
 → [查看场景与规则说明](docs/scenes.md) · [DNS 与分流说明](docs/dns.md)
 
@@ -59,7 +59,7 @@ Apple 中国大陆服务保持 DIRECT 优先，国际 Apple / iCloud 使用独�
 
 当前公共版本：**v0.1.0-rc1**
 
-当前已经完成 **Clash Verge Rev / Mihomo** 多订阅真实客户端验证，以及 **3X-UI Remote Routing** 真实链路验证。其他客户端会在完成实现与真实验收后逐步开放。
+当前已经完成 **Clash Verge Rev / Mihomo** 多订阅真实客户端验证，以及 **3X-UI Remote Routing** 真实链路验证。**Shadowrocket v0.1 已恢复当前 Core 规则生成与发布链，正在进行最终真实客户端验收，因此暂标记为 Validating。** 其他客户端会在完成实现与真实验收后逐步开放。
 
 \`main\` 提供持续更新的公共运行时与规则；版本 Tag / Release 提供固定的产品契约快照。
 
@@ -70,6 +70,7 @@ Apple 中国大陆服务保持 DIRECT 优先，国际 Apple / iCloud 使用独�
 - [路由模式：标准 / 稳定 / 严格](docs/routing-modes.md)
 - [场景与规则](docs/scenes.md)
 - [安装与客户端说明](docs/install.md)
+- [Shadowrocket v0.1](docs/kernels/shadowrocket.md)
 - [第三方 / 机场 Integration Contract](docs/integration-contract.md)
 - [隐私与安全边界](docs/security.md)
 - [版本与发布策略](docs/releases.md)
