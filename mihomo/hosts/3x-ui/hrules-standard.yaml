@@ -1,29 +1,23 @@
 proxy-groups:
+- name: 🌐 海外应用 [场景]
+  type: select
+  proxies:
+  - PROXY
+  - DIRECT
+  include-all-proxies: true
+- name: 📺 流媒体 [场景]
+  type: select
+  proxies:
+  - PROXY
+  - DIRECT
+  include-all-proxies: true
 - name: 🤖 AI 服务 [场景]
   type: select
   proxies:
   - PROXY
   - DIRECT
   include-all-proxies: true
-- name: 📺 影音媒体 [场景]
-  type: select
-  proxies:
-  - PROXY
-  - DIRECT
-  include-all-proxies: true
-- name: 💬 Telegram [场景]
-  type: select
-  proxies:
-  - PROXY
-  - DIRECT
-  include-all-proxies: true
-- name: 🌐 国际服务 [场景]
-  type: select
-  proxies:
-  - PROXY
-  - DIRECT
-  include-all-proxies: true
-- name: 🍎 Apple / iCloud [场景]
+- name: 💳 金融服务 [场景]
   type: select
   proxies:
   - PROXY
@@ -43,12 +37,26 @@ rule-providers:
     url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/private_direct.yaml
     path: ./providers/private_direct.yaml
     interval: 21600
+  hrules-network-test:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/network_test.yaml
+    path: ./providers/network_test.yaml
+    interval: 21600
   hrules-sensitive-ai:
     type: http
     behavior: classical
     format: yaml
     url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/sensitive_ai.yaml
     path: ./providers/sensitive_ai.yaml
+    interval: 21600
+  hrules-general-ai:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/general_ai.yaml
+    path: ./providers/general_ai.yaml
     interval: 21600
   hrules-crypto-account:
     type: http
@@ -78,19 +86,12 @@ rule-providers:
     url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/financial_account.yaml
     path: ./providers/financial_account.yaml
     interval: 21600
-  hrules-telegram:
+  hrules-streaming-media:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/telegram.yaml
-    path: ./providers/telegram.yaml
-    interval: 21600
-  hrules-general-ai:
-    type: http
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/general_ai.yaml
-    path: ./providers/general_ai.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/streaming_media.yaml
+    path: ./providers/streaming_media.yaml
     interval: 21600
   hrules-youtube-media:
     type: http
@@ -99,33 +100,12 @@ rule-providers:
     url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/youtube_media.yaml
     path: ./providers/youtube_media.yaml
     interval: 21600
-  hrules-cn-domain:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs
-    path: ./providers/hrules-cn-domain.mrs
-    interval: 21600
-  hrules-cn-ip:
-    type: http
-    behavior: ipcidr
-    format: mrs
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs
-    path: ./providers/hrules-cn-ip.mrs
-    interval: 21600
-  hrules-cn-direct:
+  hrules-telegram:
     type: http
     behavior: classical
     format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/cn_direct.yaml
-    path: ./providers/cn_direct.yaml
-    interval: 21600
-  hrules-network-test:
-    type: http
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/network_test.yaml
-    path: ./providers/network_test.yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/telegram.yaml
+    path: ./providers/telegram.yaml
     interval: 21600
   hrules-mainstream-proxy:
     type: http
@@ -155,22 +135,44 @@ rule-providers:
     url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/apple_private_relay_route.yaml
     path: ./providers/apple_private_relay_route.yaml
     interval: 21600
+  hrules-cn-direct:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/cn_direct.yaml
+    path: ./providers/cn_direct.yaml
+    interval: 21600
+  hrules-cn-domain:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs
+    path: ./providers/hrules-cn-domain.mrs
+    interval: 21600
+  hrules-cn-ip:
+    type: http
+    behavior: ipcidr
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs
+    path: ./providers/hrules-cn-ip.mrs
+    interval: 21600
 rules:
 - RULE-SET,hrules-private-direct,DIRECT,no-resolve
 - RULE-SET,hrules-network-test,🤖 AI 服务 [场景]
 - RULE-SET,hrules-sensitive-ai,🤖 AI 服务 [场景]
-- RULE-SET,hrules-crypto-account,🤖 AI 服务 [场景]
-- RULE-SET,hrules-us-banking-account,🤖 AI 服务 [场景]
-- RULE-SET,hrules-brokerage-account,🤖 AI 服务 [场景]
-- RULE-SET,hrules-financial-account,🤖 AI 服务 [场景]
-- RULE-SET,hrules-telegram,💬 Telegram [场景],no-resolve
 - RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]
-- RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]
+- RULE-SET,hrules-apple-intelligence-route,🤖 AI 服务 [场景]
+- RULE-SET,hrules-crypto-account,💳 金融服务 [场景]
+- RULE-SET,hrules-us-banking-account,💳 金融服务 [场景]
+- RULE-SET,hrules-brokerage-account,💳 金融服务 [场景]
+- RULE-SET,hrules-financial-account,💳 金融服务 [场景]
+- RULE-SET,hrules-streaming-media,📺 流媒体 [场景]
+- RULE-SET,hrules-youtube-media,🌐 海外应用 [场景]
+- RULE-SET,hrules-telegram,🌐 海外应用 [场景],no-resolve
+- RULE-SET,hrules-apple-private-relay-route,🌐 海外应用 [场景]
+- RULE-SET,hrules-apple-global,🌐 海外应用 [场景]
+- RULE-SET,hrules-mainstream-proxy,🌐 海外应用 [场景]
 - RULE-SET,hrules-cn-direct,DIRECT
 - RULE-SET,hrules-cn-domain,DIRECT
 - RULE-SET,hrules-cn-ip,DIRECT,no-resolve
-- RULE-SET,hrules-mainstream-proxy,🌐 国际服务 [场景]
-- RULE-SET,hrules-apple-intelligence-route,🤖 AI 服务 [场景]
-- RULE-SET,hrules-apple-private-relay-route,🍎 Apple / iCloud [场景]
-- RULE-SET,hrules-apple-global,🍎 Apple / iCloud [场景]
 - MATCH,🚀 漏网之鱼 [自选]
