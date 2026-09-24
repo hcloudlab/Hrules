@@ -77,19 +77,13 @@ Hrules 在 **Clash Verge Rev / Mihomo** 中同时提供经过实机验证的 DNS
 
 ### 机场 / VPS / 网络服务
 
-**九云机场**
+| 名称 | 主要特点 | 链接 |
+| --- | --- | --- |
+| **九云机场** | 价格实惠、性价比较高，适合需要机场订阅和多节点日常代理的用户。 | [注册 / 购买](https://888.jiuyundl.com/#/register?code=ONhkcjrm) |
+| **搬瓦工 VPS — DC9** | **CN2 GIA + CMIN2 + 联通 Premium**，面向中国大陆方向提供多运营商优质线路；当前推荐套餐 **$49.99 / 季度**。适合重视中国方向连接质量并需要自建节点的用户。 | [购买 DC9](https://bwh81.net/aff.php?aff=82473&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55) |
+| **Proxy-Seller ISP** | 静态住宅代理 ISP，价格约 **$3 / 月起**，适合需要固定 ISP 出口 IP 的使用场景；优惠码 **HCLOUD15** 可享对应折扣。 | [购买 ISP](https://proxy-seller.com/?partner=8Y51DM71OGR26N) |
 
-[注册 / 购买九云机场](https://888.jiuyundl.com/#/register?code=ONhkcjrm)
-
-**搬瓦工 DC9 — $49.99 / 季度**  
-CN2 GIA＋CMIN2＋联通 Premium，适合重视中国方向线路质量的用户。
-
-[购买搬瓦工 DC9](https://bwh81.net/aff.php?aff=82473&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)
-
-**Proxy-Seller 静态住宅代理 ISP**  
-优惠券：**HCLOUD15**
-
-[购买 Proxy-Seller 静态住宅代理 ISP](https://proxy-seller.com/?partner=8Y51DM71OGR26N)
+> 上述服务与 Hrules 的路由规则是两层独立能力：服务商提供节点 / 线路 / 出口 IP，Hrules 负责根据规则把不同场景的流量分配到用户选择的出口。价格、套餐和优惠以服务商实际页面为准。
 
 ### 商务合作 / 1v1 精准分流定制
 
