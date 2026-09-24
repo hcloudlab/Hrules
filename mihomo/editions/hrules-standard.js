@@ -1,7 +1,7 @@
 // Hrules Core edition contract artifact.
 // Hrules Mihomo Standard / 标准版
 const HRULES_EDITION = "standard";
-const HRULES_EDITION_SPEC = {"system_groups":[],"region_groups":true,"same_region_failover":false,"scene_groups":["general_ai","youtube_media","mainstream_proxy","apple_global"],"scene_granularity":"standard","sensitive_exit_policy":"manual_region_or_node"};
+const HRULES_EDITION_SPEC = {"system_groups":[],"region_groups":true,"same_region_failover":false,"scene_groups":["mainstream_proxy","streaming_media","general_ai","financial_service","apple_global"],"scene_granularity":"standard","sensitive_exit_policy":"manual_region_or_node"};
 
 // Hrules Clash Verge Rev Subscription Adapter v0.1
 // Paste this file into the target subscription's Extension Script.
@@ -41,14 +41,8 @@ function main(config) {
   const existingGroups = Array.isArray(config["proxy-groups"]) ? config["proxy-groups"] : [];
   const owned = new Set([
     "🌐 全部节点 [系统]","♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]","⚖️ 负载均衡 [系统]",
-    "🌍 地区 [系统]","🇺🇸 美国 [地区]","🇯🇵 日本 [地区]","🇸🇬 新加坡 [地区]",
-    "🇭🇰 香港 [地区]","🇹🇼 台湾 [地区]","🇰🇷 韩国 [地区]","🇬🇧 英国 [地区]",
-    "🇩🇪 德国 [地区]","🌐 未分类 [地区]","🛡️ 美国故障转移 [敏感]",
-    "🛡️ 日本故障转移 [敏感]","🛡️ 新加坡故障转移 [敏感]","🛡️ 香港故障转移 [敏感]",
-    "🛡️ 台湾故障转移 [敏感]","🛡️ 韩国故障转移 [敏感]","🛡️ 英国故障转移 [敏感]",
-    "🛡️ 德国故障转移 [敏感]","🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]",
-    "🏦 美国账户 [场景]","🔐 重要账户 [场景]","🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🏦 美国账户 [场景]","🤖 AI 服务 [场景]","📺 影音媒体 [场景]","📺 YouTube [场景]","💬 Telegram [场景]",
-    "🚀 漏网之鱼 [自选]"
+    "🌍 地区 [系统]","🇺🇸 美国 [地区]","🇯🇵 日本 [地区]","🇸🇬 新加坡 [地区]","🇭🇰 香港 [地区]","🇹🇼 台湾 [地区]","🇰🇷 韩国 [地区]","🇬🇧 英国 [地区]","🇩🇪 德国 [地区]","🌐 未分类 [地区]",
+    "🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]","🏦 美国账户 [场景]","🔐 重要账户 [场景]","🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","📺 影音媒体 [场景]","📺 YouTube [场景]","💬 Telegram [场景]","🌐 国际服务 [场景]","🍎 Apple / iCloud [场景]","🌐 海外应用 [场景]","📺 流媒体 [场景]","💳 金融服务 [场景]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
 
@@ -105,14 +99,13 @@ function main(config) {
   // a node pins the scene to that node. No Hrules global auto/fallback/all-nodes group
   // is inserted into a scene.
   const sceneCandidates = [...regionNames,...exact];
-  // Standard keeps the full Core rule coverage but intentionally exposes only
-  // broad everyday scenes. Sensitive/account rules are mapped into AI instead
-  // of creating extra user-facing groups; Core rule files remain unchanged.
-  if (hasScene("general_ai")) groups.push(sceneGroup("🤖 AI 服务 [场景]",sceneCandidates));
-  if (hasScene("youtube_media")) groups.push(sceneGroup("📺 影音媒体 [场景]",sceneCandidates));
-  if (hasScene("mainstream_proxy")) groups.push(sceneGroup("🌐 国际服务 [场景]",sceneCandidates));
-  if (hasScene("apple_global")) groups.push(sceneGroup("🍎 Apple / iCloud [场景]",sceneCandidates));
-  groups.push(sceneGroup("💬 Telegram [场景]",sceneCandidates));
+  // Standard is the public practical edition. Keep Core granularity internally,
+  // but expose only four broad user-facing scenes, ordered from broad/everyday
+  // to scenarios that usually need stricter egress control.
+  groups.push(sceneGroup("🌐 海外应用 [场景]",sceneCandidates));
+  groups.push(sceneGroup("📺 流媒体 [场景]",sceneCandidates));
+  groups.push(sceneGroup("🤖 AI 服务 [场景]",sceneCandidates));
+  groups.push(sceneGroup("💳 金融服务 [场景]",sceneCandidates));
   groups.push(sceneGroup("🚀 漏网之鱼 [自选]",sceneCandidates.length ? sceneCandidates : exact));
   config["proxy-groups"] = groups;
 
@@ -144,6 +137,7 @@ function main(config) {
     ["hrules-telegram","telegram"],
     ["hrules-general-ai","general_ai"],
     ["hrules-youtube-media","youtube_media"],
+    ["hrules-streaming-media","streaming_media"],
     ["hrules-mainstream-proxy","mainstream_proxy"],
     ["hrules-apple-global","apple_global"],
     ["hrules-apple-intelligence-route","apple_intelligence_route"],
@@ -165,21 +159,21 @@ function main(config) {
   // Hrules is an overlay. Do not add its MATCH here: the host profile keeps
   // ownership of its existing fallback/MATCH semantics.
   const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT,no-resolve"];
+  // Specific rules stay before broad overseas-app rules.
   hrulesRules.push("RULE-SET,hrules-network-test,🤖 AI 服务 [场景]");
   hrulesRules.push("RULE-SET,hrules-sensitive-ai,🤖 AI 服务 [场景]");
-  hrulesRules.push("RULE-SET,hrules-crypto-account,🤖 AI 服务 [场景]");
-  hrulesRules.push("RULE-SET,hrules-us-banking-account,🤖 AI 服务 [场景]");
-  hrulesRules.push("RULE-SET,hrules-brokerage-account,🤖 AI 服务 [场景]");
-  hrulesRules.push("RULE-SET,hrules-financial-account,🤖 AI 服务 [场景]");
-  hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景],no-resolve");
-  if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
-  if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]");
-  if (hasScene("mainstream_proxy")) hrulesRules.push("RULE-SET,hrules-mainstream-proxy,🌐 国际服务 [场景]");
-  if (hasScene("apple_global")) {
-    hrulesRules.push("RULE-SET,hrules-apple-intelligence-route,🤖 AI 服务 [场景]");
-    hrulesRules.push("RULE-SET,hrules-apple-private-relay-route,🍎 Apple / iCloud [场景]");
-    hrulesRules.push("RULE-SET,hrules-apple-global,🍎 Apple / iCloud [场景]");
-  }
+  hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-apple-intelligence-route,🤖 AI 服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-crypto-account,💳 金融服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-us-banking-account,💳 金融服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-brokerage-account,💳 金融服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-financial-account,💳 金融服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-streaming-media,📺 流媒体 [场景]");
+  hrulesRules.push("RULE-SET,hrules-youtube-media,🌐 海外应用 [场景]");
+  hrulesRules.push("RULE-SET,hrules-telegram,🌐 海外应用 [场景],no-resolve");
+  hrulesRules.push("RULE-SET,hrules-apple-private-relay-route,🌐 海外应用 [场景]");
+  hrulesRules.push("RULE-SET,hrules-apple-global,🌐 海外应用 [场景]");
+  hrulesRules.push("RULE-SET,hrules-mainstream-proxy,🌐 海外应用 [场景]");
   hrulesRules.push("RULE-SET,hrules-cn-direct,DIRECT");
   hrulesRules.push("RULE-SET,hrules-cn-domain,DIRECT");
   hrulesRules.push("RULE-SET,hrules-cn-ip,DIRECT,no-resolve");
