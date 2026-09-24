@@ -1,0 +1,7 @@
+payload:
+- DOMAIN-SUFFIX,cn.apple.com
+- DOMAIN-SUFFIX,apple.com.cn
+- DOMAIN-SUFFIX,cn.ls.apple.com
+- DOMAIN-SUFFIX,cn-ssl.ls.apple.com
+- DOMAIN-SUFFIX,icloud.com.cn
+- DOMAIN-SUFFIX,cn
