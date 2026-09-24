@@ -1,0 +1,4 @@
+payload:
+- DOMAIN,apple-relay.fastly-edge.com
+- DOMAIN,apple-relay.cloudflare.com
+- DOMAIN,apple-relay.apple.com

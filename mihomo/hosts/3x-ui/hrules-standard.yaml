@@ -1,0 +1,104 @@
+proxy-groups:
+- name: 🤖 AI 服务 [场景]
+  type: select
+  proxies:
+  - PROXY
+  - DIRECT
+  include-all-proxies: true
+- name: 📺 YouTube [场景]
+  type: select
+  proxies:
+  - PROXY
+  - DIRECT
+  include-all-proxies: true
+- name: 💬 Telegram [场景]
+  type: select
+  proxies:
+  - PROXY
+  - DIRECT
+  include-all-proxies: true
+- name: 🌐 国际服务 [场景]
+  type: select
+  proxies:
+  - PROXY
+  - DIRECT
+  include-all-proxies: true
+- name: 🍎 Apple / iCloud [场景]
+  type: select
+  proxies:
+  - PROXY
+  - DIRECT
+  include-all-proxies: true
+- name: 🚀 漏网之鱼 [自选]
+  type: select
+  proxies:
+  - PROXY
+  - DIRECT
+  include-all-proxies: true
+rule-providers:
+  hrules-private-direct:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/private_direct.yaml
+    path: ./providers/private_direct.yaml
+    interval: 21600
+  hrules-cn-direct:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/cn_direct.yaml
+    path: ./providers/cn_direct.yaml
+    interval: 21600
+  hrules-apple-intelligence-route:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/apple_intelligence_route.yaml
+    path: ./providers/apple_intelligence_route.yaml
+    interval: 21600
+  hrules-apple-private-relay-route:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/apple_private_relay_route.yaml
+    path: ./providers/apple_private_relay_route.yaml
+    interval: 21600
+  hrules-apple-global:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/apple_global.yaml
+    path: ./providers/apple_global.yaml
+    interval: 21600
+  hrules-general-ai:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/general_ai.yaml
+    path: ./providers/general_ai.yaml
+    interval: 21600
+  hrules-mainstream-proxy:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/mainstream_proxy.yaml
+    path: ./providers/mainstream_proxy.yaml
+    interval: 21600
+  hrules-youtube-media:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes/youtube_media.yaml
+    path: ./providers/youtube_media.yaml
+    interval: 21600
+rules:
+- RULE-SET,hrules-private-direct,DIRECT
+- RULE-SET,hrules-cn-direct,DIRECT
+- RULE-SET,hrules-apple-intelligence-route,🤖 AI 服务 [场景]
+- RULE-SET,hrules-apple-private-relay-route,🍎 Apple / iCloud [场景]
+- RULE-SET,hrules-apple-global,🍎 Apple / iCloud [场景]
+- RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]
+- RULE-SET,hrules-mainstream-proxy,🌐 国际服务 [场景]
+- RULE-SET,hrules-youtube-media,📺 YouTube [场景]
+- MATCH,🚀 漏网之鱼 [自选]

@@ -1,0 +1,805 @@
+{
+  "schema_version": 2,
+  "version": "v0.1.0-rc1",
+  "channel": "rc",
+  "release_status": "release_candidate",
+  "generated_from_commit": "f4c446ae6cce15de5a0336c32dfd24b6eea42536",
+  "source": "hcloudlab/Hrules-core",
+  "artifacts": [
+    {
+      "path": "mihomo/rules/american-express.yaml",
+      "sha256": "8dcf582acb83e6539b85cb181f911218fec7edbeee8e9802eb535d06e80a366d",
+      "module": "american-express",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/apple-cn.yaml",
+      "sha256": "256650199bc9b2d40e5d66878a537697e8db5beda9e9348e4e260ee344b0c55d",
+      "module": "apple-cn",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 5
+    },
+    {
+      "path": "mihomo/rules/apple-intelligence.yaml",
+      "sha256": "e1b6931d9e65e72df1fb1c446cd6602bf9cbe96ecea4cc08ba7a931b24c241c1",
+      "module": "apple-intelligence",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 3
+    },
+    {
+      "path": "mihomo/rules/apple-private-relay.yaml",
+      "sha256": "b74af11e0ced15e53be78ad22586903f7d055e602ccb94d360a6ae5fdb33ad4d",
+      "module": "apple-private-relay",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 6
+    },
+    {
+      "path": "mihomo/rules/apple-services.yaml",
+      "sha256": "ecb0ddf5d7849db2bba2d5f818d860c6045c1aee7163bdd96dc6e72454980448",
+      "module": "apple-services",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 12
+    },
+    {
+      "path": "mihomo/rules/bank-of-america.yaml",
+      "sha256": "ce7ecd3d3dbce513e32d17825ee95430d3d7c934c5095fa6cc941ece74bd025c",
+      "module": "bank-of-america",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/banking-shared-risk.yaml",
+      "sha256": "5d80a79ce2e4bf67095d91e0ed89b712b57f0b07ad0a81d0fbbd0fc0a2815449",
+      "module": "banking-shared-risk",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/binance.yaml",
+      "sha256": "b7649d4a180a6aabd4a89236842e8e6c27d0bcd3e0cc6995fc772e586891d90a",
+      "module": "binance",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 5
+    },
+    {
+      "path": "mihomo/rules/bybit.yaml",
+      "sha256": "26dcb6003b9b162dc3553b334449b316b7c6a6e017bec800d26556ee25caa90f",
+      "module": "bybit",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/capital-one.yaml",
+      "sha256": "32ee31ad20c2a70045c1c3e573ff8bf4acff8ea4beab7e0a5946878620d9ff64",
+      "module": "capital-one",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/chase.yaml",
+      "sha256": "a73ca9b1b6bf705fa61a192d3e6cf02b031601bde439fe94184f5a6aed5efdd2",
+      "module": "chase",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/citi.yaml",
+      "sha256": "924ae450132958f84e54fcead6dc3048871629b54b0813738ed31235cdcd0784",
+      "module": "citi",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/claude.yaml",
+      "sha256": "a53086f671bd2e51bcf6dc4a3d351391ff55ff534825e29494522f31fd5929e0",
+      "module": "claude",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 4
+    },
+    {
+      "path": "mihomo/rules/cn.yaml",
+      "sha256": "f60c53822683474d63db336960c27aabd60533ce6bbecf799bf1bfc0b1cff991",
+      "module": "cn",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/coinbase.yaml",
+      "sha256": "4e50d7196bf1f756aebea4f8327512841195706536395458e5d0e7784ca326d5",
+      "module": "coinbase",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/crypto-shared-risk.yaml",
+      "sha256": "a1d644d2547774ec01c2d23ab1127f4633dacad935d52eceb8d52672567f9c0c",
+      "module": "crypto-shared-risk",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 5
+    },
+    {
+      "path": "mihomo/rules/discord.yaml",
+      "sha256": "88afbc6e7ff9ab65e2038f51fd0f6ac31cb6efef07846b39e7b6803e3b81ce73",
+      "module": "discord",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 22
+    },
+    {
+      "path": "mihomo/rules/disneyplus.yaml",
+      "sha256": "0448125d972c5b16dd5cac78287f5860e59023366a705a102535c3541d963ae5",
+      "module": "disneyplus",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 8
+    },
+    {
+      "path": "mihomo/rules/facebook.yaml",
+      "sha256": "689f89e42e32629e573fae876d2fb6c80d414e7d093015962942890d2b238e15",
+      "module": "facebook",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 11
+    },
+    {
+      "path": "mihomo/rules/gemini.yaml",
+      "sha256": "d62b3546bd5bce79599f81e0545f8738d77b1a63c090f2056f1143c70b1ffc7c",
+      "module": "gemini",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/github.yaml",
+      "sha256": "45ad9f094b920d8989379ac2a38eb17007a4387383c60815f17d16617e234082",
+      "module": "github",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 10
+    },
+    {
+      "path": "mihomo/rules/icloud.yaml",
+      "sha256": "94a4f0a178f07f99bd483e60c163eccb6323a30ca92bc7952d2d37250f8b9c71",
+      "module": "icloud",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 5
+    },
+    {
+      "path": "mihomo/rules/instagram.yaml",
+      "sha256": "0cd054603ef934f080eca7f46f23226ae3c9c605839a94a9f8203f3e5ede0408",
+      "module": "instagram",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 3
+    },
+    {
+      "path": "mihomo/rules/interactive-brokers.yaml",
+      "sha256": "2a38e74656efa49b5211435e8431affb1b583bd8b83f1b6693664c35054fb11b",
+      "module": "interactive-brokers",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/kraken.yaml",
+      "sha256": "8d960843ea31a7c54475cdcf38bab1bd679cb3eb7476c825b5996942bd7595c0",
+      "module": "kraken",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/netflix.yaml",
+      "sha256": "a778c0d6dd9a61bbcfc3c36ee318bf0d0b7ba41867f57826ebf514bf70684c4c",
+      "module": "netflix",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 13
+    },
+    {
+      "path": "mihomo/rules/okx.yaml",
+      "sha256": "09211ee22476f0943da3122e803fc24678df1ea9886cfe1086247aca79198599",
+      "module": "okx",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/openai.yaml",
+      "sha256": "84e2bebf5ed5fb6cb89265dacd81c2ba6c590be6bc86b20af08ecdb4f2bcceb6",
+      "module": "openai",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 4
+    },
+    {
+      "path": "mihomo/rules/primevideo.yaml",
+      "sha256": "2eeed9f43c5e2e7e556f3a3e8bce57a1291fa04e19f9f1817f4e0d4b8dde6f16",
+      "module": "primevideo",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 6
+    },
+    {
+      "path": "mihomo/rules/private.yaml",
+      "sha256": "342a9fe7b6bdd7f5ed703a07b7093d5e462051bceb58533e0d7d529d6861459d",
+      "module": "private",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/reddit.yaml",
+      "sha256": "f7523900bcdabdc151f32119935cf1977e47346fa9be1a8568df6e6fe5e4ae93",
+      "module": "reddit",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 6
+    },
+    {
+      "path": "mihomo/rules/spotify.yaml",
+      "sha256": "bc79f09c615808d5e7487b47adcedb498f78b1d5e3a2c1fa1f13828fa1b6a52e",
+      "module": "spotify",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 15
+    },
+    {
+      "path": "mihomo/rules/tiktok.yaml",
+      "sha256": "8dd2b0a49da27fa0b295c5c707b494428e87fe3367224ab501f7642843dd8b88",
+      "module": "tiktok",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 11
+    },
+    {
+      "path": "mihomo/rules/twitch.yaml",
+      "sha256": "c834abfd63bc6f74194b29430ba1d31707a3cd5fafb0b66a0e0907f7c36c8429",
+      "module": "twitch",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 7
+    },
+    {
+      "path": "mihomo/rules/wells-fargo.yaml",
+      "sha256": "36a77b8f57b64066f56f0af8a6900706bac94a52378fac9bf222014fcb472def",
+      "module": "wells-fargo",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 3
+    },
+    {
+      "path": "mihomo/rules/whatsapp.yaml",
+      "sha256": "a02de3de97e1d066b466c8e2ab0b3322b6eca54398dc01d5b5c2506877e9bed2",
+      "module": "whatsapp",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 3
+    },
+    {
+      "path": "mihomo/rules/x.yaml",
+      "sha256": "01cdd727f5f13d32d6894d774e03722be401d176fede6a89c3ad11aba1ecd67e",
+      "module": "x",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 18
+    },
+    {
+      "path": "mihomo/rules/youtube.yaml",
+      "sha256": "0254175f7b4862117f170976d9bbf052bffc64e90cc141ee78bad3709bd5ce06",
+      "module": "youtube",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/scenes/apple_global.yaml",
+      "sha256": "289eb6e346c5e201f28bb86240c09f365c3d1584a377746c370d5ddc21614ab3",
+      "scene": "apple_global",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 17,
+      "modules": [
+        "apple-services",
+        "icloud"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/apple_intelligence_route.yaml",
+      "sha256": "e1b6931d9e65e72df1fb1c446cd6602bf9cbe96ecea4cc08ba7a931b24c241c1",
+      "scene": "apple_intelligence_route",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 3,
+      "modules": [
+        "apple-intelligence"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/apple_private_relay_route.yaml",
+      "sha256": "b74af11e0ced15e53be78ad22586903f7d055e602ccb94d360a6ae5fdb33ad4d",
+      "scene": "apple_private_relay_route",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 6,
+      "modules": [
+        "apple-private-relay"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/brokerage_account.yaml",
+      "sha256": "2a38e74656efa49b5211435e8431affb1b583bd8b83f1b6693664c35054fb11b",
+      "scene": "brokerage_account",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2,
+      "modules": [
+        "interactive-brokers"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/cn_direct.yaml",
+      "sha256": "327813642719512c4988a18cc5b11099cd0d964f32042d4ad46d483236ffbf51",
+      "scene": "cn_direct",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 6,
+      "modules": [
+        "apple-cn",
+        "cn"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/crypto_account.yaml",
+      "sha256": "8b3279300a822fd96072523babd21bdf2a3159e35876cca1f90a1e076418a66f",
+      "scene": "crypto_account",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 16,
+      "modules": [
+        "binance",
+        "bybit",
+        "coinbase",
+        "crypto-shared-risk",
+        "kraken",
+        "okx"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/general_ai.yaml",
+      "sha256": "d62b3546bd5bce79599f81e0545f8738d77b1a63c090f2056f1143c70b1ffc7c",
+      "scene": "general_ai",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1,
+      "modules": [
+        "gemini"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/mainstream_proxy.yaml",
+      "sha256": "6c853501e0c0ad95909063d22929d39cc9856ded7d563a0ed850d42e2ee12e05",
+      "scene": "mainstream_proxy",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 133,
+      "modules": [
+        "discord",
+        "disneyplus",
+        "facebook",
+        "github",
+        "instagram",
+        "netflix",
+        "primevideo",
+        "reddit",
+        "spotify",
+        "tiktok",
+        "twitch",
+        "whatsapp",
+        "x"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/private_direct.yaml",
+      "sha256": "342a9fe7b6bdd7f5ed703a07b7093d5e462051bceb58533e0d7d529d6861459d",
+      "scene": "private_direct",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1,
+      "modules": [
+        "private"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/sensitive_ai.yaml",
+      "sha256": "37c89cc1df37912e9de098d2d9cc2fb70cdc60fc427837558709315da0f99e81",
+      "scene": "sensitive_ai",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 8,
+      "modules": [
+        "claude",
+        "openai"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/us_banking_account.yaml",
+      "sha256": "2d4a01d0adf91cace39f1572b75a380decdd0f63cff09e166aaa0f2f5c7e0ae6",
+      "scene": "us_banking_account",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 12,
+      "modules": [
+        "american-express",
+        "bank-of-america",
+        "banking-shared-risk",
+        "capital-one",
+        "chase",
+        "citi",
+        "wells-fargo"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/youtube_media.yaml",
+      "sha256": "0254175f7b4862117f170976d9bbf052bffc64e90cc141ee78bad3709bd5ce06",
+      "scene": "youtube_media",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2,
+      "modules": [
+        "youtube"
+      ]
+    },
+    {
+      "path": "mihomo/routing.yaml",
+      "sha256": "56830e4caccbeb18d831cad7752d1f4038cfa7cabbc96f472b8879da7ee73c71",
+      "client": "mihomo",
+      "format": "routing-layer",
+      "entries": 13
+    },
+    {
+      "path": "mihomo/adapters/clash-verge-rev/hrules-global.js",
+      "sha256": "9729a921cac57ad0f7da443c43de86ed95d53078e7533181a8816a46508c8874",
+      "client": "mihomo",
+      "format": "clash-verge-rev-global-adapter"
+    },
+    {
+      "path": "mihomo/hosts/3x-ui.yaml",
+      "sha256": "a5fffd268eb2d9634526207b4364226601774344be78a8fb27643282000c5a0a",
+      "client": "mihomo",
+      "format": "host-routing-layer",
+      "host": "3x-ui",
+      "entries": 13
+    },
+    {
+      "path": "mihomo/hosts/3x-ui/hrules-standard.yaml",
+      "sha256": "985533fcc13f2e3ccfa0d73effc3e8774ce3fe4190b597281ebb177b1e31200b",
+      "client": "mihomo",
+      "format": "host-routing-layer-edition",
+      "host": "3x-ui",
+      "edition": "standard",
+      "entries": 9
+    },
+    {
+      "path": "mihomo/hosts/3x-ui/hrules-stable.yaml",
+      "sha256": "cbfbe1ecbb8a3de6dcd5fa451f71924ed604ef6d969cbdf493c59b5aeb107d96",
+      "client": "mihomo",
+      "format": "host-routing-layer-edition",
+      "host": "3x-ui",
+      "edition": "stable",
+      "entries": 10
+    },
+    {
+      "path": "mihomo/hosts/3x-ui/hrules-strict.yaml",
+      "sha256": "a5fffd268eb2d9634526207b4364226601774344be78a8fb27643282000c5a0a",
+      "client": "mihomo",
+      "format": "host-routing-layer-edition",
+      "host": "3x-ui",
+      "edition": "strict",
+      "entries": 13
+    }
+  ],
+  "skipped_non_publishable_modules": [
+    "blocking",
+    "google",
+    "microsoft",
+    "telegram",
+    "tradingview"
+  ],
+  "profiles": [
+    {
+      "id": "basic",
+      "title": "Basic",
+      "complete": true,
+      "modules": [
+        "private",
+        "cn",
+        "youtube"
+      ],
+      "available_modules": [
+        "private",
+        "cn",
+        "youtube"
+      ],
+      "withheld_modules": []
+    },
+    {
+      "id": "ai",
+      "title": "AI",
+      "complete": true,
+      "modules": [
+        "private",
+        "cn",
+        "youtube",
+        "claude",
+        "openai",
+        "gemini"
+      ],
+      "available_modules": [
+        "private",
+        "cn",
+        "youtube",
+        "claude",
+        "openai",
+        "gemini"
+      ],
+      "withheld_modules": []
+    },
+    {
+      "id": "us-finance",
+      "title": "US Finance",
+      "complete": true,
+      "modules": [
+        "private",
+        "cn",
+        "youtube",
+        "claude",
+        "openai",
+        "gemini",
+        "bank-of-america",
+        "chase",
+        "wells-fargo",
+        "capital-one",
+        "american-express",
+        "interactive-brokers"
+      ],
+      "available_modules": [
+        "private",
+        "cn",
+        "youtube",
+        "claude",
+        "openai",
+        "gemini",
+        "bank-of-america",
+        "chase",
+        "wells-fargo",
+        "capital-one",
+        "american-express",
+        "interactive-brokers"
+      ],
+      "withheld_modules": []
+    },
+    {
+      "id": "crypto",
+      "title": "Crypto",
+      "complete": true,
+      "modules": [
+        "private",
+        "cn",
+        "youtube",
+        "claude",
+        "openai",
+        "gemini",
+        "binance",
+        "coinbase",
+        "bybit",
+        "kraken"
+      ],
+      "available_modules": [
+        "private",
+        "cn",
+        "youtube",
+        "claude",
+        "openai",
+        "gemini",
+        "binance",
+        "coinbase",
+        "bybit",
+        "kraken"
+      ],
+      "withheld_modules": []
+    },
+    {
+      "id": "finance-pro",
+      "title": "Finance Pro",
+      "complete": true,
+      "modules": [
+        "private",
+        "cn",
+        "youtube",
+        "claude",
+        "openai",
+        "gemini",
+        "bank-of-america",
+        "chase",
+        "wells-fargo",
+        "capital-one",
+        "american-express",
+        "interactive-brokers",
+        "binance",
+        "coinbase",
+        "bybit",
+        "kraken"
+      ],
+      "available_modules": [
+        "private",
+        "cn",
+        "youtube",
+        "claude",
+        "openai",
+        "gemini",
+        "bank-of-america",
+        "chase",
+        "wells-fargo",
+        "capital-one",
+        "american-express",
+        "interactive-brokers",
+        "binance",
+        "coinbase",
+        "bybit",
+        "kraken"
+      ],
+      "withheld_modules": []
+    },
+    {
+      "id": "full",
+      "title": "Full",
+      "complete": false,
+      "modules": [
+        "american-express",
+        "apple-cn",
+        "apple-intelligence",
+        "apple-private-relay",
+        "apple-services",
+        "bank-of-america",
+        "banking-shared-risk",
+        "binance",
+        "blocking",
+        "bybit",
+        "capital-one",
+        "chase",
+        "citi",
+        "claude",
+        "cn",
+        "coinbase",
+        "crypto-shared-risk",
+        "discord",
+        "disneyplus",
+        "facebook",
+        "gemini",
+        "github",
+        "google",
+        "icloud",
+        "instagram",
+        "interactive-brokers",
+        "kraken",
+        "microsoft",
+        "netflix",
+        "okx",
+        "openai",
+        "primevideo",
+        "private",
+        "reddit",
+        "spotify",
+        "telegram",
+        "tiktok",
+        "tradingview",
+        "twitch",
+        "wells-fargo",
+        "whatsapp",
+        "x",
+        "youtube"
+      ],
+      "available_modules": [
+        "american-express",
+        "apple-cn",
+        "apple-intelligence",
+        "apple-private-relay",
+        "apple-services",
+        "bank-of-america",
+        "banking-shared-risk",
+        "binance",
+        "bybit",
+        "capital-one",
+        "chase",
+        "citi",
+        "claude",
+        "cn",
+        "coinbase",
+        "crypto-shared-risk",
+        "discord",
+        "disneyplus",
+        "facebook",
+        "gemini",
+        "github",
+        "icloud",
+        "instagram",
+        "interactive-brokers",
+        "kraken",
+        "netflix",
+        "okx",
+        "openai",
+        "primevideo",
+        "private",
+        "reddit",
+        "spotify",
+        "tiktok",
+        "twitch",
+        "wells-fargo",
+        "whatsapp",
+        "x",
+        "youtube"
+      ],
+      "withheld_modules": [
+        "blocking",
+        "google",
+        "microsoft",
+        "telegram",
+        "tradingview"
+      ]
+    }
+  ],
+  "clients": {
+    "mihomo": {
+      "public_names": [
+        "Clash Verge",
+        "Clash Mi"
+      ],
+      "status": "validating"
+    },
+    "shadowrocket": {
+      "public_names": [
+        "Shadowrocket"
+      ],
+      "status": "planned"
+    },
+    "sing-box": {
+      "public_names": [
+        "SFM",
+        "sing-box"
+      ],
+      "status": "planned"
+    },
+    "v2rayn": {
+      "public_names": [
+        "v2rayN"
+      ],
+      "status": "planned"
+    },
+    "karing": {
+      "public_names": [
+        "Karing"
+      ],
+      "status": "planned"
+    }
+  },
+  "assurance": "RC artifacts validate routing identification only; they do not guarantee account, authentication, fraud-control, or regional service eligibility."
+}
