@@ -17,6 +17,12 @@
 
 ## 场景能力
 
+Hrules 的 Standard / Stable / Strict 共用同一套 Core 和规则基础，三者安全性完全相同。版本区别在于**场景归类颗粒度**：Standard 更简单，Stable 更细化，Strict 更精准，让用户按需要更精确地掌控哪个节点用在哪条线路上。
+
+- **Standard**：AI、影音、Telegram、漏网之鱼。细分的 Claude / OpenAI、虚拟货币、银行、券商、金融账户等 Core 规则仍然保留，但在 Standard 中统一归入 `🤖 AI 服务 [场景]`，不额外增加用户需要管理的场景组。
+- **Stable**：在基础场景上拆出 Claude / OpenAI、虚拟货币、美国账户等，便于分别指定出口。
+- **Strict**：进一步拆分美国银行、美股 / 券商、金融账户等，让业务线路与出口控制更精准。
+
 当前公共场景覆盖：
 
 - **🔐 Claude / OpenAI [场景]** — Claude、OpenAI 等重要 AI 账户相关流量
