@@ -1,18 +1,6 @@
 # Hrules
 
-## 多客户端 · 场景化 · 智能路由
-
-## Clash / Mihomo 三种路由模式
-
-| 模式 | 主要目标 | 典型行为 | 典型场景 |
-| --- | --- | --- | --- |
-| 🟢 **标准** | 可用性与日常体验 | 允许自动选择和常规故障切换 | 普通网页、YouTube / 视频、一般网络服务 |
-| 🟡 **稳定** | 尽量保持地区一致 | 优先同地区选择与同地区故障切换 | Claude、ChatGPT、Netflix 等地区敏感服务 |
-| 🔴 **严格** | 出口更可预测 | 限制自动漂移，优先明确/固定的允许出口 | 银行、证券 / 券商、虚拟货币等重要账户 |
-
-以上三种等级仅适用于 Clash / Mihomo。Shadowrocket 只提供一个完整配置，不分等级。
-
-→ [了解 Clash / Mihomo 三种路由模式](docs/routing-modes.md)
+## 安全、可控的多客户端、场景化、智能路由分流规则
 
 ## 客户端支持
 
@@ -31,7 +19,18 @@
 
 当前公共场景覆盖：
 
-**AI（Gemini / Grok / Perplexity 等）** · **Claude / OpenAI** · **虚拟货币** · **美国银行** · **美股 / 券商** · **金融账户（PayPal / Wise / Payoneer 等）** · **Telegram** · **YouTube** · **中国大陆直连** · **私有网络直连**
+- **🔐 Claude / OpenAI [场景]** — Claude、OpenAI 等重要 AI 账户相关流量
+- **🤖 AI 服务 [场景]** — Gemini、Grok、Perplexity 等通用 AI 服务
+- **💰 虚拟货币 [场景]** — 虚拟货币相关服务与账户流量
+- **🏦 美国账户 [场景]** — Standard / Stable 中统一承载美国银行、美股 / 券商及金融账户场景
+- **🏦 美国银行 [场景]** — Strict 中独立的美国银行账户场景
+- **📈 美股 [场景]** — Strict 中独立的美股 / 券商账户场景
+- **💳 金融账户 [场景]** — Strict 中独立的 PayPal、Wise、Payoneer 等金融账户场景
+- **💬 Telegram [场景]** — Telegram 相关流量
+- **📺 影音媒体 [场景]** — YouTube 等影音媒体流量
+- **🚀 漏网之鱼 [自选]** — 未命中前置规则的最终自选出口
+- **中国大陆直连** — 国内域名 / IP 按 DIRECT 处理
+- **私有网络直连** — 局域网及私有地址按 DIRECT 处理
 
 → [查看场景与规则说明](docs/scenes.md)
 
@@ -50,21 +49,32 @@ Hrules 在 **Clash Verge Rev / Mihomo** 中同时提供经过实机验证的 DNS
 
 → [查看 DNS 架构说明](docs/dns-architecture-v0.1.md)
 
-## 推荐服务
-
-- **推荐机场** — [查看推荐与适用场景](docs/recommended-services.md)
-- **推荐 VPS** — [查看 VPS 推荐与用途](docs/recommended-services.md)
-
-如页面包含联盟链接、优惠码或赞助合作，会在推荐页面明确标注。
-
 ## 合作与定制
 
-- 机场 / VPS / 网络服务商合作
-- Hrules 接入与兼容适配
-- 私人定制分流规则与场景
-- 商务合作、赞助与内容合作
+### 机场 / VPS / 网络服务
 
-→ [商务合作与私人定制](docs/business.md)
+**九云机场**
+
+[注册 / 购买九云机场](https://888.jiuyundl.com/#/register?code=ONhkcjrm)
+
+**搬瓦工 DC9 — $49.99 / 季度**  
+CN2 GIA＋CMIN2＋联通 Premium，适合重视中国方向线路质量的用户。
+
+[购买搬瓦工 DC9](https://bwh81.net/aff.php?aff=82473&a=add&pid=87&billingcycle=quarterly&configoption%5B17%5D=55)
+
+**Proxy-Seller 静态住宅代理 ISP**  
+优惠券：**HCLOUD15**
+
+[购买 Proxy-Seller 静态住宅代理 ISP](https://proxy-seller.com/?partner=8Y51DM71OGR26N)
+
+### 商务合作 / 1v1 定制
+
+- **商务合作**：机场、VPS、网络服务商合作，赞助及内容合作等。
+- **1v1 定制**：根据个人实际使用的服务、域名和出口需求，定制 Hrules 场景分流规则与路由策略。
+- **隐私说明**：1v1 定制不需要提供账号、密码，也不接收任何账号信息；只确认需要使用的服务、域名清单及必要的网络需求。
+
+**Email：** hexa46656@gmail.com  
+**Telegram：** @hcloudlab
 
 ## 项目状态
 
