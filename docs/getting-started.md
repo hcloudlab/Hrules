@@ -6,7 +6,8 @@ Hrules 不提供节点。开始前，请先准备一个可正常使用的机场�
 
 | 客户端 / 接入方式 | 当前状态 | 入口 |
 | --- | --- | --- |
-| Clash Verge Rev / Mihomo | Available | [Mihomo 安装说明](install.md) |
+| Clash Verge Rev | Available | [Mihomo 安装说明](install.md) |
+| 其他 Mihomo / Clash Meta 客户端 | Compatibility entry | [兼容说明](kernels/mihomo.md#其他-mihomo--clash-meta-客户端) |
 | 3X-UI → Mihomo Remote Routing | Available | [3X-UI 安装说明](install.md#3x-ui-remote-routing) |
 | Shadowrocket | Validating | [安装说明](kernels/shadowrocket.md) |
 | sing-box / SFM | Planned | 尚未公开 |
