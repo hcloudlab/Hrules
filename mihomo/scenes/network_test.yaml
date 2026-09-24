@@ -1,0 +1,13 @@
+payload:
+# Network diagnostics intentionally follow the Claude / OpenAI scene so users
+# can inspect the same public egress IP used by sensitive AI accounts.
+- DOMAIN-SUFFIX,ipinfo.io
+- DOMAIN-SUFFIX,ipinfo.com
+- DOMAIN-SUFFIX,ping0.cc
+- DOMAIN-SUFFIX,whoer.net
+- DOMAIN-SUFFIX,ipleak.net
+- DOMAIN-SUFFIX,browserleaks.com
+- DOMAIN-SUFFIX,ip.sb
+- DOMAIN-SUFFIX,ipify.org
+- DOMAIN-SUFFIX,ifconfig.me
+- DOMAIN-SUFFIX,whatismyipaddress.com

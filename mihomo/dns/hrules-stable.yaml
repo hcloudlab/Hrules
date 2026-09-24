@@ -1,0 +1,33 @@
+# Hrules DNS v0.1 — Stable
+# Production baseline mirrored by the Clash Verge Rev stable adapter.
+# Bootstrap/node resolution is independent; DIRECT uses mainland DNS; global DNS
+# uses encrypted DoH without depending on an Hrules-created global automatic group.
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter-mode: blacklist
+  fake-ip-filter:
+    - +.lan
+    - +.local
+    - +.home.arpa
+    - localhost.ptlogin2.qq.com
+    - time.*.com
+    - ntp.*.com
+    - +.pool.ntp.org
+    - +.msftconnecttest.com
+    - +.msftncsi.com
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  proxy-server-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  direct-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  direct-nameserver-follow-policy: false
+  nameserver:
+    - "https://1.1.1.1/dns-query"
+    - "https://8.8.8.8/dns-query"

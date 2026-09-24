@@ -1,0 +1,49 @@
+payload:
+# PayPal family — intentionally scoped to current first-party/account brands,
+# not Blackmatrix7's large historical/typosquat corpus.
+- DOMAIN-SUFFIX,paypal.com
+- DOMAIN-SUFFIX,paypalobjects.com
+- DOMAIN-SUFFIX,paypal.me
+- DOMAIN-SUFFIX,paypalinc.com
+- DOMAIN-SUFFIX,paypalcorp.com
+- DOMAIN-SUFFIX,paypalcredit.com
+- DOMAIN-SUFFIX,paypalgivingfund.org
+- DOMAIN-SUFFIX,braintreegateway.com
+- DOMAIN-SUFFIX,braintreepayments.com
+- DOMAIN-SUFFIX,venmo.com
+- DOMAIN-SUFFIX,xoom.com
+
+# Stripe payment infrastructure — explicit namespaces observed during real-device testing.
+- DOMAIN-SUFFIX,stripe.com
+- DOMAIN-SUFFIX,stripe.network
+- DOMAIN-SUFFIX,stripecdn.com
+- DOMAIN-SUFFIX,stripeassets.com
+- DOMAIN-SUFFIX,stripe.dev
+- DOMAIN-SUFFIX,stripe.global
+- DOMAIN-SUFFIX,stripe.partners
+
+# Wise / TransferWise
+- DOMAIN-SUFFIX,wise.com
+- DOMAIN-SUFFIX,transferwise.com
+
+# Payoneer
+- DOMAIN-SUFFIX,payoneer.com
+- DOMAIN-SUFFIX,payoneer.com.cn
+
+# International banking / financial accounts — first-party namespaces.
+- DOMAIN-SUFFIX,hsbc.com
+- DOMAIN-SUFFIX,hsbcnet.com
+- DOMAIN-SUFFIX,hsbcprivatebank.com
+- DOMAIN-SUFFIX,sc.com
+- DOMAIN-SUFFIX,standardchartered.com
+
+# HSBC-specific AWS WAF endpoint observed during real-device account testing.
+# Keep this exact-host only; generic awswaf.com remains outside the financial scene.
+- DOMAIN,hsbc.edge.sdk.awswaf.com
+
+# Service-specific measurement endpoints observed/identified for Standard Chartered.
+- DOMAIN,standchartbank.sc.omtrdc.net
+- DOMAIN,standchartbank.tt.omtrdc.net
+
+# Generic AWS WAF, analytics, tag managers, LivePerson and similar shared
+# infrastructure are intentionally not captured by this scene.

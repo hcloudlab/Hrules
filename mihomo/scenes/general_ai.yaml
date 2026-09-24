@@ -1,2 +1,102 @@
 payload:
+# Gemini / Google AI
+# Keep the Gemini session on one scene exit without capturing all Google traffic.
+- DOMAIN,ai.google.dev
+- DOMAIN,alkalicore-pa.clients6.google.com
+- DOMAIN,alkalimakersuite-pa.clients6.google.com
+- DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com
+- DOMAIN,cloudaicompanion.googleapis.com
+- DOMAIN,cloudcode-pa.googleapis.com
+- DOMAIN,daily-cloudcode-pa.googleapis.com
+- DOMAIN,notebooklm-pa.googleapis.com
+- DOMAIN,notebooklm.googleapis.com
+- DOMAIN,antigravity-pa.googleapis.com
+- DOMAIN,antigravity.googleapis.com
+- DOMAIN-SUFFIX,notebooklm.google
+- DOMAIN-SUFFIX,flow.google
+- DOMAIN-SUFFIX,antigravity-unleash.goog
+- DOMAIN-SUFFIX,antigravity.google
+- DOMAIN-SUFFIX,opal.google
+- DOMAIN-SUFFIX,notebook.google
+- DOMAIN-SUFFIX,generativeai.google
+- DOMAIN-SUFFIX,labs.google
+- DOMAIN-SUFFIX,deepmind.com
+- DOMAIN-SUFFIX,jules.google
+- DOMAIN-SUFFIX,ai.studio
+- DOMAIN-SUFFIX,gemini.google
+- DOMAIN-SUFFIX,deepmind.google
+- DOMAIN-SUFFIX,gemini.gstatic.com
+- DOMAIN-SUFFIX,flow.google.com
+- DOMAIN-SUFFIX,notebooklm.google.com
+- DOMAIN-SUFFIX,aisandbox-pa.googleapis.com
+- DOMAIN-SUFFIX,notebook.google.com
+- DOMAIN-SUFFIX,aistudio.google.com
+- DOMAIN-SUFFIX,jules.google.com
+- DOMAIN-SUFFIX,labs.google.com
 - DOMAIN-SUFFIX,gemini.google.com
+- DOMAIN-SUFFIX,makersuite.google.com
+- DOMAIN-SUFFIX,bard.google.com
+- DOMAIN-SUFFIX,robinfrontend-pa.googleapis.com
+- DOMAIN,webchannel-robinfrontend-pa.googleapis.com
+- DOMAIN-SUFFIX,aicode.googleapis.com
+- DOMAIN-SUFFIX,aida.googleapis.com
+- DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
+- DOMAIN-SUFFIX,opal.google.com
+- DOMAIN-SUFFIX,generativelanguage.googleapis.com
+- DOMAIN-SUFFIX,geller-pa.googleapis.com
+- DOMAIN-SUFFIX,stitch.withgoogle.com
+
+# Gemini web authentication / challenge endpoints observed in real-device testing.
+# Exact hosts are intentional: do not send the whole google.com namespace to AI.
+- DOMAIN,accounts.google.com
+- DOMAIN,www.google.com
+
+# xAI / Grok
+- DOMAIN-SUFFIX,grok.com
+- DOMAIN-SUFFIX,grokipedia.com
+- DOMAIN-SUFFIX,x.ai
+- DOMAIN,grok.x.com
+
+# Perplexity
+- DOMAIN-SUFFIX,perplexity.ai
+- DOMAIN-SUFFIX,perplexity.com
+- DOMAIN-SUFFIX,pplx.ai
+- DOMAIN,ppl-ai-file-upload.s3.amazonaws.com
+- DOMAIN,pplx-res.cloudinary.com
+
+# Microsoft / GitHub Copilot-specific endpoints
+- DOMAIN,copilot-proxy.githubusercontent.com
+- DOMAIN,copilot-workspace.githubnext.com
+- DOMAIN,copilotprodattachments.blob.core.windows.net
+
+# Additional mainstream non-CN AI services reconciled from mature upstream inventories.
+# These are first-party service namespaces; shared analytics/CDN infrastructure is excluded.
+- DOMAIN-SUFFIX,copilot.com
+- DOMAIN-SUFFIX,copilot.cloud.microsoft
+- DOMAIN-SUFFIX,copilot.microsoft.com
+- DOMAIN-SUFFIX,githubcopilot.com
+- DOMAIN-SUFFIX,cursor.com
+- DOMAIN-SUFFIX,cursor.sh
+- DOMAIN-SUFFIX,cursorapi.com
+- DOMAIN-SUFFIX,cursor-cdn.com
+- DOMAIN-SUFFIX,meta.ai
+- DOMAIN-SUFFIX,mistral.ai
+- DOMAIN-SUFFIX,cohere.ai
+- DOMAIN-SUFFIX,cohere.com
+- DOMAIN-SUFFIX,huggingface.co
+- DOMAIN-SUFFIX,hf.co
+- DOMAIN-SUFFIX,hf.space
+- DOMAIN-SUFFIX,poe.com
+- DOMAIN-SUFFIX,poecdn.net
+- DOMAIN-SUFFIX,groq.com
+- DOMAIN-SUFFIX,openrouter.ai
+- DOMAIN-SUFFIX,manus.im
+- DOMAIN-SUFFIX,manuscdn.com
+- DOMAIN-SUFFIX,midjourney.com
+- DOMAIN-SUFFIX,minimax.io
+- DOMAIN-SUFFIX,elevenlabs.com
+- DOMAIN-SUFFIX,elevenlabs.io
+- DOMAIN-SUFFIX,cerebras.ai
+- DOMAIN-SUFFIX,devin.ai
+- DOMAIN-SUFFIX,windsurf.com
+- DOMAIN-SUFFIX,windsurf.build

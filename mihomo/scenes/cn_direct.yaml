@@ -1,7 +1,11 @@
 payload:
-- DOMAIN-SUFFIX,cn.apple.com
-- DOMAIN-SUFFIX,apple.com.cn
-- DOMAIN-SUFFIX,cn.ls.apple.com
-- DOMAIN-SUFFIX,cn-ssl.ls.apple.com
-- DOMAIN-SUFFIX,icloud.com.cn
+# Mainland account dependencies observed in real-device Taobao testing.
+# Pin these namespaces to DIRECT so one account session cannot split merely
+# because different CDN/telemetry hosts resolve to CN vs non-CN addresses.
+- DOMAIN-SUFFIX,mmstat.com
+- DOMAIN-SUFFIX,aliapp.org
+- DOMAIN-SUFFIX,tdum.alibaba.com
+- DOMAIN-SUFFIX,antpcdn.com
+
+# Generic mainland namespace baseline.
 - DOMAIN-SUFFIX,cn

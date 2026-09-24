@@ -1,0 +1,34 @@
+name: DNS v0.1 validation
+
+on:
+  push:
+    branches:
+      - feature/mihomo-dns-v0.1
+  pull_request:
+    paths:
+      - "mihomo/dns/**"
+      - "mihomo/scenes/**"
+      - "mihomo/editions/**"
+      - "mihomo/hosts/3x-ui/**"
+      - "docs/dns-*.md"
+      - "docs/scenes.md"
+      - "scripts/validate_dns_v01.py"
+      - "scripts/validate_edition_inheritance.py"
+      - "scripts/validate_core_coverage.py"
+      - "scripts/validate_mihomo_hardening.py"
+      - "mihomo/adapters/clash-verge-rev/**"
+      - ".github/workflows/dns-v01.yml"
+
+jobs:
+  static-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate DNS v0.1 contracts
+        run: python3 scripts/validate_dns_v01.py
+      - name: Validate edition inheritance
+        run: python3 scripts/validate_edition_inheritance.py
+      - name: Validate representative Core coverage
+        run: python3 scripts/validate_core_coverage.py
+      - name: Validate Mihomo hardening contracts
+        run: python3 scripts/validate_mihomo_hardening.py
