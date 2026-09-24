@@ -50,10 +50,12 @@ macOS Shadowrocket 开启 TUN 后，系统 DNS 可能对普通域名返回 `198.
 
 实测故障链路中，节点域名在 Shadowrocket 断开时解析为真实公网 IP，连接 TUN 后系统 resolver 返回 `198.18.x.x`；显式查询公共 DNS 仍能得到正确公网 IP。将该节点 hostname 加入 `always-real-ip` 后，节点测速立即恢复。
 
-因此 Hrules **不会默认使用 `always-real-ip = *`**。公共配置无法预先知道每个用户的机场、自建 VPS、EdgeTunnel 等节点域名，而且全局关闭 Fake-IP 会扩大行为变化。若 macOS 上出现“IP 节点可测速、域名节点无延迟”的现象，可在 `[General]` 中按需加入实际节点域名：
+Hrules 公共配置只预置一组窄范围的 Real-IP 兼容项：Microsoft 网络连通性检测，以及 Nintendo / PlayStation STUN / Xbox 等在成熟配置中长期共同出现的条目。它们解决的是服务本身对 Fake-IP 不兼容的问题，不等于能够自动识别用户自己的代理节点域名。
+
+Hrules **不会使用 `always-real-ip = *`**。公共配置无法预先知道每个用户的机场、自建 VPS、EdgeTunnel 等节点域名，而且全局 Real-IP 会扩大 DNS 行为变化。若 macOS 上出现“IP 节点可测速、域名节点无延迟”的现象，应在现有 `always-real-ip` 列表末尾追加实际节点域名：
 
 ```ini
-always-real-ip = node.example.com,*.nodes.example.com
+always-real-ip = *.msftconnecttest.com,*.msftncsi.com,*.srv.nintendo.net,*.stun.playstation.net,xbox.*.microsoft.com,*.xboxlive.com,node.example.com,*.nodes.example.com
 ```
 
 多个域名用逗号分隔。只添加实际受影响的节点 hostname；不要把普通网站域名批量加入。
