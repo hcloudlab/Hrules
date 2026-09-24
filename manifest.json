@@ -3,7 +3,7 @@
   "version": "v0.1.0-rc1",
   "channel": "rc",
   "release_status": "release_candidate",
-  "generated_from_commit": "1cecba283a34717aa8bc25cd57022518b4a0a28f",
+  "generated_from_commit": "d766aca5f277cfd2bba1296f7a1d526e89d37be1",
   "source": "hcloudlab/Hrules-core",
   "artifacts": [
     {
@@ -515,6 +515,14 @@
       "host": "3x-ui",
       "edition": "strict",
       "entries": 13
+    },
+    {
+      "path": "shadowrocket/hrules.conf",
+      "sha256": "ac8a91b113eb11bf6714b52fdbdf6070735292bdf57fa1a13fa42e6dd98fe4b1",
+      "client": "shadowrocket",
+      "format": "complete-config",
+      "entries": 226,
+      "status": "validating"
     }
   ],
   "skipped_non_publishable_modules": [
