@@ -40,16 +40,12 @@ for edition in EDITIONS:
         require(js, f"hrules-{scene.replace('_','-')}", f"{edition} js")
         require(host, f"hrules-{scene.replace('_','-')}", f"{edition} 3x-ui")
 
-# Standard keeps sensitive AI and crypto explicit while the three US financial
-# scenes share one account group.
+# Standard keeps the same Core coverage but collapses proxy-bound scenes into AI.
 standard_js = read("mihomo/editions/hrules-standard.js")
 standard_host = read("mihomo/hosts/3x-ui/hrules-standard.yaml")
 for text, where in ((standard_js, "standard js"), (standard_host, "standard 3x-ui")):
-    require(text, "RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]", where)
-    require(text, "RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]", where)
-    require(text, "RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]", where)
-    for scene in ("us-banking-account", "brokerage-account", "financial-account"):
-        require(text, f"RULE-SET,hrules-{scene},🏦 美国账户 [场景]", where)
+    for scene in ("sensitive-ai", "crypto-account", "us-banking-account", "brokerage-account", "financial-account", "general-ai"):
+        require(text, f"RULE-SET,hrules-{scene},🤖 AI 服务 [场景]", where)
 
 # Stable keeps Claude/OpenAI and crypto separate; US financial scenes share one group.
 stable_js = read("mihomo/editions/hrules-stable.js")
@@ -80,10 +76,10 @@ for text, where in ((standard_js, "standard js"), (standard_host, "standard 3x-u
 
 # Aggregate group must exist only where used, while Strict knows how to remove
 # stale lower-edition topology when users switch editions.
-require(standard_js, 'sceneGroup("🏦 美国账户 [场景]"', "standard js")
+forbid(standard_js, 'sceneGroup("🏦 美国账户 [场景]"', "standard js")
 require(stable_js, 'sceneGroup("🏦 美国账户 [场景]"', "stable js")
 require(strict_js, '"🏦 美国账户 [场景]"', "strict js legacy cleanup set")
-require(standard_host, "- name: 🏦 美国账户 [场景]", "standard 3x-ui")
+forbid(standard_host, "- name: 🏦 美国账户 [场景]", "standard 3x-ui")
 require(stable_host, "- name: 🏦 美国账户 [场景]", "stable 3x-ui")
 forbid(strict_host, "- name: 🏦 美国账户 [场景]", "strict 3x-ui")
 
