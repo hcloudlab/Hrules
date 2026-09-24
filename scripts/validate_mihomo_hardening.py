@@ -27,19 +27,31 @@ for p in editions + [adapter_path]:
         if '"proxy-server-nameserver": ["223.5.5.5","119.29.29.29"]' in s:
             errors.append(f"{p.name}: stale UDP-only proxy hostname bootstrap DNS")
 
-for e in ("stable", "strict"):
+# Controlled-egress topology contract.
+# Every edition must expose only region groups + concrete nodes in Hrules scenes.
+# Region automation is bounded to members of that region; global Hrules automatic
+# groups and legacy per-region sensitive fallback groups must not be emitted.
+for e in ("standard", "stable", "strict"):
     s = (ROOT / "mihomo" / "editions" / f"hrules-{e}.js").read_text(encoding="utf-8")
     for x in (
-        'sceneCandidates(["us","jp","sg","tw","kr","gb","de"],["hk"])',
-        'sceneCandidates(["jp","sg","hk","tw","kr"],["us"])',
-        'sceneCandidates(["us"])',
+        'const sceneCandidates = [...regionNames,...exact];',
+        'groups.push({name,type:"url-test",proxies:members,...health,tolerance:50});',
+        'groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sceneCandidates))',
+        'groups.push(sceneGroup("💰 虚拟货币 [场景]",sceneCandidates))',
+        'groups.push(sceneGroup("🤖 AI 服务 [场景]",sceneCandidates))',
+        'groups.push(sceneGroup("📺 影音媒体 [场景]",sceneCandidates))',
     ):
         if x not in s:
-            errors.append(f"{e}: missing scene-aware contract {x}")
-
-standard = (ROOT / "mihomo" / "editions" / "hrules-standard.js").read_text(encoding="utf-8")
-if "const stableCandidates" not in standard:
-    errors.append("standard: missing manual-first sensitive candidates")
+            errors.append(f"{e}: missing controlled-egress contract {x}")
+    for x in (
+        'groups.push(mk("🌐 全部节点 [系统]"',
+        'groups.push(mk("♻️ 自动选择 [系统]"',
+        'groups.push(mk("🛡️ 故障转移 [系统]"',
+        'groups.push(mk("⚖️ 负载均衡 [系统]"',
+        'groups.push({name:sensitive',
+    ):
+        if x in s:
+            errors.append(f"{e}: stale Hrules global/sensitive automatic group {x}")
 
 adapter = adapter_path.read_text(encoding="utf-8")
 for x in ('edition === "strict"', "🏦 美国银行 [场景]", "📈 美股 [场景]", "hrules-financial-account", "💳 金融账户 [场景]"):

@@ -58,7 +58,7 @@ for forbidden in ("https://1.1.1.1/dns-query", "https://8.8.8.8/dns-query", "dir
 
 # Integration gates.
 # All editions own their DNS baseline. Standard is conservative; Stable/Strict
-# keep node bootstrap independent while binding overseas DoH to an Hrules group.
+# keep node bootstrap independent while using encrypted overseas DoH.
 standard_js = (ROOT / "mihomo" / "editions" / "hrules-standard.js").read_text(encoding="utf-8")
 for token in ('config["dns"] =', '"proxy-server-nameserver"', '"223.5.5.5"', '"119.29.29.29"', '"fake-ip-filter-mode": "blacklist"'):
     if token not in standard_js:
@@ -68,19 +68,17 @@ for edition in ("stable", "strict"):
     js = (ROOT / "mihomo" / "editions" / f"hrules-{edition}.js").read_text(encoding="utf-8")
     for token in ('config["dns"] =', '"proxy-server-nameserver"', '"direct-nameserver"',
                   '"direct-nameserver-follow-policy": false',
-                  '"https://1.1.1.1/dns-query#" + dnsProxyGroup',
-                  '"https://8.8.8.8/dns-query#" + dnsProxyGroup',
-                  '"fake-ip-filter-mode": "blacklist"',
-                  'hasSystem("auto")', 'hasSystem("all")',
-                  '"♻️ 自动选择 [系统]"', '"🌐 全部节点 [系统]"'):
+                  '"https://1.1.1.1/dns-query"',
+                  '"https://8.8.8.8/dns-query"',
+                  '"fake-ip-filter-mode": "blacklist"'):
         if token not in js:
             errors.append(f"{edition} edition: production DNS contract missing {token}")
 
 for edition in ("stable", "strict"):
     data = (DNS / f"hrules-{edition}.yaml").read_text(encoding="utf-8")
     for token in ("fake-ip-filter-mode: blacklist", "direct-nameserver-follow-policy: false",
-                  "https://1.1.1.1/dns-query#♻️ 自动选择 [系统]",
-                  "https://8.8.8.8/dns-query#♻️ 自动选择 [系统]"):
+                  "https://1.1.1.1/dns-query",
+                  "https://8.8.8.8/dns-query"):
         if token not in data:
             errors.append(f"{edition} dns artifact: production contract missing {token}")
 
