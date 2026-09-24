@@ -60,7 +60,12 @@ for stale in (
 ):
     if stale in standard:
         errors.append(f"standard: unexpectedly emits fine-grained scene {stale}")
-for provider in ("hrules-sensitive-ai","hrules-general-ai"):\n    if f"RULE-SET,{provider},🤖 AI 服务 [场景]" not in standard:\n        errors.append(f"standard: {provider} is not mapped into AI scene")\nfor provider in ("hrules-crypto-account","hrules-us-banking-account","hrules-brokerage-account","hrules-financial-account"):\n    if f"RULE-SET,{provider},💳 金融服务 [场景]" not in standard:\n        errors.append(f"standard: {provider} is not mapped into financial scene")
+for provider in ("hrules-sensitive-ai", "hrules-general-ai"):
+    if f"RULE-SET,{provider},🤖 AI 服务 [场景]" not in standard:
+        errors.append(f"standard: {provider} is not mapped into AI scene")
+for provider in ("hrules-crypto-account", "hrules-us-banking-account", "hrules-brokerage-account", "hrules-financial-account"):
+    if f"RULE-SET,{provider},💳 金融服务 [场景]" not in standard:
+        errors.append(f"standard: {provider} is not mapped into financial scene")
 for e in ("standard", "strict"):
     edition_text = (ROOT / "mihomo" / "editions" / f"hrules-{e}.js").read_text(encoding="utf-8")
     for x in (
