@@ -1,7 +1,7 @@
 // Hrules Core edition contract artifact.
 // Hrules Mihomo Standard / 标准版
 const HRULES_EDITION = "standard";
-const HRULES_EDITION_SPEC = {"system_groups":[],"region_groups":true,"same_region_failover":false,"scene_groups":["sensitive_ai","crypto_account","us_banking_account","brokerage_account","financial_account","general_ai","youtube_media"],"sensitive_exit_policy":"manual_region_or_node"};
+const HRULES_EDITION_SPEC = {"system_groups":[],"region_groups":true,"same_region_failover":false,"scene_groups":["general_ai","youtube_media"],"scene_granularity":"standard","sensitive_exit_policy":"manual_region_or_node"};
 
 // Hrules Clash Verge Rev Subscription Adapter v0.1
 // Paste this file into the target subscription's Extension Script.
@@ -14,8 +14,8 @@ function main(config) {
   const editionSpec = (typeof HRULES_EDITION_SPEC !== "undefined") ? HRULES_EDITION_SPEC : {
     system_groups:[], region_groups:true,
     same_region_failover:false,
-    scene_groups:["sensitive_ai","crypto_account","us_banking_account","brokerage_account","general_ai","youtube_media"],
-    sensitive_exit_policy:"manual_region_or_node"
+    scene_groups:["general_ai","youtube_media"],
+    scene_granularity:"standard", sensitive_exit_policy:"manual_region_or_node"
   };
   const hasScene = id => editionSpec.scene_groups.includes(id);
   const providerBase = "https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/scenes";
@@ -105,15 +105,9 @@ function main(config) {
   // a node pins the scene to that node. No Hrules global auto/fallback/all-nodes group
   // is inserted into a scene.
   const sceneCandidates = [...regionNames,...exact];
-  if (hasScene("sensitive_ai")) groups.push(sceneGroup("🔐 Claude / OpenAI [场景]",sceneCandidates));
-  if (hasScene("crypto_account")) groups.push(sceneGroup("💰 虚拟货币 [场景]",sceneCandidates));
-  if (edition === "strict") {
-    if (hasScene("us_banking_account")) groups.push(sceneGroup("🏦 美国银行 [场景]",sceneCandidates));
-    if (hasScene("brokerage_account")) groups.push(sceneGroup("📈 美股 [场景]",sceneCandidates));
-    if (hasScene("financial_account")) groups.push(sceneGroup("💳 金融账户 [场景]",sceneCandidates));
-  } else {
-    groups.push(sceneGroup("🏦 美国账户 [场景]",sceneCandidates));
-  }
+  // Standard keeps the full Core rule coverage but intentionally exposes only
+  // broad everyday scenes. Sensitive/account rules are mapped into AI instead
+  // of creating extra user-facing groups; Core rule files remain unchanged.
   if (hasScene("general_ai")) groups.push(sceneGroup("🤖 AI 服务 [场景]",sceneCandidates));
   if (hasScene("youtube_media")) groups.push(sceneGroup("📺 影音媒体 [场景]",sceneCandidates));
   groups.push(sceneGroup("💬 Telegram [场景]",sceneCandidates));
@@ -165,12 +159,12 @@ function main(config) {
   // Hrules is an overlay. Do not add its MATCH here: the host profile keeps
   // ownership of its existing fallback/MATCH semantics.
   const hrulesRules = ["RULE-SET,hrules-private-direct,DIRECT,no-resolve"];
-  hrulesRules.push("RULE-SET,hrules-network-test,🔐 Claude / OpenAI [场景]");
-  hrulesRules.push("RULE-SET,hrules-sensitive-ai,🔐 Claude / OpenAI [场景]");
-  hrulesRules.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
-  hrulesRules.push("RULE-SET,hrules-us-banking-account,🏦 美国账户 [场景]");
-  hrulesRules.push("RULE-SET,hrules-brokerage-account,🏦 美国账户 [场景]");
-  hrulesRules.push("RULE-SET,hrules-financial-account,🏦 美国账户 [场景]");
+  hrulesRules.push("RULE-SET,hrules-network-test,🤖 AI 服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-sensitive-ai,🤖 AI 服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-crypto-account,🤖 AI 服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-us-banking-account,🤖 AI 服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-brokerage-account,🤖 AI 服务 [场景]");
+  hrulesRules.push("RULE-SET,hrules-financial-account,🤖 AI 服务 [场景]");
   hrulesRules.push("RULE-SET,hrules-telegram,💬 Telegram [场景],no-resolve");
   if (hasScene("general_ai")) hrulesRules.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
   if (hasScene("youtube_media")) hrulesRules.push("RULE-SET,hrules-youtube-media,📺 影音媒体 [场景]");
