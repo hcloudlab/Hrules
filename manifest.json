@@ -499,22 +499,15 @@
       "entries": 9
     },
     {
-      "path": "mihomo/hosts/3x-ui/hrules-stable.yaml",
-      "sha256": "cbfbe1ecbb8a3de6dcd5fa451f71924ed604ef6d969cbdf493c59b5aeb107d96",
-      "client": "mihomo",
-      "format": "host-routing-layer-edition",
-      "host": "3x-ui",
-      "edition": "stable",
-      "entries": 10
-    },
-    {
       "path": "mihomo/hosts/3x-ui/hrules-strict.yaml",
       "sha256": "a5fffd268eb2d9634526207b4364226601774344be78a8fb27643282000c5a0a",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
       "edition": "strict",
-      "entries": 13
+      "entries": 13,
+      "product_name": "fine-grained",
+      "compatibility_filename": "strict"
     },
     {
       "path": "shadowrocket/hrules.conf",
