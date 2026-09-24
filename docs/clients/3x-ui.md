@@ -1,15 +1,23 @@
 # 3X-UI → Mihomo Remote Routing
 
-Rules / Remote Routing 文件：
+3X-UI 使用版本化 Remote Routing 文件。
 
-\`mihomo/hosts/3x-ui.yaml\`
+## 标准版
 
-Raw：
+```text
+https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-standard.yaml
+```
 
-\`https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui.yaml\`
+## 精细版
 
-该方式通过 \`include-all-proxies\` 把 Hrules 场景连接到 3X-UI 最终配置中的真实节点，并保留 \`PROXY\` / \`DIRECT\` 回退。
+```text
+https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-strict.yaml
+```
 
-完整限制与验证方法：
+精细版继续沿用 `strict` 文件名，仅用于兼容既有 Raw URL。
 
-→ [3X-UI 安装说明](../install.md#3x-ui-remote-routing)
+这两个文件都通过 `include-all-proxies` 读取 3X-UI 最终配置中的真实节点，并保留 `PROXY` / `DIRECT` 作为显式回退。
+
+完整版本说明、场景结构与验证方法：
+
+→ [Mihomo 安装中心](../kernels/mihomo.md#3x-ui--remote-routing)
