@@ -61,6 +61,8 @@ for stale in (
     if stale in standard:
         errors.append(f"standard: unexpectedly emits fine-grained scene {stale}")
 for provider in ("hrules-sensitive-ai","hrules-general-ai"):\n    if f"RULE-SET,{provider},🤖 AI 服务 [场景]" not in standard:\n        errors.append(f"standard: {provider} is not mapped into AI scene")\nfor provider in ("hrules-crypto-account","hrules-us-banking-account","hrules-brokerage-account","hrules-financial-account"):\n    if f"RULE-SET,{provider},💳 金融服务 [场景]" not in standard:\n        errors.append(f"standard: {provider} is not mapped into financial scene")
+for e in ("standard", "strict"):
+    edition_text = (ROOT / "mihomo" / "editions" / f"hrules-{e}.js").read_text(encoding="utf-8")
     for x in (
         'groups.push(mk("🌐 全部节点 [系统]"',
         'groups.push(mk("♻️ 自动选择 [系统]"',
@@ -68,7 +70,7 @@ for provider in ("hrules-sensitive-ai","hrules-general-ai"):\n    if f"RULE-SET,
         'groups.push(mk("⚖️ 负载均衡 [系统]"',
         'groups.push({name:sensitive',
     ):
-        if x in s:
+        if x in edition_text:
             errors.append(f"{e}: stale Hrules global/sensitive automatic group {x}")
 
 adapter = adapter_path.read_text(encoding="utf-8")
