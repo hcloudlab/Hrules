@@ -5,13 +5,17 @@
 ## 标准版
 
 ```text
+```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-standard.yaml
+```
 ```
 
 ## 精细版
 
 ```text
+```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-strict.yaml
+```
 ```
 
 精细版继续沿用 `strict` 文件名，仅用于兼容既有 Raw URL。
