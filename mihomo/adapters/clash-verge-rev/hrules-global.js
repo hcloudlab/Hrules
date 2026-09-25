@@ -48,7 +48,7 @@ function main(config) {
   const infraGroup = "🛰️ Hrules 基础设施 [系统]";
   // Hidden/non-scene transport group: provider downloads may use it, user scenes may not.
   const infraCandidates = nodeNames.length ? nodeNames : [];
-  if (infraCandidates.length) groups.push({name:infraGroup,type:"select",proxies:infraCandidates});
+  if (infraCandidates.length) groups.push({name:infraGroup,type:"select",hidden:true,proxies:infraCandidates});
   const sceneGroup = (name, list) => list.length ? {name,type:"select",proxies:list} : Object.assign({name,type:"select"},source);
 
   const regions = [

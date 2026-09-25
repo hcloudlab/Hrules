@@ -3,19 +3,19 @@
   "version": "v0.1.0-rc1",
   "channel": "rc",
   "release_status": "release_candidate",
-  "generated_from_commit": "56d6aef844a524261153e72d688a15ee4f72d78b",
+  "generated_from_commit": "94bb5a8acd2a2e2943b471203505d8ed9aee09f1",
   "source": "hcloudlab/Hrules-core",
   "artifacts": [
     {
       "path": "mihomo/editions/hrules-standard.js",
-      "sha256": "0120c5a35cf6b2ace4f2c5fb51c2114cfba869f7467f56fa2501bcd210a2b422",
+      "sha256": "0e63e10da60ebf881531839ec2728884dd49ad67efed82e37bf0a80b41669959",
       "client": "mihomo",
       "format": "global-extension-script",
       "edition": "standard"
     },
     {
       "path": "mihomo/editions/hrules-strict.js",
-      "sha256": "31778201c11c3e63a640055eb92b1cef6040276398862b0a50446698835f11b3",
+      "sha256": "1443f2c89fc53b2f48ea565051f86485ce31c95cc3164b7b86d40c4f1862b051",
       "client": "mihomo",
       "format": "global-extension-script",
       "edition": "strict"
@@ -977,7 +977,7 @@
     },
     {
       "path": "mihomo/adapters/clash-verge-rev/hrules-global.js",
-      "sha256": "7a745ff5933cc00310e1dc5754b81b23d703cea5e5975df1a1178e0703d6fba1",
+      "sha256": "fa241b8e2b7c59852f2149d3b7395089d6cadcce2981832efcf742b92973278b",
       "client": "mihomo",
       "format": "clash-verge-rev-global-adapter"
     },
