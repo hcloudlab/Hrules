@@ -24,6 +24,12 @@ payload:
 - DOMAIN-SUFFIX,devin.ai
 - DOMAIN-SUFFIX,windsurf.com
 - DOMAIN-SUFFIX,windsurf.build
+- DOMAIN-SUFFIX,v0.app
+- DOMAIN-SUFFIX,leonardo.ai
+- DOMAIN-SUFFIX,runway.com
+- DOMAIN-SUFFIX,runwayml.com
+- DOMAIN-SUFFIX,lovable.dev
+- DOMAIN-SUFFIX,bolt.new
 - DOMAIN,copilot-proxy.githubusercontent.com
 - DOMAIN,copilot-workspace.githubnext.com
 - DOMAIN,copilotprodattachments.blob.core.windows.net

@@ -8,3 +8,5 @@ payload:
 - DOMAIN-SUFFIX,ip.sb
 - DOMAIN-SUFFIX,ifconfig.me
 - DOMAIN-SUFFIX,whatismyipaddress.com
+- DOMAIN-SUFFIX,scamalytics.com
+- DOMAIN-SUFFIX,dnsleaktest.com

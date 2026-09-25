@@ -3,7 +3,7 @@
   "version": "v0.1.0-rc1",
   "channel": "rc",
   "release_status": "release_candidate",
-  "generated_from_commit": "94bb5a8acd2a2e2943b471203505d8ed9aee09f1",
+  "generated_from_commit": "5785f6e1bcb8059429078eeaaedae532fe3a261b",
   "source": "hcloudlab/Hrules-core",
   "artifacts": [
     {
@@ -36,11 +36,11 @@
     },
     {
       "path": "mihomo/rules/ai-mainstream.yaml",
-      "sha256": "36a047f30e0471e65e590d6d7805c8f329c426bfcdc83d7ced65996d37df5f51",
+      "sha256": "dafd8693613b8babc4c1b307cde1b44b453cad48987ffe84e78196339434f4e7",
       "module": "ai-mainstream",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 25
+      "entries": 31
     },
     {
       "path": "mihomo/rules/ally.yaml",
@@ -134,6 +134,14 @@
       "path": "mihomo/rules/bitstamp.yaml",
       "sha256": "b2673c8c316ad42ed7cc17c0fbf89b18dfe2af72e5e098dd0110d2eab37d7970",
       "module": "bitstamp",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/bochk.yaml",
+      "sha256": "24c61d6b7aabc3b0a0b4c8cb3d669de23871a1aa1f21f9a636907b85b4004cad",
+      "module": "bochk",
       "client": "mihomo",
       "format": "rule-provider/classical",
       "entries": 1
@@ -259,6 +267,14 @@
       "entries": 8
     },
     {
+      "path": "mihomo/rules/elebank.yaml",
+      "sha256": "ab054c11c2bc6a2072f9b16dbc17a2b1ec0ef55074aa834b6def752ffe5885bd",
+      "module": "elebank",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
       "path": "mihomo/rules/etrade.yaml",
       "sha256": "b348cf5edef2226179953a820cf30f44ea8f3b8bd6681aff7de8c534d63e9e16",
       "module": "etrade",
@@ -331,12 +347,20 @@
       "entries": 4
     },
     {
+      "path": "mihomo/rules/hang-seng.yaml",
+      "sha256": "b87e31456dd60ebd3f1db157f8ef018f9fef2ce35aa3004a33142703c5ad1cd2",
+      "module": "hang-seng",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
       "path": "mihomo/rules/hsbc.yaml",
-      "sha256": "1342c02e743fa6ab02ef54866eababab2f5052a78fb2a36a62f3a0369476e723",
+      "sha256": "abbd873b491d867f90602428052391b69e6ac57bbf340e05f733b70b20248399",
       "module": "hsbc",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 4
+      "entries": 5
     },
     {
       "path": "mihomo/rules/htx.yaml",
@@ -395,6 +419,14 @@
       "entries": 2
     },
     {
+      "path": "mihomo/rules/longbridge.yaml",
+      "sha256": "1a82f33cfa8e158bb23b395b048b6ba293a5050bd460d6dfe00d2648bf326087",
+      "module": "longbridge",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 4
+    },
+    {
       "path": "mihomo/rules/metamask.yaml",
       "sha256": "3f8988e2dae8c31c27ea81c33089c537bb1dbcda956de0281236b321d04c5405",
       "module": "metamask",
@@ -419,6 +451,14 @@
       "entries": 1
     },
     {
+      "path": "mihomo/rules/mox.yaml",
+      "sha256": "17de20597366a7e9a34f44547b747fe3b25879b724cafaf97c5f56b672cb7fad",
+      "module": "mox",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
       "path": "mihomo/rules/netflix.yaml",
       "sha256": "a778c0d6dd9a61bbcfc3c36ee318bf0d0b7ba41867f57826ebf514bf70684c4c",
       "module": "netflix",
@@ -428,11 +468,11 @@
     },
     {
       "path": "mihomo/rules/network-test.yaml",
-      "sha256": "6b0a154d31fccebdfdeb61718768ca443e6f37d4394a219e4a610e22b8b39498",
+      "sha256": "8b64e5bbc0da07dd30b11f4feef99012c39158e126aaf2d902dcff7ebfe84b46",
       "module": "network-test",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 9
+      "entries": 11
     },
     {
       "path": "mihomo/rules/okx.yaml",
@@ -481,6 +521,14 @@
       "client": "mihomo",
       "format": "rule-provider/classical",
       "entries": 5
+    },
+    {
+      "path": "mihomo/rules/phantom.yaml",
+      "sha256": "b643f45971633e7ff70afd362648806ac47698dcef1c60845ab991aa1c5f4c5f",
+      "module": "phantom",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
     },
     {
       "path": "mihomo/rules/pnc.yaml",
@@ -611,6 +659,14 @@
       "entries": 33
     },
     {
+      "path": "mihomo/rules/tiger-brokers.yaml",
+      "sha256": "84c191ef26903aee92c27e5ddb5d8d89d705c1ffb90b2501ca4b5d6664ba86bc",
+      "module": "tiger-brokers",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
       "path": "mihomo/rules/tiktok.yaml",
       "sha256": "8dd2b0a49da27fa0b295c5c707b494428e87fe3367224ab501f7642843dd8b88",
       "module": "tiktok",
@@ -676,11 +732,11 @@
     },
     {
       "path": "mihomo/rules/webull.yaml",
-      "sha256": "0ab9b8b9143405f2a6eca386371e3f1d0c61cf78e7de2021a44c06ff29cf8162",
+      "sha256": "2b60084b3e1e229174ab6c638fd32582c3f2fa78c04b2c3a89d9ba62ba1d5690",
       "module": "webull",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 1
+      "entries": 3
     },
     {
       "path": "mihomo/rules/wells-fargo.yaml",
@@ -723,6 +779,14 @@
       "entries": 11
     },
     {
+      "path": "mihomo/rules/za-bank.yaml",
+      "sha256": "ebb1e8b02bc92b9ee8303f0f6f7cac69501f9588afe3f450acc75d0196d8df2a",
+      "module": "za-bank",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
       "path": "mihomo/scenes/apple_global.yaml",
       "sha256": "e62ce6b44fc0441849995363b471f783eaf2eeb0c880fa01c105ca836caca7ec",
       "scene": "apple_global",
@@ -758,21 +822,23 @@
     },
     {
       "path": "mihomo/scenes/brokerage_account.yaml",
-      "sha256": "9942702d516a6a449857b25767fc34a9bc2e300e9f2c331890c20e9c6dc83708",
+      "sha256": "ce990061896148acbe3e5dd1aa7dc5122eaceb5715798c9e3df47a1fed2bd26b",
       "scene": "brokerage_account",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 13,
+      "entries": 21,
       "modules": [
         "etrade",
         "fidelity",
         "interactive-brokers",
+        "longbridge",
         "moomoo",
         "public-brokerage",
         "robinhood",
         "schwab",
         "sofi",
         "tastytrade",
+        "tiger-brokers",
         "tradestation",
         "vanguard",
         "webull"
@@ -793,11 +859,11 @@
     },
     {
       "path": "mihomo/scenes/crypto_account.yaml",
-      "sha256": "7fc87c7883c8983e377deb467ca1afbba944d241f41e8fa9bb86968258f49097",
+      "sha256": "187423884c05b73943c6116304d0ad3158ed8bad73c1c932fa5071e3fe495785",
       "scene": "crypto_account",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 61,
+      "entries": 63,
       "modules": [
         "binance",
         "bitfinex",
@@ -816,6 +882,7 @@
         "mexc",
         "okx",
         "onekey",
+        "phantom",
         "safepal",
         "trustwallet",
         "walletconnect"
@@ -823,27 +890,32 @@
     },
     {
       "path": "mihomo/scenes/financial_account.yaml",
-      "sha256": "32678af1847e46c754809cd2a3d5ddb27b2b0a40a0189c9f341f11f14277026c",
+      "sha256": "b574d06ac0fec72f9611467888ec4ff5c15565366f4d298ad4604f3caebb8c34",
       "scene": "financial_account",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 30,
+      "entries": 37,
       "modules": [
+        "bochk",
+        "elebank",
+        "hang-seng",
         "hsbc",
+        "mox",
         "payoneer",
         "paypal",
         "standard-chartered",
         "stripe",
-        "wise"
+        "wise",
+        "za-bank"
       ]
     },
     {
       "path": "mihomo/scenes/general_ai.yaml",
-      "sha256": "dbdc68aeb9549cdd13d4f2364b686ccbb962dba9cbb28e6d3c1ea12932315de9",
+      "sha256": "6c48b065e2d5087bfcd8396513a640616b7ef89f5026c5d60aa9f46c4e029a83",
       "scene": "general_ai",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 86,
+      "entries": 92,
       "modules": [
         "ai-mainstream",
         "copilot-ai",
@@ -872,11 +944,11 @@
     },
     {
       "path": "mihomo/scenes/network_test.yaml",
-      "sha256": "6b0a154d31fccebdfdeb61718768ca443e6f37d4394a219e4a610e22b8b39498",
+      "sha256": "8b64e5bbc0da07dd30b11f4feef99012c39158e126aaf2d902dcff7ebfe84b46",
       "scene": "network_test",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 9,
+      "entries": 11,
       "modules": [
         "network-test"
       ]
@@ -1009,10 +1081,10 @@
     },
     {
       "path": "shadowrocket/hrules.conf",
-      "sha256": "2988ea1d6aef7c0071986548235cb8308af4bd6f981cfa85643eeb9274f6c7e1",
+      "sha256": "67dc28a1e0eaebe57c67c3a4d8b8e78a4ad34d799ae97942595eab427bb618a9",
       "client": "shadowrocket",
       "format": "complete-config",
-      "entries": 330,
+      "entries": 355,
       "status": "validating"
     }
   ],
@@ -1186,6 +1258,7 @@
         "bitget",
         "bitstamp",
         "blocking",
+        "bochk",
         "bybit",
         "capital-one",
         "chase",
@@ -1201,6 +1274,7 @@
         "discord",
         "discover",
         "disneyplus",
+        "elebank",
         "etrade",
         "facebook",
         "fidelity",
@@ -1211,6 +1285,7 @@
         "github",
         "google",
         "grok",
+        "hang-seng",
         "hsbc",
         "htx",
         "icloud",
@@ -1219,10 +1294,12 @@
         "key-bank",
         "kraken",
         "kucoin",
+        "longbridge",
         "metamask",
         "mexc",
         "microsoft",
         "moomoo",
+        "mox",
         "netflix",
         "network-test",
         "okx",
@@ -1231,6 +1308,7 @@
         "payoneer",
         "paypal",
         "perplexity",
+        "phantom",
         "pnc",
         "primevideo",
         "private",
@@ -1247,6 +1325,7 @@
         "tastytrade",
         "td-bank",
         "telegram",
+        "tiger-brokers",
         "tiktok",
         "tradestation",
         "tradingview",
@@ -1261,7 +1340,8 @@
         "whatsapp",
         "wise",
         "x",
-        "youtube"
+        "youtube",
+        "za-bank"
       ],
       "available_modules": [
         "ai-mainstream",
@@ -1277,6 +1357,7 @@
         "bitfinex",
         "bitget",
         "bitstamp",
+        "bochk",
         "bybit",
         "capital-one",
         "chase",
@@ -1292,6 +1373,7 @@
         "discord",
         "discover",
         "disneyplus",
+        "elebank",
         "etrade",
         "facebook",
         "fidelity",
@@ -1301,6 +1383,7 @@
         "gemini-crypto",
         "github",
         "grok",
+        "hang-seng",
         "hsbc",
         "htx",
         "icloud",
@@ -1309,9 +1392,11 @@
         "key-bank",
         "kraken",
         "kucoin",
+        "longbridge",
         "metamask",
         "mexc",
         "moomoo",
+        "mox",
         "netflix",
         "network-test",
         "okx",
@@ -1320,6 +1405,7 @@
         "payoneer",
         "paypal",
         "perplexity",
+        "phantom",
         "pnc",
         "primevideo",
         "private",
@@ -1336,6 +1422,7 @@
         "tastytrade",
         "td-bank",
         "telegram",
+        "tiger-brokers",
         "tiktok",
         "tradestation",
         "truist",
@@ -1349,7 +1436,8 @@
         "whatsapp",
         "wise",
         "x",
-        "youtube"
+        "youtube",
+        "za-bank"
       ],
       "withheld_modules": [
         "blocking",

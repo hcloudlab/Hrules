@@ -3,3 +3,4 @@ payload:
 - DOMAIN-SUFFIX,hsbcnet.com
 - DOMAIN-SUFFIX,hsbcprivatebank.com
 - DOMAIN,hsbc.edge.sdk.awswaf.com
+- DOMAIN-SUFFIX,hsbc.com.hk

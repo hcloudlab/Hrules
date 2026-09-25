@@ -55,6 +55,8 @@ payload:
 - DOMAIN-SUFFIX,okex.com
 - DOMAIN-SUFFIX,onekey.so
 - DOMAIN-SUFFIX,onekey-asset.com
+- DOMAIN-SUFFIX,phantom.com
+- DOMAIN-SUFFIX,phantom.app
 - DOMAIN-SUFFIX,safepal.com
 - DOMAIN-SUFFIX,isafepal.com
 - DOMAIN-SUFFIX,trustwallet.com

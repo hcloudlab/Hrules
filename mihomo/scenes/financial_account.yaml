@@ -1,8 +1,14 @@
 payload:
+- DOMAIN-SUFFIX,bochk.com
+- DOMAIN-SUFFIX,elebank.com
+- DOMAIN-SUFFIX,airstarbank.com
+- DOMAIN-SUFFIX,hangseng.com
 - DOMAIN-SUFFIX,hsbc.com
 - DOMAIN-SUFFIX,hsbcnet.com
 - DOMAIN-SUFFIX,hsbcprivatebank.com
 - DOMAIN,hsbc.edge.sdk.awswaf.com
+- DOMAIN-SUFFIX,hsbc.com.hk
+- DOMAIN-SUFFIX,mox.com
 - DOMAIN-SUFFIX,payoneer.com
 - DOMAIN-SUFFIX,payoneer.com.cn
 - DOMAIN-SUFFIX,paypal.com
@@ -29,3 +35,4 @@ payload:
 - DOMAIN-SUFFIX,stripe.partners
 - DOMAIN-SUFFIX,wise.com
 - DOMAIN-SUFFIX,transferwise.com
+- DOMAIN-SUFFIX,za.group
