@@ -6,7 +6,7 @@ Hrules 的 Shadowrocket 版本提供一份可直接导入的完整远程配置�
 
 ## 导入
 
-配置文件：
+### 配置文件：
 
 ```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/shadowrocket/hrules.conf
