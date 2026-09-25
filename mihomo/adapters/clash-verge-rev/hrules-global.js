@@ -34,7 +34,7 @@ function main(config) {
     "🌐 全部节点 [系统]","♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]","⚖️ 负载均衡 [系统]","🌍 地区 [系统]",
     "🇺🇸 美国 [地区]","🇯🇵 日本 [地区]","🇸🇬 新加坡 [地区]","🇭🇰 香港 [地区]","🇹🇼 台湾 [地区]","🇰🇷 韩国 [地区]","🇬🇧 英国 [地区]","🇩🇪 德国 [地区]","🌐 未分类 [地区]",
     "🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]","🏦 美国账户 [场景]","🔐 重要账户 [场景]","🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","📺 影音媒体 [场景]","📺 YouTube [场景]","💬 Telegram [场景]","🌐 国际服务 [场景]",
-    "🌐 海外应用 [场景]","📺 流媒体 [场景]","🤖 AI 服务 [场景]","🍎 Apple / iCloud [场景]","🏦 银行服务 [场景]","📈 证券 / 券商 [场景]","💳 支付 / 跨境金融 [场景]","💳 金融服务 [场景]","🚀 漏网之鱼 [自选]"
+    "🌐 海外应用 [场景]","📺 流媒体 [场景]","🤖 AI 服务 [场景]","🍎 Apple / iCloud [场景]","🏦 银行服务 [场景]","📈 证券 / 券商 [场景]","💳 支付 / 跨境金融 [场景]","💳 金融服务 [场景]","🚀 漏网之鱼 [自选]","🛰️ Hrules 基础设施 [系统]"
   ]);
   const groups = existingGroups.filter(g => !(g && owned.has(g.name)));
 
@@ -45,6 +45,10 @@ function main(config) {
     source["exclude-filter"] = "剩余|到期|有效期|官网|官方|traffic|remaining|expire|expiry|quota|bandwidth|website|homepage";
   }
   const health = {url:"https://www.gstatic.com/generate_204",interval:300};
+  const infraGroup = "🛰️ Hrules 基础设施 [系统]";
+  // Hidden/non-scene transport group: provider downloads may use it, user scenes may not.
+  const infraCandidates = nodeNames.length ? nodeNames : [];
+  if (infraCandidates.length) groups.push({name:infraGroup,type:"select",proxies:infraCandidates});
   const sceneGroup = (name, list) => list.length ? {name,type:"select",proxies:list} : Object.assign({name,type:"select"},source);
 
   const regions = [
@@ -131,12 +135,26 @@ function main(config) {
     ["hrules-apple-private-relay-route","apple_private_relay_route"],["hrules-cn-direct","cn_direct"]
   ];
   for (const [key,id] of defs) {
-    providers[key]={type:"http",behavior:"classical",format:"yaml",url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600};
+    providers[key]={type:"http",behavior:"classical",format:"yaml",url:providerBase+"/"+id+".yaml",path:"./providers/"+id+".yaml",interval:21600,proxy:infraGroup};
   }
-  providers["hrules-cn-domain"]={type:"http",behavior:"domain",format:"mrs",url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",path:"./providers/hrules-cn-domain.mrs",interval:21600};
-  providers["hrules-cn-ip"]={type:"http",behavior:"ipcidr",format:"mrs",url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs",path:"./providers/hrules-cn-ip.mrs",interval:21600};
+  providers["hrules-cn-domain"]={type:"http",behavior:"domain",format:"mrs",url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs",path:"./providers/hrules-cn-domain.mrs",interval:21600,proxy:infraGroup};
+  providers["hrules-cn-ip"]={type:"http",behavior:"ipcidr",format:"mrs",url:"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs",path:"./providers/hrules-cn-ip.mrs",interval:21600,proxy:infraGroup};
   config["rule-providers"]=providers;
 
+  // Sniff only to recover destination metadata; never rewrite the destination.
+  config["sniffer"]={
+    enable:true,
+    "force-dns-mapping":true,
+    "parse-pure-ip":true,
+    "override-destination":false,
+    sniff:{HTTP:{ports:[80,"8080-8880"]},TLS:{ports:[443,8443]},QUIC:{ports:[443,8443]}}
+  };
+
+  // Minimal offline anchor: first-party/service-core only. Shared third-party
+  // infrastructure must remain in reviewed providers, never in this seed.
+  config.hosts=Object.assign({},config.hosts||{},{
+    "hrules-seed.invalid":"127.0.0.1"
+  });
   const r=["RULE-SET,hrules-private-direct,DIRECT,no-resolve","RULE-SET,hrules-cn-direct,DIRECT"];
   r.push("RULE-SET,hrules-network-test,🤖 AI 服务 [场景]");
   r.push("RULE-SET,hrules-sensitive-ai,🤖 AI 服务 [场景]");
