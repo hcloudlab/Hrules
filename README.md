@@ -26,8 +26,15 @@ Hrules **不提供代理节点，也不会改变节点本身的线路、IP 或�
 
 适合已经在 Clash Verge Rev 中使用机场订阅、Mihomo 订阅或自建订阅，希望直接叠加 Hrules 分流的用户。
 
-**标准版 Standard：** [打开 / 复制 JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-standard.js)  
-**精细版 Fine-grained：** [打开 / 复制 JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-strict.js)
+**标准版 Standard：**
+```text
+https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-standard.js
+```
+
+**精细版 Fine-grained：**
+```text
+https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-strict.js
+```
 
 在目标订阅中打开 **Subscription Extension Script / 订阅扩展脚本**，复制对应 JS 的完整内容，粘贴、保存并重新更新订阅。
 
@@ -59,7 +66,10 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrule
 
 Shadowrocket 使用一份完整远程配置：
 
-**配置文件：** [打开 Hrules Shadowrocket 配置](https://raw.githubusercontent.com/hcloudlab/Hrules/main/shadowrocket/hrules.conf)
+**配置文件：**
+```text
+https://raw.githubusercontent.com/hcloudlab/Hrules/main/shadowrocket/hrules.conf
+```
 
 在 Shadowrocket 中通过远程配置导入，并关闭 **简单模式**。当前提供：
 
