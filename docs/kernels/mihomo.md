@@ -6,9 +6,9 @@ Hrules 在 Mihomo / Clash Meta 生态中使用同一套 Core 规则。不同客�
 
 | 你的使用方式 | 应该进入哪里 |
 | --- | --- |
-| 使用 **Clash Verge Rev**，并希望给现有订阅叠加 Hrules | [Clash Verge Rev — 订阅扩展脚本](#clash-verge-rev--订阅扩展脚本) |
-| 使用 **3X-UI Remote Routing** 给 Mihomo / Clash Verge Rev 提供自建节点 | [3X-UI — Remote Routing](#3x-ui--remote-routing) |
-| 使用其他 **Mihomo / Clash Meta 客户端** | [其他 Mihomo / Clash Meta 客户端](#其他-mihomo--clash-meta-客户端) |
+| 使用 **订阅/全局扩展脚本** | [Clash Verge Rev — 订阅扩展脚本](#clash-verge-rev--订阅扩展脚本) |
+| 使用 **3X-UI 远程路由**  | [3X-UI — Remote Routing](#3x-ui--remote-routing) |
+| 其他 **Mihomo / Clash Meta 客户端** | [其他 Mihomo / Clash Meta 客户端](#其他-mihomo--clash-meta-客户端) |
 
 如果你只是想最快完成安装，先选客户端入口，不需要先理解全部规则结构。
 
@@ -16,10 +16,10 @@ Hrules 在 Mihomo / Clash Meta 生态中使用同一套 Core 规则。不同客�
 
 Hrules 公共 Mihomo 产品分为 **标准版 / 精细版**。两者共用同一套 Core；区别是用户界面里暴露多少独立场景，以及你能把不同业务分别控制到多细的出口。
 
-| 版本 | 用户可见场景 | 适合谁 |
+| 版 本 | 用户可见场景 | 适合谁 |
 | --- | --- | --- |
-| 🟢 **标准 Standard** | 海外应用、流媒体、AI 服务、金融服务、漏网之鱼 | 大多数用户；界面更简单，适合日常直接使用 |
-| 🔵 **精细 Fine-grained** | 海外应用、流媒体、AI 服务、Apple / iCloud、银行服务、证券 / 券商、支付 / 跨境金融、虚拟货币、漏网之鱼 | 需要更细金融出口控制，或希望展示 Hrules 业务识别能力 |
+| 🟢 **标准版** | 海外应用、流媒体、AI 服务、金融服务、漏网之鱼 | 大多数用户；界面更简单，适合日常直接使用 |
+| 🔵 **精细版** | 海外应用、流媒体、AI 服务、Apple / iCloud、银行服务、证券 / 券商、支付 / 跨境金融、虚拟货币、漏网之鱼 | 需要更细金融出口控制，或希望展示 Hrules 业务识别能力 |
 
 ### 标准版场景
 
@@ -61,7 +61,7 @@ Hrules 公共 Mihomo 产品分为 **标准版 / 精细版**。两者共用同一
 
 ### 1. 选择版本
 
-| 版本 | Raw JS |
+| 版 本 | Raw JS |
 | --- | --- |
 | 🟢 标准版 | [打开 Standard Raw JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-standard.js) |
 | 🔵 精细版 | [打开 Fine-grained Raw JS](https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/editions/hrules-strict.js) |
@@ -76,23 +76,11 @@ Hrules 公共 Mihomo 产品分为 **标准版 / 精细版**。两者共用同一
 
 这样 Hrules 只作用于当前订阅，不会把所有订阅强行混在一起，也方便保留原始订阅进行对照。
 
-### 3. 应该看到什么
-
-标准版应出现：
-
-\`海外应用 / 流媒体 / AI 服务 / 金融服务 / 漏网之鱼\`
-
-精细版应出现：
-
-\`海外应用 / 流媒体 / AI 服务 / Apple / iCloud / 银行服务 / 证券 / 券商 / 支付 / 跨境金融 / 虚拟货币 / 漏网之鱼\`
-
-地区组会根据当前订阅中的真实节点生成。选择地区时只在同地区内切换；选择具体节点时固定到该节点。
-
 ---
 
-## 3X-UI — Remote Routing
+## 3X-UI — 远程路由
 
-适合：你使用 3X-UI 提供自建节点，并通过 Remote Routing 向 Mihomo / Clash Verge Rev 下发路由配置。
+适合：你使用 3X-UI 提供自建节点，并通过 远程路由（Remote Routing） 向 Mihomo / Clash Verge Rev 下发路由配置。
 
 ### 1. 选择版本
  
