@@ -3,7 +3,7 @@
   "version": "v0.1.0-rc1",
   "channel": "rc",
   "release_status": "release_candidate",
-  "generated_from_commit": "5785f6e1bcb8059429078eeaaedae532fe3a261b",
+  "generated_from_commit": "d468fe5f40fc666dae22ea5e9959c936703ee311",
   "source": "hcloudlab/Hrules-core",
   "artifacts": [
     {
@@ -260,11 +260,11 @@
     },
     {
       "path": "mihomo/rules/disneyplus.yaml",
-      "sha256": "0448125d972c5b16dd5cac78287f5860e59023366a705a102535c3541d963ae5",
+      "sha256": "5428f83ef3b78e63957aa279d1af0f5d712b915156ee14eb7bfa643aa3593d4a",
       "module": "disneyplus",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 8
+      "entries": 12
     },
     {
       "path": "mihomo/rules/elebank.yaml",
@@ -660,11 +660,11 @@
     },
     {
       "path": "mihomo/rules/tiger-brokers.yaml",
-      "sha256": "84c191ef26903aee92c27e5ddb5d8d89d705c1ffb90b2501ca4b5d6664ba86bc",
+      "sha256": "860c4a91261281f2cee9fe5ca14a2fa1e4a9d9aed7e71e968fdfde6b9b6fc7dd",
       "module": "tiger-brokers",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 2
+      "entries": 5
     },
     {
       "path": "mihomo/rules/tiktok.yaml",
@@ -822,11 +822,11 @@
     },
     {
       "path": "mihomo/scenes/brokerage_account.yaml",
-      "sha256": "ce990061896148acbe3e5dd1aa7dc5122eaceb5715798c9e3df47a1fed2bd26b",
+      "sha256": "3821083af96fc306c5b6c75013d15ecfd1d0d16c71300e61d2c12db23357bf56",
       "scene": "brokerage_account",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 21,
+      "entries": 24,
       "modules": [
         "etrade",
         "fidelity",
@@ -978,11 +978,11 @@
     },
     {
       "path": "mihomo/scenes/streaming_media.yaml",
-      "sha256": "a5ad3ccce4853fb7b07a9599f4755b8672e5ac1a5f707dc420565dae124e4a5f",
+      "sha256": "88326815808c93ff62d50ca217235e11c3fa2b6f3e0ce39fa72836bc818c6275",
       "scene": "streaming_media",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 49,
+      "entries": 53,
       "modules": [
         "disneyplus",
         "netflix",
@@ -1081,10 +1081,10 @@
     },
     {
       "path": "shadowrocket/hrules.conf",
-      "sha256": "67dc28a1e0eaebe57c67c3a4d8b8e78a4ad34d799ae97942595eab427bb618a9",
+      "sha256": "2d71afed7c3addb31c1836522facf6c4e520e20536b940fe2f3d9716bb2c46bb",
       "client": "shadowrocket",
       "format": "complete-config",
-      "entries": 355,
+      "entries": 358,
       "status": "validating"
     }
   ],

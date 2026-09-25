@@ -7,6 +7,10 @@ payload:
 - DOMAIN-SUFFIX,dssott.com
 - DOMAIN-SUFFIX,bamgrid.com
 - DOMAIN-SUFFIX,dilcdn.com
+- DOMAIN-SUFFIX,disney.com
+- DOMAIN-SUFFIX,disneyaccount.com
+- DOMAIN-SUFFIX,disney.io
+- DOMAIN-SUFFIX,registerdisney.go.com
 - DOMAIN-SUFFIX,netflix.com
 - DOMAIN-SUFFIX,netflix.ca
 - DOMAIN-SUFFIX,netflix.com.au
