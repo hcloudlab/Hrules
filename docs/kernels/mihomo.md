@@ -1,16 +1,6 @@
 # Mihomo 安装中心
 
-Hrules 在 Mihomo / Clash Meta 生态中使用同一套 Core 规则。不同客户端的区别主要在**接入方式**，不是规则本身。
-
-## 先选接入方式
-
-| 你的使用方式 | 应该进入哪里 |
-| --- | --- |
-|  **订阅/全局扩展脚本** | [Clash Verge Rev — 订阅扩展脚本](#clash-verge-rev--订阅扩展脚本) |
-|  **3X-UI 远程路由**  | [3X-UI — 远程路由](#3x-ui--远程路由) |
-| 其他 **Mihomo / Clash Meta 客户端** | [其他 Mihomo / Clash Meta 客户端](#其他-mihomo--clash-meta-客户端) |
-
-如果你只是想最快完成安装，先选客户端入口，不需要先理解全部规则结构。
+Hrules 在 Mihomo 生态中按不同客户端能力提供对应接入方式。
 
 ## Hrules 版本怎么选
 
@@ -99,24 +89,6 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrule
 
 当前 3X-UI Remote Routing 路径使用 \`include-all-proxies\` 读取最终配置中的真实节点，因此 Hrules 场景选择器可以直接暴露面板实际节点；\`PROXY\` / \`DIRECT\` 继续作为显式回退。
 
-3X-UI 与 Clash Verge Rev 的接入方式不同，但底层使用的是同一套 Hrules Core / Scenes 和相同的 Standard / 精细版场景映射。
+3X-UI 与 Clash Verge Rev 的接入方式不同，但底层使用的是同一套 Hrules / Scenes 和相同的 Standard / 精细版场景映射。
 
 ---
-
-## 其他 Mihomo / Clash Meta 客户端
-
-Clash Verge Rev 本身也是 Mihomo 客户端，只是它提供了方便的 JavaScript 订阅扩展入口。
-
-其他 Mihomo / Clash Meta 客户端如果**不支持 Subscription Extension Script**，就不能直接照搬 Clash Verge Rev 的 JS 安装步骤。它们仍然使用相同的 Hrules Core，但需要通过客户端支持的方式接入，例如完整 YAML、配置覆写 / Mixin、Rule Provider 或对应 Adapter。
-
-目前这一部分只作为兼容入口，不把尚未完成真实客户端验证的操作写成“可直接跟做”的正式教程。后续完成 FlClash、ClashMi 等客户端验证后，再分别补充具体安装步骤。
-
----
-
-## 结构说明
-
-Hrules 的关系可以概括为：
-
-**同一套 Hrules Core → Standard / 精细版场景映射 → 不同客户端 Adapter / 接入方式**
-
-因此后续新增一个 AI、金融或流媒体规则时，应优先更新 Core，再由不同客户端接入层复用，而不是为 Clash Verge Rev、3X-UI 和其他 Mihomo 客户端分别维护三套业务规则。
