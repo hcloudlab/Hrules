@@ -5,14 +5,12 @@
 ## 标准版
 
 ```text
-```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-standard.yaml
 ```
 ```
 
 ## 精细版
 
-```text
 ```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-strict.yaml
 ```
