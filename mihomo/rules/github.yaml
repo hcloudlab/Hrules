@@ -7,5 +7,4 @@ payload:
 - DOMAIN-SUFFIX,githubusercontent.com
 - DOMAIN-SUFFIX,ghcr.io
 - DOMAIN-SUFFIX,dependabot.com
-- DOMAIN-SUFFIX,githubcopilot.com
 - DOMAIN-SUFFIX,githubstatus.com

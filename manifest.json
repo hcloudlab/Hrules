@@ -3,9 +3,53 @@
   "version": "v0.1.0-rc1",
   "channel": "rc",
   "release_status": "release_candidate",
-  "generated_from_commit": "d766aca5f277cfd2bba1296f7a1d526e89d37be1",
+  "generated_from_commit": "7c8526fb645e4f63263cfc99554b981fb371e374",
   "source": "hcloudlab/Hrules-core",
   "artifacts": [
+    {
+      "path": "mihomo/editions/hrules-standard.js",
+      "sha256": "2dd982c81806f0ea19f4677d9237671e30fc287b9f4e56ce84db1afc02c29fed",
+      "client": "mihomo",
+      "format": "global-extension-script",
+      "edition": "standard"
+    },
+    {
+      "path": "mihomo/editions/hrules-strict.js",
+      "sha256": "c7c75ab2de56377406c6477623722c675eea1de3ae524a9929e1f205ed8dfaa4",
+      "client": "mihomo",
+      "format": "global-extension-script",
+      "edition": "strict"
+    },
+    {
+      "path": "mihomo/dns/hrules-standard.yaml",
+      "sha256": "19a364ea744d1f162489e3429c56b5eb793740ebb4f7235824c9dcada5ec3f89",
+      "client": "mihomo",
+      "format": "dns-runtime",
+      "edition": "standard"
+    },
+    {
+      "path": "mihomo/dns/hrules-strict.yaml",
+      "sha256": "181eb6f444126db1bcd794cd828c55443787e04c1efcf55c88c1a01dbf4bf5a7",
+      "client": "mihomo",
+      "format": "dns-runtime",
+      "edition": "strict"
+    },
+    {
+      "path": "mihomo/rules/ai-mainstream.yaml",
+      "sha256": "36a047f30e0471e65e590d6d7805c8f329c426bfcdc83d7ced65996d37df5f51",
+      "module": "ai-mainstream",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 25
+    },
+    {
+      "path": "mihomo/rules/ally.yaml",
+      "sha256": "ed6f6263d36665015d7c614ea62b4dfdf0279d5e817e80b3ac43fcc72a3debed",
+      "module": "ally",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
     {
       "path": "mihomo/rules/american-express.yaml",
       "sha256": "8dcf582acb83e6539b85cb181f911218fec7edbeee8e9802eb535d06e80a366d",
@@ -40,11 +84,11 @@
     },
     {
       "path": "mihomo/rules/apple-services.yaml",
-      "sha256": "ecb0ddf5d7849db2bba2d5f818d860c6045c1aee7163bdd96dc6e72454980448",
+      "sha256": "eca364d2bf43268e57c6dd447324db86ed96bf152e1973c2da2cf4cc114f4096",
       "module": "apple-services",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 12
+      "entries": 11
     },
     {
       "path": "mihomo/rules/bank-of-america.yaml",
@@ -64,19 +108,43 @@
     },
     {
       "path": "mihomo/rules/binance.yaml",
-      "sha256": "b7649d4a180a6aabd4a89236842e8e6c27d0bcd3e0cc6995fc772e586891d90a",
+      "sha256": "2525c09fb8538e7eddb59100913567a99bf5a309cd860c6e50bace0f8529b86f",
       "module": "binance",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 5
+      "entries": 14
+    },
+    {
+      "path": "mihomo/rules/bitfinex.yaml",
+      "sha256": "d8335ad0da35e0d9f8a17677b3b4011cc961f610d21f587fd200286ae5453cac",
+      "module": "bitfinex",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/bitget.yaml",
+      "sha256": "5078839b89464b86a35930f603f365dbe2ef82c6ac7c14396603a0f00bd209ca",
+      "module": "bitget",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/bitstamp.yaml",
+      "sha256": "b2673c8c316ad42ed7cc17c0fbf89b18dfe2af72e5e098dd0110d2eab37d7970",
+      "module": "bitstamp",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
     },
     {
       "path": "mihomo/rules/bybit.yaml",
-      "sha256": "26dcb6003b9b162dc3553b334449b316b7c6a6e017bec800d26556ee25caa90f",
+      "sha256": "991e76dccacfae46083f652ec91813e1f85e42b338edd7da98d2bbb5236cbdab",
       "module": "bybit",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 2
+      "entries": 7
     },
     {
       "path": "mihomo/rules/capital-one.yaml",
@@ -96,19 +164,27 @@
     },
     {
       "path": "mihomo/rules/citi.yaml",
-      "sha256": "924ae450132958f84e54fcead6dc3048871629b54b0813738ed31235cdcd0784",
+      "sha256": "0d04019490d2db9bb84501c13211869924ff791717ed7c5b95909d0bf58d4494",
       "module": "citi",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/citizens-bank.yaml",
+      "sha256": "9d292adfc0321a2e91296b1897c23140df85b1f77927c71a70dcfd6961f2f4f6",
+      "module": "citizens-bank",
       "client": "mihomo",
       "format": "rule-provider/classical",
       "entries": 1
     },
     {
       "path": "mihomo/rules/claude.yaml",
-      "sha256": "a53086f671bd2e51bcf6dc4a3d351391ff55ff534825e29494522f31fd5929e0",
+      "sha256": "bda634526b9d81dfcd828fe2f577b21223ff01454e0c4509bb20a40a81f51c94",
       "module": "claude",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 4
+      "entries": 8
     },
     {
       "path": "mihomo/rules/cn.yaml",
@@ -119,9 +195,33 @@
       "entries": 1
     },
     {
+      "path": "mihomo/rules/cn-account-deps.yaml",
+      "sha256": "6378da2b0fb2f176e69ad9a7fa75a76bba81dcc9f20c291b01e33bf44ebba4bd",
+      "module": "cn-account-deps",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 4
+    },
+    {
       "path": "mihomo/rules/coinbase.yaml",
       "sha256": "4e50d7196bf1f756aebea4f8327512841195706536395458e5d0e7784ca326d5",
       "module": "coinbase",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/copilot-ai.yaml",
+      "sha256": "2e8a8c7628f02699c806591d20781d29dce25dac8515cf2af3f4f16fc4b754ed",
+      "module": "copilot-ai",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 7
+    },
+    {
+      "path": "mihomo/rules/crypto-com.yaml",
+      "sha256": "a386fe9d3c37392d66521d518c387df696fb7c7e4bc844e3b0936660f0864348",
+      "module": "crypto-com",
       "client": "mihomo",
       "format": "rule-provider/classical",
       "entries": 1
@@ -143,12 +243,28 @@
       "entries": 22
     },
     {
+      "path": "mihomo/rules/discover.yaml",
+      "sha256": "9eea4d644b424b3d9698eaab0ee66f0cf9a34fb6cec87aa8d47671be85d390b8",
+      "module": "discover",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
       "path": "mihomo/rules/disneyplus.yaml",
       "sha256": "0448125d972c5b16dd5cac78287f5860e59023366a705a102535c3541d963ae5",
       "module": "disneyplus",
       "client": "mihomo",
       "format": "rule-provider/classical",
       "entries": 8
+    },
+    {
+      "path": "mihomo/rules/etrade.yaml",
+      "sha256": "b348cf5edef2226179953a820cf30f44ea8f3b8bd6681aff7de8c534d63e9e16",
+      "module": "etrade",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
     },
     {
       "path": "mihomo/rules/facebook.yaml",
@@ -159,20 +275,76 @@
       "entries": 11
     },
     {
+      "path": "mihomo/rules/fidelity.yaml",
+      "sha256": "012f00a572ab46a8c94affe591c7d73083528dcbe1f59f52419252f09720ee3b",
+      "module": "fidelity",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/fifth-third.yaml",
+      "sha256": "d4e37dc014056df80c93b32b216aa50d181c50a6e71aafffa63ad38747642d7f",
+      "module": "fifth-third",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/gate.yaml",
+      "sha256": "3e01d424f7455b848daf5aac4dc9a572b92961e552179f400355bcbe3c3e0201",
+      "module": "gate",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 4
+    },
+    {
       "path": "mihomo/rules/gemini.yaml",
-      "sha256": "d62b3546bd5bce79599f81e0545f8738d77b1a63c090f2056f1143c70b1ffc7c",
+      "sha256": "24d6b0ae32297892a61619d2857f7970e66277b41af9a8688151d4ea8140a995",
       "module": "gemini",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 45
+    },
+    {
+      "path": "mihomo/rules/gemini-crypto.yaml",
+      "sha256": "e016cc6bdc2b2c0a416a97faac86ae285553a86fd151e23784373c3020dd6010",
+      "module": "gemini-crypto",
       "client": "mihomo",
       "format": "rule-provider/classical",
       "entries": 1
     },
     {
       "path": "mihomo/rules/github.yaml",
-      "sha256": "45ad9f094b920d8989379ac2a38eb17007a4387383c60815f17d16617e234082",
+      "sha256": "3f8a9d52db7d8804824d98f4a3075358cdea94c9f37ea836f0068d15020f7c70",
       "module": "github",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 10
+      "entries": 9
+    },
+    {
+      "path": "mihomo/rules/grok.yaml",
+      "sha256": "16fa8aa69b62c8c46f7b463f3eaf024f9d2162fc1802b0ae3fcf8239010190e9",
+      "module": "grok",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 4
+    },
+    {
+      "path": "mihomo/rules/hsbc.yaml",
+      "sha256": "1342c02e743fa6ab02ef54866eababab2f5052a78fb2a36a62f3a0369476e723",
+      "module": "hsbc",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 4
+    },
+    {
+      "path": "mihomo/rules/htx.yaml",
+      "sha256": "6ff93e79579c4201263fcdf59a92e71b15e8957ba984318a8db05e57958ec602",
+      "module": "htx",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 3
     },
     {
       "path": "mihomo/rules/icloud.yaml",
@@ -199,9 +371,49 @@
       "entries": 2
     },
     {
+      "path": "mihomo/rules/key-bank.yaml",
+      "sha256": "cec308ee9c66240239023f032340e62d5ff381697a611017786afe43e98907d8",
+      "module": "key-bank",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
       "path": "mihomo/rules/kraken.yaml",
-      "sha256": "8d960843ea31a7c54475cdcf38bab1bd679cb3eb7476c825b5996942bd7595c0",
+      "sha256": "dc757d76a73e2aab8b2991ccd2db24eeccd18743abaeac7b47b8ed2728d44037",
       "module": "kraken",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/kucoin.yaml",
+      "sha256": "566ddc602e92b8bdf1b70c2444bcf0fed1b38ef3e4642fea7072cf0b35c0374f",
+      "module": "kucoin",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/metamask.yaml",
+      "sha256": "3f8988e2dae8c31c27ea81c33089c537bb1dbcda956de0281236b321d04c5405",
+      "module": "metamask",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/mexc.yaml",
+      "sha256": "412ee822884d581bbea19c6dc9dc1022c833c59f684593d8adbee9e6df09c0e2",
+      "module": "mexc",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/moomoo.yaml",
+      "sha256": "9d7fc084e8ad97771534ffb2684aaf2ca3e56e11e30aa6a8f9917b05372a62e5",
+      "module": "moomoo",
       "client": "mihomo",
       "format": "rule-provider/classical",
       "entries": 1
@@ -215,20 +427,68 @@
       "entries": 13
     },
     {
+      "path": "mihomo/rules/network-test.yaml",
+      "sha256": "6b0a154d31fccebdfdeb61718768ca443e6f37d4394a219e4a610e22b8b39498",
+      "module": "network-test",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 9
+    },
+    {
       "path": "mihomo/rules/okx.yaml",
-      "sha256": "09211ee22476f0943da3122e803fc24678df1ea9886cfe1086247aca79198599",
+      "sha256": "0d786679e84c18046139e5f6a00b7e2df36758f3349cdb6ce6ac323bf714cfb6",
       "module": "okx",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 8
+    },
+    {
+      "path": "mihomo/rules/onekey.yaml",
+      "sha256": "d26776df57b8577d51b8d659584d7080eca649fac016e5be7c7f7a91971e07ba",
+      "module": "onekey",
       "client": "mihomo",
       "format": "rule-provider/classical",
       "entries": 2
     },
     {
       "path": "mihomo/rules/openai.yaml",
-      "sha256": "84e2bebf5ed5fb6cb89265dacd81c2ba6c590be6bc86b20af08ecdb4f2bcceb6",
+      "sha256": "ab8c331096bca843f2df1c545124fea9c240c0e4c119de7ab11ce1a34a6123a6",
       "module": "openai",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 4
+      "entries": 19
+    },
+    {
+      "path": "mihomo/rules/payoneer.yaml",
+      "sha256": "52790b073fe3649601868698daeebb6f58c631462cb26b1e5e9f16c4f446a3dd",
+      "module": "payoneer",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/paypal.yaml",
+      "sha256": "c889588ec79640c37fc394b4272e5e129b84a35733e1f0e2e77d1a79ec13d9be",
+      "module": "paypal",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 11
+    },
+    {
+      "path": "mihomo/rules/perplexity.yaml",
+      "sha256": "e74bcda1d2b33ad2b65a026dfea4ccd79679ece6d248d7a8233bc4e206820468",
+      "module": "perplexity",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 5
+    },
+    {
+      "path": "mihomo/rules/pnc.yaml",
+      "sha256": "976719cbd361d7569d97ce43891fae57e90ae6a713f595aa2434a31fb0f2f892",
+      "module": "pnc",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
     },
     {
       "path": "mihomo/rules/primevideo.yaml",
@@ -240,8 +500,16 @@
     },
     {
       "path": "mihomo/rules/private.yaml",
-      "sha256": "342a9fe7b6bdd7f5ed703a07b7093d5e462051bceb58533e0d7d529d6861459d",
+      "sha256": "cc5ae9f0916860b26a03fd8a71d6f33f2fbb90f0b48e21d4f82ac10de6e7a893",
       "module": "private",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 14
+    },
+    {
+      "path": "mihomo/rules/public-brokerage.yaml",
+      "sha256": "8542e437dca22d8f173dd197f5ea64d83225cf416181d9a34797fe6dc1392264",
+      "module": "public-brokerage",
       "client": "mihomo",
       "format": "rule-provider/classical",
       "entries": 1
@@ -255,12 +523,92 @@
       "entries": 6
     },
     {
+      "path": "mihomo/rules/regions.yaml",
+      "sha256": "58353e37f659e69954635860902f0aa4b32d054efd31a550d814229ad8d4235a",
+      "module": "regions",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/robinhood.yaml",
+      "sha256": "31b55a6c266990c88ddf1dc75654ef91b8d8467462ccfa1829a4a375b99d8387",
+      "module": "robinhood",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/safepal.yaml",
+      "sha256": "19ce43964c63d773cf4d6a76c1d8d7ec76893f129db371457a5cecae257cf64d",
+      "module": "safepal",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/schwab.yaml",
+      "sha256": "999a61c041caa442a2f593a99e1edf398650e311e3861804c2ada23939232e47",
+      "module": "schwab",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/sofi.yaml",
+      "sha256": "77380cce8947bc5d290d38f6fea7d0014f3e81297feec5490fc2d0e2ef1f56f8",
+      "module": "sofi",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
       "path": "mihomo/rules/spotify.yaml",
       "sha256": "bc79f09c615808d5e7487b47adcedb498f78b1d5e3a2c1fa1f13828fa1b6a52e",
       "module": "spotify",
       "client": "mihomo",
       "format": "rule-provider/classical",
       "entries": 15
+    },
+    {
+      "path": "mihomo/rules/standard-chartered.yaml",
+      "sha256": "15a715f41012f243058e7b1189769bdc8aa6dc1e53cea23ed0fb11754cf8a40e",
+      "module": "standard-chartered",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 4
+    },
+    {
+      "path": "mihomo/rules/stripe.yaml",
+      "sha256": "0963a334743c44a541916a7f1d44638965d2bf12b0ad27b055b7f99b76f0eef5",
+      "module": "stripe",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 7
+    },
+    {
+      "path": "mihomo/rules/tastytrade.yaml",
+      "sha256": "dac618679d1381c68f8b49d2a5662352a96c56f511cc04c6f7ae5d07f12be8e2",
+      "module": "tastytrade",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/td-bank.yaml",
+      "sha256": "2c7e828b954be3c33c52571382a1eb931e589f01a31f3d06db5ec6177da738df",
+      "module": "td-bank",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/telegram.yaml",
+      "sha256": "18caff924d75c99479f98a299e1bd170069b13d626b8735636edce51dc8d856e",
+      "module": "telegram",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 33
     },
     {
       "path": "mihomo/rules/tiktok.yaml",
@@ -271,12 +619,68 @@
       "entries": 11
     },
     {
+      "path": "mihomo/rules/tradestation.yaml",
+      "sha256": "2a5278c20cb29b3667b8e5592a0c783cb163d0517280f60fa846f2a0279e5b82",
+      "module": "tradestation",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/truist.yaml",
+      "sha256": "1d308d80f698e052fc4eb4090129d66cf41a62ac1009d9e2418375cd7ec2f1e5",
+      "module": "truist",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/trustwallet.yaml",
+      "sha256": "a069b250564e7b00f89b255d65260867ae888591eda05a222f0ad4348331b335",
+      "module": "trustwallet",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
       "path": "mihomo/rules/twitch.yaml",
       "sha256": "c834abfd63bc6f74194b29430ba1d31707a3cd5fafb0b66a0e0907f7c36c8429",
       "module": "twitch",
       "client": "mihomo",
       "format": "rule-provider/classical",
       "entries": 7
+    },
+    {
+      "path": "mihomo/rules/us-bank.yaml",
+      "sha256": "eb224c65d9d545fdd3af9aa427ae51e58d0f816697bf3dead4955ad6d75392c1",
+      "module": "us-bank",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/vanguard.yaml",
+      "sha256": "b0304659048ab79591a6867d87f9592f0f0f1e6a26cc47d880b7438c5260ab37",
+      "module": "vanguard",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
+    },
+    {
+      "path": "mihomo/rules/walletconnect.yaml",
+      "sha256": "63a17a1fef4d0d192d62b861cf50b3e2f4981f26c125e467c110d28237191696",
+      "module": "walletconnect",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
+      "path": "mihomo/rules/webull.yaml",
+      "sha256": "0ab9b8b9143405f2a6eca386371e3f1d0c61cf78e7de2021a44c06ff29cf8162",
+      "module": "webull",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 1
     },
     {
       "path": "mihomo/rules/wells-fargo.yaml",
@@ -295,6 +699,14 @@
       "entries": 3
     },
     {
+      "path": "mihomo/rules/wise.yaml",
+      "sha256": "f0a55dcb3ebef86c36aa4509642029843ab790ae8c104726ce57b8d40619a5cd",
+      "module": "wise",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 2
+    },
+    {
       "path": "mihomo/rules/x.yaml",
       "sha256": "01cdd727f5f13d32d6894d774e03722be401d176fede6a89c3ad11aba1ecd67e",
       "module": "x",
@@ -304,19 +716,19 @@
     },
     {
       "path": "mihomo/rules/youtube.yaml",
-      "sha256": "0254175f7b4862117f170976d9bbf052bffc64e90cc141ee78bad3709bd5ce06",
+      "sha256": "13dfb0808c089730f1fc2781bd5d94e48470d6ed45e2ce62f24294e35c89397e",
       "module": "youtube",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 2
+      "entries": 11
     },
     {
       "path": "mihomo/scenes/apple_global.yaml",
-      "sha256": "289eb6e346c5e201f28bb86240c09f365c3d1584a377746c370d5ddc21614ab3",
+      "sha256": "e62ce6b44fc0441849995363b471f783eaf2eeb0c880fa01c105ca836caca7ec",
       "scene": "apple_global",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 17,
+      "entries": 16,
       "modules": [
         "apple-services",
         "icloud"
@@ -346,175 +758,261 @@
     },
     {
       "path": "mihomo/scenes/brokerage_account.yaml",
-      "sha256": "2a38e74656efa49b5211435e8431affb1b583bd8b83f1b6693664c35054fb11b",
+      "sha256": "9942702d516a6a449857b25767fc34a9bc2e300e9f2c331890c20e9c6dc83708",
       "scene": "brokerage_account",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 2,
+      "entries": 13,
       "modules": [
-        "interactive-brokers"
+        "etrade",
+        "fidelity",
+        "interactive-brokers",
+        "moomoo",
+        "public-brokerage",
+        "robinhood",
+        "schwab",
+        "sofi",
+        "tastytrade",
+        "tradestation",
+        "vanguard",
+        "webull"
       ]
     },
     {
       "path": "mihomo/scenes/cn_direct.yaml",
-      "sha256": "327813642719512c4988a18cc5b11099cd0d964f32042d4ad46d483236ffbf51",
+      "sha256": "ed7a7aaf5123fd94e290940f424de532c775b9a8f9810e3334e796bd081e3cb8",
       "scene": "cn_direct",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 6,
+      "entries": 10,
       "modules": [
         "apple-cn",
-        "cn"
+        "cn",
+        "cn-account-deps"
       ]
     },
     {
       "path": "mihomo/scenes/crypto_account.yaml",
-      "sha256": "8b3279300a822fd96072523babd21bdf2a3159e35876cca1f90a1e076418a66f",
+      "sha256": "7fc87c7883c8983e377deb467ca1afbba944d241f41e8fa9bb86968258f49097",
       "scene": "crypto_account",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 16,
+      "entries": 61,
       "modules": [
         "binance",
+        "bitfinex",
+        "bitget",
+        "bitstamp",
         "bybit",
         "coinbase",
+        "crypto-com",
         "crypto-shared-risk",
+        "gate",
+        "gemini-crypto",
+        "htx",
         "kraken",
-        "okx"
+        "kucoin",
+        "metamask",
+        "mexc",
+        "okx",
+        "onekey",
+        "safepal",
+        "trustwallet",
+        "walletconnect"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/financial_account.yaml",
+      "sha256": "32678af1847e46c754809cd2a3d5ddb27b2b0a40a0189c9f341f11f14277026c",
+      "scene": "financial_account",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 30,
+      "modules": [
+        "hsbc",
+        "payoneer",
+        "paypal",
+        "standard-chartered",
+        "stripe",
+        "wise"
       ]
     },
     {
       "path": "mihomo/scenes/general_ai.yaml",
-      "sha256": "d62b3546bd5bce79599f81e0545f8738d77b1a63c090f2056f1143c70b1ffc7c",
+      "sha256": "dbdc68aeb9549cdd13d4f2364b686ccbb962dba9cbb28e6d3c1ea12932315de9",
       "scene": "general_ai",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 1,
+      "entries": 86,
       "modules": [
-        "gemini"
+        "ai-mainstream",
+        "copilot-ai",
+        "gemini",
+        "grok",
+        "perplexity"
       ]
     },
     {
       "path": "mihomo/scenes/mainstream_proxy.yaml",
-      "sha256": "6c853501e0c0ad95909063d22929d39cc9856ded7d563a0ed850d42e2ee12e05",
+      "sha256": "073174952f047992f2a03a4ba4b315b0cd1d9be7516b9f7db63355ca845d5ed9",
       "scene": "mainstream_proxy",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 133,
+      "entries": 83,
       "modules": [
         "discord",
-        "disneyplus",
         "facebook",
         "github",
         "instagram",
-        "netflix",
-        "primevideo",
         "reddit",
-        "spotify",
         "tiktok",
-        "twitch",
         "whatsapp",
         "x"
       ]
     },
     {
+      "path": "mihomo/scenes/network_test.yaml",
+      "sha256": "6b0a154d31fccebdfdeb61718768ca443e6f37d4394a219e4a610e22b8b39498",
+      "scene": "network_test",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 9,
+      "modules": [
+        "network-test"
+      ]
+    },
+    {
       "path": "mihomo/scenes/private_direct.yaml",
-      "sha256": "342a9fe7b6bdd7f5ed703a07b7093d5e462051bceb58533e0d7d529d6861459d",
+      "sha256": "cc5ae9f0916860b26a03fd8a71d6f33f2fbb90f0b48e21d4f82ac10de6e7a893",
       "scene": "private_direct",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 1,
+      "entries": 14,
       "modules": [
         "private"
       ]
     },
     {
       "path": "mihomo/scenes/sensitive_ai.yaml",
-      "sha256": "37c89cc1df37912e9de098d2d9cc2fb70cdc60fc427837558709315da0f99e81",
+      "sha256": "868d7fd0bb18936cb923028802312a1c9ea16e1dcf5e709069d1bbf7bebab547",
       "scene": "sensitive_ai",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 8,
+      "entries": 27,
       "modules": [
         "claude",
         "openai"
       ]
     },
     {
+      "path": "mihomo/scenes/streaming_media.yaml",
+      "sha256": "a5ad3ccce4853fb7b07a9599f4755b8672e5ac1a5f707dc420565dae124e4a5f",
+      "scene": "streaming_media",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 49,
+      "modules": [
+        "disneyplus",
+        "netflix",
+        "primevideo",
+        "spotify",
+        "twitch"
+      ]
+    },
+    {
+      "path": "mihomo/scenes/telegram.yaml",
+      "sha256": "18caff924d75c99479f98a299e1bd170069b13d626b8735636edce51dc8d856e",
+      "scene": "telegram",
+      "client": "mihomo",
+      "format": "rule-provider/classical",
+      "entries": 33,
+      "modules": [
+        "telegram"
+      ]
+    },
+    {
       "path": "mihomo/scenes/us_banking_account.yaml",
-      "sha256": "2d4a01d0adf91cace39f1572b75a380decdd0f63cff09e166aaa0f2f5c7e0ae6",
+      "sha256": "cad8e972d72c40c78c525431c4a4d8e513326266541e743a9f4a4dcb976f79f9",
       "scene": "us_banking_account",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 12,
+      "entries": 23,
       "modules": [
+        "ally",
         "american-express",
         "bank-of-america",
         "banking-shared-risk",
         "capital-one",
         "chase",
         "citi",
+        "citizens-bank",
+        "discover",
+        "fifth-third",
+        "key-bank",
+        "pnc",
+        "regions",
+        "td-bank",
+        "truist",
+        "us-bank",
         "wells-fargo"
       ]
     },
     {
       "path": "mihomo/scenes/youtube_media.yaml",
-      "sha256": "0254175f7b4862117f170976d9bbf052bffc64e90cc141ee78bad3709bd5ce06",
+      "sha256": "13dfb0808c089730f1fc2781bd5d94e48470d6ed45e2ce62f24294e35c89397e",
       "scene": "youtube_media",
       "client": "mihomo",
       "format": "rule-provider/classical",
-      "entries": 2,
+      "entries": 11,
       "modules": [
         "youtube"
       ]
     },
     {
       "path": "mihomo/routing.yaml",
-      "sha256": "56830e4caccbeb18d831cad7752d1f4038cfa7cabbc96f472b8879da7ee73c71",
+      "sha256": "67c5c040b1fc9a0a98591805e161560516840e0f6f1a3663cb8c43148bd7dc11",
       "client": "mihomo",
       "format": "routing-layer",
-      "entries": 13
+      "entries": 19
     },
     {
       "path": "mihomo/adapters/clash-verge-rev/hrules-global.js",
-      "sha256": "5043953f32f83080768d23a1b1ed8bbe56ab43ed8576fbaea58e2bd4c4d18648",
+      "sha256": "c9dcbb2eff14db8a14cd631f84ab106e2b6edc0b35c2203e9b855ea404173199",
       "client": "mihomo",
       "format": "clash-verge-rev-global-adapter"
     },
     {
       "path": "mihomo/hosts/3x-ui.yaml",
-      "sha256": "a5fffd268eb2d9634526207b4364226601774344be78a8fb27643282000c5a0a",
+      "sha256": "25734e7d377468b8a2cdd9ca2d1c91a0fb096d2785ed8feaabe34ef9d229ea27",
       "client": "mihomo",
       "format": "host-routing-layer",
       "host": "3x-ui",
-      "entries": 13
+      "entries": 19
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-standard.yaml",
-      "sha256": "985533fcc13f2e3ccfa0d73effc3e8774ce3fe4190b597281ebb177b1e31200b",
+      "sha256": "25734e7d377468b8a2cdd9ca2d1c91a0fb096d2785ed8feaabe34ef9d229ea27",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
       "edition": "standard",
-      "entries": 9
+      "entries": 19
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-strict.yaml",
-      "sha256": "a5fffd268eb2d9634526207b4364226601774344be78a8fb27643282000c5a0a",
+      "sha256": "1eb74c0ce1ec18918720f04634cf6414158eee2c4433645595e57ad14d59acf0",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
       "edition": "strict",
-      "entries": 13,
-      "product_name": "fine-grained",
-      "compatibility_filename": "strict"
+      "entries": 19
     },
     {
       "path": "shadowrocket/hrules.conf",
-      "sha256": "ac8a91b113eb11bf6714b52fdbdf6070735292bdf57fa1a13fa42e6dd98fe4b1",
+      "sha256": "2988ea1d6aef7c0071986548235cb8308af4bd6f981cfa85643eeb9274f6c7e1",
       "client": "shadowrocket",
       "format": "complete-config",
-      "entries": 226,
+      "entries": 330,
       "status": "validating"
     }
   ],
@@ -522,7 +1020,6 @@
     "blocking",
     "google",
     "microsoft",
-    "telegram",
     "tradingview"
   ],
   "profiles": [
@@ -675,6 +1172,8 @@
       "title": "Full",
       "complete": false,
       "modules": [
+        "ai-mainstream",
+        "ally",
         "american-express",
         "apple-cn",
         "apple-intelligence",
@@ -683,43 +1182,90 @@
         "bank-of-america",
         "banking-shared-risk",
         "binance",
+        "bitfinex",
+        "bitget",
+        "bitstamp",
         "blocking",
         "bybit",
         "capital-one",
         "chase",
         "citi",
+        "citizens-bank",
         "claude",
         "cn",
+        "cn-account-deps",
         "coinbase",
+        "copilot-ai",
+        "crypto-com",
         "crypto-shared-risk",
         "discord",
+        "discover",
         "disneyplus",
+        "etrade",
         "facebook",
+        "fidelity",
+        "fifth-third",
+        "gate",
         "gemini",
+        "gemini-crypto",
         "github",
         "google",
+        "grok",
+        "hsbc",
+        "htx",
         "icloud",
         "instagram",
         "interactive-brokers",
+        "key-bank",
         "kraken",
+        "kucoin",
+        "metamask",
+        "mexc",
         "microsoft",
+        "moomoo",
         "netflix",
+        "network-test",
         "okx",
+        "onekey",
         "openai",
+        "payoneer",
+        "paypal",
+        "perplexity",
+        "pnc",
         "primevideo",
         "private",
+        "public-brokerage",
         "reddit",
+        "regions",
+        "robinhood",
+        "safepal",
+        "schwab",
+        "sofi",
         "spotify",
+        "standard-chartered",
+        "stripe",
+        "tastytrade",
+        "td-bank",
         "telegram",
         "tiktok",
+        "tradestation",
         "tradingview",
+        "truist",
+        "trustwallet",
         "twitch",
+        "us-bank",
+        "vanguard",
+        "walletconnect",
+        "webull",
         "wells-fargo",
         "whatsapp",
+        "wise",
         "x",
         "youtube"
       ],
       "available_modules": [
+        "ai-mainstream",
+        "ally",
         "american-express",
         "apple-cn",
         "apple-intelligence",
@@ -728,34 +1274,80 @@
         "bank-of-america",
         "banking-shared-risk",
         "binance",
+        "bitfinex",
+        "bitget",
+        "bitstamp",
         "bybit",
         "capital-one",
         "chase",
         "citi",
+        "citizens-bank",
         "claude",
         "cn",
+        "cn-account-deps",
         "coinbase",
+        "copilot-ai",
+        "crypto-com",
         "crypto-shared-risk",
         "discord",
+        "discover",
         "disneyplus",
+        "etrade",
         "facebook",
+        "fidelity",
+        "fifth-third",
+        "gate",
         "gemini",
+        "gemini-crypto",
         "github",
+        "grok",
+        "hsbc",
+        "htx",
         "icloud",
         "instagram",
         "interactive-brokers",
+        "key-bank",
         "kraken",
+        "kucoin",
+        "metamask",
+        "mexc",
+        "moomoo",
         "netflix",
+        "network-test",
         "okx",
+        "onekey",
         "openai",
+        "payoneer",
+        "paypal",
+        "perplexity",
+        "pnc",
         "primevideo",
         "private",
+        "public-brokerage",
         "reddit",
+        "regions",
+        "robinhood",
+        "safepal",
+        "schwab",
+        "sofi",
         "spotify",
+        "standard-chartered",
+        "stripe",
+        "tastytrade",
+        "td-bank",
+        "telegram",
         "tiktok",
+        "tradestation",
+        "truist",
+        "trustwallet",
         "twitch",
+        "us-bank",
+        "vanguard",
+        "walletconnect",
+        "webull",
         "wells-fargo",
         "whatsapp",
+        "wise",
         "x",
         "youtube"
       ],
@@ -763,7 +1355,6 @@
         "blocking",
         "google",
         "microsoft",
-        "telegram",
         "tradingview"
       ]
     }

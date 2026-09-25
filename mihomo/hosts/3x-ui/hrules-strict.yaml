@@ -182,6 +182,7 @@ rule-providers:
     interval: 21600
 rules:
 - RULE-SET,hrules-private-direct,DIRECT,no-resolve
+- RULE-SET,hrules-cn-direct,DIRECT
 - RULE-SET,hrules-network-test,🤖 AI 服务 [场景]
 - RULE-SET,hrules-sensitive-ai,🤖 AI 服务 [场景]
 - RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]
@@ -196,7 +197,6 @@ rules:
 - RULE-SET,hrules-apple-private-relay-route,🍎 Apple / iCloud [场景]
 - RULE-SET,hrules-apple-global,🍎 Apple / iCloud [场景]
 - RULE-SET,hrules-mainstream-proxy,🌐 海外应用 [场景]
-- RULE-SET,hrules-cn-direct,DIRECT
 - RULE-SET,hrules-cn-domain,DIRECT
 - RULE-SET,hrules-cn-ip,DIRECT,no-resolve
 - MATCH,🚀 漏网之鱼 [自选]

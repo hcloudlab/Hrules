@@ -1,82 +1,62 @@
 payload:
-# Hrules crypto/account scene.
-# Scope: exchanges, account/wallet services and first-party infrastructure.
-# Derived by reconciling MetaCubeX category-cryptocurrency and Blackmatrix7 Crypto.
-# Broad news/analytics/general Web3 sites are intentionally excluded.
-
-# Binance
 - DOMAIN-SUFFIX,binance.com
 - DOMAIN-SUFFIX,binance.us
+- DOMAIN-SUFFIX,bnbstatic.com
 - DOMAIN-SUFFIX,binance.cloud
+- DOMAIN-SUFFIX,saasexch.com
+- DOMAIN-SUFFIX,saasexch.co
 - DOMAIN-SUFFIX,binance.info
 - DOMAIN-SUFFIX,binance.me
 - DOMAIN-SUFFIX,binance.net
 - DOMAIN-SUFFIX,binance.org
 - DOMAIN-SUFFIX,binance.vision
 - DOMAIN-SUFFIX,binanceapi.com
-- DOMAIN-SUFFIX,bnbstatic.com
 - DOMAIN-SUFFIX,bscdnweb.com
-- DOMAIN-SUFFIX,saasexch.com
-- DOMAIN-SUFFIX,saasexch.co
 - DOMAIN-SUFFIX,saasexch.io
-
-# Bybit
+- DOMAIN-SUFFIX,bitfinex.com
+- DOMAIN-SUFFIX,bitget.com
+- DOMAIN-SUFFIX,bitstamp.net
 - DOMAIN-SUFFIX,bybit.com
+- DOMAIN-SUFFIX,bycsi.com
 - DOMAIN-SUFFIX,bybit.cloud
 - DOMAIN-SUFFIX,bybit-global.com
 - DOMAIN-SUFFIX,bybitglobal.com
-- DOMAIN-SUFFIX,bycsi.com
 - DOMAIN-SUFFIX,bytick.com
 - DOMAIN-SUFFIX,byapis.com
-
-# Coinbase
 - DOMAIN-SUFFIX,coinbase.com
-
-# Kraken
+- DOMAIN-SUFFIX,crypto.com
+- DOMAIN-SUFFIX,geetest.com
+- DOMAIN-SUFFIX,sardine.ai
+- DOMAIN-SUFFIX,fpjs.io
+- DOMAIN-SUFFIX,nsureapi.com
+- DOMAIN-SUFFIX,sumsub.com
+- DOMAIN-SUFFIX,gate.com
+- DOMAIN-SUFFIX,gate.io
+- DOMAIN-SUFFIX,gateapi.io
+- DOMAIN-SUFFIX,gateimg.com
+- DOMAIN-SUFFIX,gemini.com
+- DOMAIN-SUFFIX,htx.com
+- DOMAIN-SUFFIX,huobi.com
+- DOMAIN-SUFFIX,huobi.pro
 - DOMAIN-SUFFIX,kraken.com
 - DOMAIN-SUFFIX,kraken.onl
-
-# OKX / OKEx
+- DOMAIN-SUFFIX,kucoin.com
+- DOMAIN-SUFFIX,kucoin.plus
+- DOMAIN-SUFFIX,metamask.io
+- DOMAIN-SUFFIX,mexc.com
+- DOMAIN-SUFFIX,mexc.co
 - DOMAIN-SUFFIX,okx.com
+- DOMAIN-SUFFIX,okcoin.com
 - DOMAIN-SUFFIX,okx.ac
 - DOMAIN-SUFFIX,okx.cab
 - DOMAIN-SUFFIX,okx-dns.com
 - DOMAIN-SUFFIX,okx-dns1.com
 - DOMAIN-SUFFIX,okx-dns2.com
 - DOMAIN-SUFFIX,okex.com
-- DOMAIN-SUFFIX,okcoin.com
-
-# Other major exchanges
-- DOMAIN-SUFFIX,crypto.com
-- DOMAIN-SUFFIX,bitget.com
-- DOMAIN-SUFFIX,mexc.com
-- DOMAIN-SUFFIX,mexc.co
-- DOMAIN-SUFFIX,gate.com
-- DOMAIN-SUFFIX,gate.io
-- DOMAIN-SUFFIX,gateapi.io
-- DOMAIN-SUFFIX,gateimg.com
-- DOMAIN-SUFFIX,kucoin.com
-- DOMAIN-SUFFIX,kucoin.plus
-- DOMAIN-SUFFIX,htx.com
-- DOMAIN-SUFFIX,huobi.com
-- DOMAIN-SUFFIX,huobi.pro
-- DOMAIN-SUFFIX,bitfinex.com
-- DOMAIN-SUFFIX,bitstamp.net
-- DOMAIN-SUFFIX,gemini.com
-
-# Wallet/account infrastructure
-- DOMAIN-SUFFIX,metamask.io
-- DOMAIN-SUFFIX,trustwallet.com
-- DOMAIN-SUFFIX,walletconnect.com
-- DOMAIN-SUFFIX,walletconnect.org
 - DOMAIN-SUFFIX,onekey.so
 - DOMAIN-SUFFIX,onekey-asset.com
 - DOMAIN-SUFFIX,safepal.com
 - DOMAIN-SUFFIX,isafepal.com
-
-# Existing observed identity/risk dependencies kept for account continuity.
-- DOMAIN-SUFFIX,geetest.com
-- DOMAIN-SUFFIX,sardine.ai
-- DOMAIN-SUFFIX,fpjs.io
-- DOMAIN-SUFFIX,nsureapi.com
-- DOMAIN-SUFFIX,sumsub.com
+- DOMAIN-SUFFIX,trustwallet.com
+- DOMAIN-SUFFIX,walletconnect.com
+- DOMAIN-SUFFIX,walletconnect.org

@@ -1,6 +1,15 @@
 payload:
+- DOMAIN-SUFFIX,binance.com
 - DOMAIN-SUFFIX,binance.us
 - DOMAIN-SUFFIX,bnbstatic.com
 - DOMAIN-SUFFIX,binance.cloud
 - DOMAIN-SUFFIX,saasexch.com
 - DOMAIN-SUFFIX,saasexch.co
+- DOMAIN-SUFFIX,binance.info
+- DOMAIN-SUFFIX,binance.me
+- DOMAIN-SUFFIX,binance.net
+- DOMAIN-SUFFIX,binance.org
+- DOMAIN-SUFFIX,binance.vision
+- DOMAIN-SUFFIX,binanceapi.com
+- DOMAIN-SUFFIX,bscdnweb.com
+- DOMAIN-SUFFIX,saasexch.io

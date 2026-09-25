@@ -1,0 +1,8 @@
+payload:
+- DOMAIN-SUFFIX,stripe.com
+- DOMAIN-SUFFIX,stripe.network
+- DOMAIN-SUFFIX,stripecdn.com
+- DOMAIN-SUFFIX,stripeassets.com
+- DOMAIN-SUFFIX,stripe.dev
+- DOMAIN-SUFFIX,stripe.global
+- DOMAIN-SUFFIX,stripe.partners

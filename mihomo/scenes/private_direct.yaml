@@ -1,5 +1,4 @@
 payload:
-# RFC / local address space
 - IP-CIDR,10.0.0.0/8,no-resolve
 - IP-CIDR,100.64.0.0/10,no-resolve
 - IP-CIDR,127.0.0.0/8,no-resolve
@@ -9,7 +8,6 @@ payload:
 - IP-CIDR6,::1/128,no-resolve
 - IP-CIDR6,fc00::/7,no-resolve
 - IP-CIDR6,fe80::/10,no-resolve
-# Local naming
 - DOMAIN-SUFFIX,localhost
 - DOMAIN-SUFFIX,local
 - DOMAIN-SUFFIX,lan
