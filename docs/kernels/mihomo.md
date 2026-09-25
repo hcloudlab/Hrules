@@ -7,7 +7,7 @@ Hrules 在 Mihomo / Clash Meta 生态中使用同一套 Core 规则。不同客�
 | 你的使用方式 | 应该进入哪里 |
 | --- | --- |
 |  **订阅/全局扩展脚本** | [Clash Verge Rev — 订阅扩展脚本](#clash-verge-rev--订阅扩展脚本) |
-|  **3X-UI 远程路由**  | [3X-UI — Remote Routing](#3x-ui--remote-routing) |
+|  **3X-UI 远程路由**  | [3X-UI — 远程路由](#3x-ui--remote-routing) |
 | 其他 **Mihomo / Clash Meta 客户端** | [其他 Mihomo / Clash Meta 客户端](#其他-mihomo--clash-meta-客户端) |
 
 如果你只是想最快完成安装，先选客户端入口，不需要先理解全部规则结构。
