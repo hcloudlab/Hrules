@@ -95,14 +95,12 @@ Hrules 公共 Mihomo 产品分为 **标准版 / 精细版**。两者共用同一
 适合：你使用 3X-UI 提供自建节点，并通过 Remote Routing 向 Mihomo / Clash Verge Rev 下发路由配置。
 
 ### 1. 选择版本
-
- 版本 | Remote Routing Raw 
  
- ```text
-| 🟢 标准版 |
+🟢 标准版 
+```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-standard.yaml
 ``` 
-| 🔵 精细版 | 
+🔵 精细版 
 ```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-strict.yaml
 ``` 
