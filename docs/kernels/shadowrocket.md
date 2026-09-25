@@ -8,7 +8,9 @@ Hrules 的 Shadowrocket 版本提供一份可直接导入的完整远程配置�
 
 配置文件：
 
+```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/shadowrocket/hrules.conf
+```
 
 在 Shadowrocket 中通过远程配置导入，并关闭 **简单模式**。简单模式可能绕过配置中的规则行为，使 PROXY 请求使用与预期不同的节点。
 
