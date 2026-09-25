@@ -98,15 +98,13 @@ Hrules 公共 Mihomo 产品分为 **标准版 / 精细版**。两者共用同一
 
 | 版本 | Remote Routing Raw |
 | --- | --- |
-| 🟢 标准版 | ```text
+| 🟢 标准版 | 
 ```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-standard.yaml
-```
 ``` |
-| 🔵 精细版 | ```text
+| 🔵 精细版 | 
 ```text
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-strict.yaml
-```
 ``` |
 
 ### 2. 接入说明
