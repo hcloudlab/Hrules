@@ -35,9 +35,9 @@ Hrules **不提供代理节点，也不会改变节点本身的线路、IP 或�
 
 → [查看 Clash Verge Rev / Mihomo 详细说明](docs/kernels/mihomo.md)
 
-### 3X-UI Remote Routing
+### 3X-UI 路由规则导入
 
-适合通过 3X-UI 的 **Remote Routing** 向 Mihomo / Clash Verge Rev 下发路由配置。
+适合通过 3X-UI 的 **全局路由规则** 向 Mihomo / Clash Verge Rev 下发路由配置。
 
 **标准版 Standard：**
 ```text
@@ -64,20 +64,7 @@ Shadowrocket 使用一份完整远程配置：
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/shadowrocket/hrules.conf
 ```
 
-在 Shadowrocket 中通过远程配置导入，并关闭 **简单模式**。当前提供：
-
-- 🌐 海外应用
-- 📺 流媒体
-- 🤖 AI 服务
-- 💳 金融服务
-- 中国大陆 / 私有网络 DIRECT
-- `FINAL,PROXY` 原生兜底
-
-<sub>Shadowrocket 当前使用单一配置，不区分标准版 / 精细版；四个场景组可以分别选择现有节点，未命中的代理流量最终交给 Shadowrocket 的 PROXY。</sub>
-
-→ [查看 Shadowrocket 详细说明](docs/kernels/shadowrocket.md)
-
-## 场景与版本
+## Clash verge 分流规则的使用场景
 
 ### 标准版 Standard
 
@@ -102,6 +89,21 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/shadowrocket/hrules.conf
 > Shadowrocket 当前使用单一配置，不跟随上述 Standard / Fine-grained 划分。
 
 → [查看场景与规则说明](docs/scenes.md)
+
+## Shadowrocket/小火箭 分流规则的使用场景
+
+在 Shadowrocket 中通过远程配置导入，并关闭 **简单模式**。当前提供：
+
+- 🌐 海外应用
+- 📺 流媒体
+- 🤖 AI 服务
+- 💳 金融服务
+- 中国大陆 / 私有网络 DIRECT
+- `FINAL,PROXY` 原生兜底
+
+<sub>Shadowrocket 当前使用单一配置，不区分标准版 / 精细版；四个场景组可以分别选择现有节点，未命中的代理流量最终交给 Shadowrocket 的 PROXY。</sub>
+
+→ [查看 Shadowrocket 详细说明](docs/kernels/shadowrocket.md)
 
 ## DNS 规则
 
