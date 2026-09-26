@@ -49,9 +49,9 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrule
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrules-strict.yaml
 ```
 
-把对应 Raw URL 填入 3X-UI 的 Remote Routing 即可。
+把对应 Raw URL 填入 3X-UI 的 **全局路由规则** 即可。
 
-<sub>版本怎么选：标准版界面更简洁，适合日常使用；精细版提供更细的金融与 Apple / iCloud 出口控制。3X-UI Remote Routing 负责路由层，DNS / Sniffer 等运行时配置由最终客户端负责。</sub>
+<sub>版本怎么选：标准版界面更简洁，适合日常使用；精细版提供更细的金融与 Apple / iCloud 出口控制。3X-UI **全局路由规则** 负责路由层，DNS / Sniffer 等运行时配置由最终客户端负责。</sub>
 
 → [查看 3X-UI / Mihomo 详细说明](docs/kernels/mihomo.md#3x-ui--远程路由)
 
