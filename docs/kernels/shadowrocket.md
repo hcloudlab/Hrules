@@ -46,16 +46,9 @@ Shadowrocket v0.1 保留此前真实设备验证过的保守 DNS 基线：
 
 ## 路由尾部
 
-在 Hrules 明确场景规则之后，配置继续使用 Shadowrocket 原生远程规则作为通用兜底：
+在 Hrules 明确场景规则之后，中国大陆域名使用 Hrules 发布的受控 CN DIRECT 规则，配合中国大陆 IP / GEOIP 直连；未命中的代理流量最终使用 `FINAL,PROXY`。
 
-1. Google → 🌐 海外应用
-2. Global → 🌐 海外应用
-3. ChinaMax → DIRECT
-4. `.cn` → DIRECT
-5. GEOIP CN → DIRECT
-6. FINAL → PROXY
-
-Hrules 的显式场景规则位于这些通用规则之前，避免被宽泛规则提前截获。
+CN DIRECT 域名数据在发布前经过 Hrules 的保护边界与回归检查，不直接把第三方宽泛 CN 域名分类作为 DIRECT 权威。
 
 ## 验证方法
 
