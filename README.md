@@ -79,6 +79,18 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/shadowrocket/hrules.conf
 
 → [Shadowrocket 详细说明](docs/kernels/shadowrocket.md)
 
+### v2rayN（Beta）
+
+路由规则集：
+
+```text
+https://raw.githubusercontent.com/hcloudlab/Hrules/main/v2rayn/hrules.json
+```
+
+在 v2rayN 中打开 **设置 → 路由设置 → 添加规则集**，别名填 `Hrules`，点 **从订阅 Url 中导入规则** 并粘贴上面的地址，确定后在主界面底部路由下拉框选择 `Hrules`。v2rayN 没有代理组，所有代理场景都走当前选中的节点；需要按场景选择出口请使用 Clash Verge Rev 或 Shadowrocket。
+
+→ [v2rayN 详细说明](docs/kernels/v2rayn.md)
+
 ## 场景怎么选？
 
 ### 标准版 Standard
