@@ -34,8 +34,9 @@ Hrules 的目标不是承诺绕过平台风控，而是让**已经识别并纳�
 | **Clash Verge Rev** | ✅ Available | 已有机场 / Mihomo / 自建订阅，希望叠加 Hrules |
 | **3X-UI 全局路由规则 → Mihomo** | ✅ Available | 使用 3X-UI 向 Mihomo / Clash Verge Rev 下发路由 |
 | **Shadowrocket** | ✅ Available | 使用完整远程配置 |
+| **v2rayN** | 🧪 Beta | 只需要「直连 / 代理」分流，不需要按场景选出口 |
 
-> 后续计划适配 Clash Mi、FlClash、sing-box / SFM、v2rayN / v2rayNG、Karing。完成配置与真实客户端验证后再加入安装中心。
+> 后续计划适配 Clash Mi、FlClash、sing-box / SFM、v2rayNG、Karing。完成配置与真实客户端验证后再加入安装中心。
 
 ## 安装
 
