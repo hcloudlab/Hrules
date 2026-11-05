@@ -1,0 +1,27 @@
+name: v2rayN v0.1
+
+on:
+  push:
+    paths:
+      - "v2rayn/**"
+      - "mihomo/scenes/**"
+      - "mihomo/routing.yaml"
+      - "scripts/build_v2rayn_v01.py"
+      - ".github/workflows/v2rayn-v01.yml"
+  pull_request:
+    paths:
+      - "v2rayn/**"
+      - "mihomo/scenes/**"
+      - "mihomo/routing.yaml"
+      - "scripts/build_v2rayn_v01.py"
+      - ".github/workflows/v2rayn-v01.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: python scripts/build_v2rayn_v01.py --check
