@@ -92,3 +92,20 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrule
 3X-UI 与 Clash Verge Rev 的接入方式不同，但底层使用的是同一套 Hrules / Scenes 和相同的 Standard / 精细版场景映射。
 
 ---
+
+## 自动选择最低延迟与故障切换
+
+标准版、精细版、全局 JS 适配器和 3X-UI 模板均提供 `⚡ 最低延迟 [自动]`。
+更新订阅或扩展脚本后，在需要自动切换的场景中选择这个组；已有场景选择及默认出口保持不变。
+
+该组使用 Mihomo `url-test`，每 60 秒检测全部候选节点，超时 5000 ms，
+`lazy: false`，切换容差为 0 ms。健康检查发现当前节点不可用时，
+会使用剩余可用节点中测速延迟最低的节点，而不是按节点排列顺序选择。
+故障检测和切换需要时间，不保证既有连接无缝恢复。全部节点不可用时无法保证连通性。
+
+支持内联节点及 proxy-providers，并排除流量/到期等提示节点。
+自动组可能跨地区切换；AI、银行等场景只有主动选中此组后才启用跨地区自动选择。
+如需固定地区，继续选择地区组；如需固定 IP，选择具体节点。
+测速延迟只代表对检测 URL 的响应时间，不等于带宽或特定服务的可用性。
+
+参考：[Mihomo url-test 文档](https://wiki.metacubex.one/config/proxy-groups/url-test/)。

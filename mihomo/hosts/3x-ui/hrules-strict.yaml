@@ -1,56 +1,74 @@
 proxy-groups:
+- name: ⚡ 最低延迟 [自动]
+  type: url-test
+  include-all: true
+  exclude-filter: "^DIRECT$|剩余|到期|有效期|官网|官方|traffic|remaining|expire|expiry|quota|bandwidth|website|homepage"
+  url: https://www.gstatic.com/generate_204
+  interval: 60
+  timeout: 5000
+  lazy: false
+  tolerance: 0
 - name: 🌐 海外应用 [场景]
   type: select
   proxies:
   - PROXY
+  - ⚡ 最低延迟 [自动]
   - DIRECT
   include-all-proxies: true
 - name: 📺 流媒体 [场景]
   type: select
   proxies:
   - PROXY
+  - ⚡ 最低延迟 [自动]
   - DIRECT
   include-all-proxies: true
 - name: 🤖 AI 服务 [场景]
   type: select
   proxies:
   - PROXY
+  - ⚡ 最低延迟 [自动]
   - DIRECT
   include-all-proxies: true
 - name: 🍎 Apple / iCloud [场景]
   type: select
   proxies:
   - PROXY
+  - ⚡ 最低延迟 [自动]
   - DIRECT
   include-all-proxies: true
 - name: 🏦 银行服务 [场景]
   type: select
   proxies:
   - PROXY
+  - ⚡ 最低延迟 [自动]
   - DIRECT
   include-all-proxies: true
 - name: 📈 证券 / 券商 [场景]
   type: select
   proxies:
   - PROXY
+  - ⚡ 最低延迟 [自动]
   - DIRECT
   include-all-proxies: true
 - name: 💳 支付 / 跨境金融 [场景]
   type: select
   proxies:
   - PROXY
+  - ⚡ 最低延迟 [自动]
   - DIRECT
   include-all-proxies: true
 - name: 💰 虚拟货币 [场景]
   type: select
   proxies:
   - PROXY
+  - ⚡ 最低延迟 [自动]
   - DIRECT
   include-all-proxies: true
 - name: 🚀 漏网之鱼 [自选]
   type: select
   proxies:
   - PROXY
+  - ⚡ 最低延迟 [自动]
   - DIRECT
   include-all-proxies: true
 rule-providers:

@@ -29,7 +29,7 @@ function main(config) {
 
   const existingGroups = Array.isArray(config["proxy-groups"]) ? config["proxy-groups"] : [];
   const owned = new Set([
-    "🌐 全部节点 [系统]","♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]","⚖️ 负载均衡 [系统]","🌍 地区 [系统]",
+    "⚡ 最低延迟 [自动]","🌐 全部节点 [系统]","♻️ 自动选择 [系统]","🛡️ 故障转移 [系统]","⚖️ 负载均衡 [系统]","🌍 地区 [系统]",
     "🇺🇸 美国 [地区]","🇯🇵 日本 [地区]","🇸🇬 新加坡 [地区]","🇭🇰 香港 [地区]","🇹🇼 台湾 [地区]","🇰🇷 韩国 [地区]","🇬🇧 英国 [地区]","🇩🇪 德国 [地区]","🌐 未分类 [地区]",
     "🔐 Claude / OpenAI [场景]","💰 虚拟货币 [场景]","🏦 美国账户 [场景]","🔐 重要账户 [场景]","🏦 美国银行 [场景]","📈 美股 [场景]","💳 金融账户 [场景]","📺 影音媒体 [场景]","📺 YouTube [场景]","💬 Telegram [场景]","🌐 国际服务 [场景]",
     "🌐 海外应用 [场景]","📺 流媒体 [场景]","🤖 AI 服务 [场景]","🍎 Apple / iCloud [场景]","🏦 银行服务 [场景]","📈 证券 / 券商 [场景]","💳 支付 / 跨境金融 [场景]","💳 金融服务 [场景]","🚀 漏网之鱼 [自选]","🛰️ Hrules 基础设施 [系统]"
@@ -53,9 +53,13 @@ function main(config) {
     infra["exclude-filter"] = source["exclude-filter"];
   }
   groups.push(infra);
+  // Explicit opt-in: url-test selects the fastest healthy node, not list order.
+  const autoGroup = "⚡ 最低延迟 [自动]";
+  groups.push({name:autoGroup,type:"url-test",...source,
+    url:health.url,interval:60,timeout:5000,lazy:false,tolerance:0});
   const sceneGroup = (name, list) => {
     const g = Object.assign({name,type:"select"},source);
-    if (list.length) g.proxies = list;
+    g.proxies = [...list,autoGroup];
     return g;
   };
 

@@ -9,14 +9,14 @@
   "artifacts": [
     {
       "path": "mihomo/editions/hrules-standard.js",
-      "sha256": "2ae441423187c87efd5a9fbc5ce93991fe27353f9cfd77a246d2c8aaf932f60c",
+      "sha256": "e45849d5bcf4ef4a743b1ac93b4d28f6c95e9fd0415d3100170cb3fe1d7cf6e8",
       "client": "mihomo",
       "format": "global-extension-script",
       "edition": "standard"
     },
     {
       "path": "mihomo/editions/hrules-strict.js",
-      "sha256": "a523b5bb17567d266024839bdb47c8a763bc2980a81f560b3ac706f427af5c96",
+      "sha256": "fd5febca93478b0ea6d73e365cc0236651419249020ac7c61502274062de0e60",
       "client": "mihomo",
       "format": "global-extension-script",
       "edition": "strict"
@@ -1050,13 +1050,13 @@
     },
     {
       "path": "mihomo/adapters/clash-verge-rev/hrules-global.js",
-      "sha256": "dfa9c3235410f094e62d2b1f75be1ef69835c77fb912b7d63e5299e5c14cda72",
+      "sha256": "312f6fdd5525e08de8661922830248b4bff56764006a76c6f48895e3cf12f509",
       "client": "mihomo",
       "format": "clash-verge-rev-global-adapter"
     },
     {
       "path": "mihomo/hosts/3x-ui.yaml",
-      "sha256": "76810ae331c53fae61f3dcb861424dc8f925d68ad95c1d4bc1fa63d20187762a",
+      "sha256": "8fd5c0acdcb5eb7c2d4175864e5f73534370a5ba704ac5149909ce664a1b8f31",
       "client": "mihomo",
       "format": "host-routing-layer",
       "host": "3x-ui",
@@ -1064,7 +1064,7 @@
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-standard.yaml",
-      "sha256": "76810ae331c53fae61f3dcb861424dc8f925d68ad95c1d4bc1fa63d20187762a",
+      "sha256": "8fd5c0acdcb5eb7c2d4175864e5f73534370a5ba704ac5149909ce664a1b8f31",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
@@ -1073,7 +1073,7 @@
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-strict.yaml",
-      "sha256": "efb9b3556ed4d09ddfff05f21e1ca8d3c45860021c39fb7282a351e095391422",
+      "sha256": "85793ebbe8438da9d00de96eaae1ba6ee0fd35ec50ea6e7288b95a5f081d397f",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
