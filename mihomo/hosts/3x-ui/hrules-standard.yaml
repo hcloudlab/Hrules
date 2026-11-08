@@ -2,7 +2,7 @@ proxy-groups:
 - name: ⚡ 最低延迟 [自动]
   type: url-test
   include-all: true
-  exclude-filter: "^DIRECT$|剩余|到期|有效期|官网|官方|traffic|remaining|expire|expiry|quota|bandwidth|website|homepage"
+  exclude-filter: ^DIRECT$|剩余|到期|有效期|官网|官方|traffic|remaining|expire|expiry|quota|bandwidth|website|homepage
   url: https://www.gstatic.com/generate_204
   interval: 60
   timeout: 5000
@@ -26,14 +26,12 @@ proxy-groups:
   type: select
   proxies:
   - PROXY
-  - ⚡ 最低延迟 [自动]
   - DIRECT
   include-all-proxies: true
 - name: 💳 金融服务 [场景]
   type: select
   proxies:
   - PROXY
-  - ⚡ 最低延迟 [自动]
   - DIRECT
   include-all-proxies: true
 - name: 🚀 漏网之鱼 [自选]

@@ -54,12 +54,18 @@ function main(config) {
   }
   groups.push(infra);
   // Explicit opt-in: url-test selects the fastest healthy node, not list order.
+  // Sensitive account scenes never expose it: one visit keeps one predictable exit.
   const autoGroup = "⚡ 最低延迟 [自动]";
+  const sensitiveScenes = new Set([
+    "🤖 AI 服务 [场景]","💳 金融服务 [场景]","🏦 银行服务 [场景]",
+    "📈 证券 / 券商 [场景]","💳 支付 / 跨境金融 [场景]","💰 虚拟货币 [场景]"
+  ]);
   groups.push({name:autoGroup,type:"url-test",...source,
     url:health.url,interval:60,timeout:5000,lazy:false,tolerance:0});
   const sceneGroup = (name, list) => {
     const g = Object.assign({name,type:"select"},source);
-    g.proxies = [...list,autoGroup];
+    const members = sensitiveScenes.has(name) ? list : [...list,autoGroup];
+    if (members.length) g.proxies = members;
     return g;
   };
 

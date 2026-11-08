@@ -4,19 +4,19 @@
   "channel": "stable",
   "release_status": "stable",
   "publication_gate": "rc",
-  "generated_from_commit": "1dbeda983dc9d496b57dfbd370ba327fba12bfc6",
+  "generated_from_commit": "a0445ad732c7fe65cb3a510a613910e88e4b82d0",
   "source": "hcloudlab/Hrules-core",
   "artifacts": [
     {
       "path": "mihomo/editions/hrules-standard.js",
-      "sha256": "5a51236385ea8bf36fe0a0df2bb1d0d3c7c53beddc21f047c96029a2d280b1bf",
+      "sha256": "5d44fde80c11491d946eebfcc67a135bbc9fe817d9ce147557dee09b1124b09d",
       "client": "mihomo",
       "format": "global-extension-script",
       "edition": "standard"
     },
     {
       "path": "mihomo/editions/hrules-strict.js",
-      "sha256": "c57b0588e727936484a73a419b479bd3f1a5237da923add55f19f1a2b48dcd06",
+      "sha256": "f5f310adfb924c60a7188a6fa1b563388c03d7705e6f6a14871a8027ae745586",
       "client": "mihomo",
       "format": "global-extension-script",
       "edition": "strict"
@@ -1050,13 +1050,13 @@
     },
     {
       "path": "mihomo/adapters/clash-verge-rev/hrules-global.js",
-      "sha256": "2bd15a5c7625a9188ec949d980b723e0548a2d90e272e105f79cc539a4b208ad",
+      "sha256": "e69136183a0a710996ed276edff39f88f81ef406969d9389e695be21feac5a1d",
       "client": "mihomo",
       "format": "clash-verge-rev-global-adapter"
     },
     {
       "path": "mihomo/hosts/3x-ui.yaml",
-      "sha256": "d9ed1a14a7017acfd2273521141cb7864189ce9908c42f458e80c97fc54584aa",
+      "sha256": "e18be40175ed7e6cc3710efdaab7164e9aa51ab20ac75b21553918b3ecd83714",
       "client": "mihomo",
       "format": "host-routing-layer",
       "host": "3x-ui",
@@ -1064,7 +1064,7 @@
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-standard.yaml",
-      "sha256": "d9ed1a14a7017acfd2273521141cb7864189ce9908c42f458e80c97fc54584aa",
+      "sha256": "e18be40175ed7e6cc3710efdaab7164e9aa51ab20ac75b21553918b3ecd83714",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
@@ -1073,7 +1073,7 @@
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-strict.yaml",
-      "sha256": "5575fa89068c25a2639daa704611b8bb31b973014bc7af519072766a5af2723a",
+      "sha256": "5929dd1bbc3daebd344e1b8194f2ea6ac37c2bf845cd773f43da9114fd40028c",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
