@@ -34,7 +34,7 @@ Hrules 的目标不是承诺绕过平台风控，而是让**已经识别并纳�
 | **Clash Verge Rev** | ✅ Available | 已有机场 / Mihomo / 自建订阅，希望叠加 Hrules |
 | **3X-UI 全局路由规则 → Mihomo** | ✅ Available | 使用 3X-UI 向 Mihomo / Clash Verge Rev 下发路由 |
 | **Shadowrocket** | ✅ Available | 使用完整远程配置 |
-| **v2rayN** | 🧪 Beta | 只需要「直连 / 代理」分流，不需要按场景选出口 |
+| **v2rayN** | 🧪 Beta | 直连 / 代理分流；可选用同名策略组让 AI、金融、流媒体走固定出口 |
 
 > 后续计划适配 Clash Mi、FlClash、sing-box / SFM、v2rayNG、Karing。完成配置与真实客户端验证后再加入安装中心。
 
@@ -87,7 +87,9 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/shadowrocket/hrules.conf
 https://raw.githubusercontent.com/hcloudlab/Hrules/main/v2rayn/hrules.json
 ```
 
-在 v2rayN 中打开 **设置 → 路由设置 → 添加规则集**，别名填 `Hrules`，点 **从订阅 Url 中导入规则** 并粘贴上面的地址，确定后在主界面底部路由下拉框选择 `Hrules`。v2rayN 没有代理组，所有代理场景都走当前选中的节点；需要按场景选择出口请使用 Clash Verge Rev 或 Shadowrocket。
+在 v2rayN 中打开 **设置 → 路由设置 → 添加规则集**，别名填 `Hrules`，点 **从订阅 Url 中导入规则** 并粘贴上面的地址，确定后在主界面底部路由下拉框选择 `Hrules`。
+
+默认所有代理场景都走当前选中的节点。如果想让某类场景走固定出口，在 **配置项 → 添加策略组** 里建一个备注为 `Hrules-AI`、`Hrules-金融` 或 `Hrules-流媒体` 的策略组即可；没有建组的场景会自动回落到当前节点，不会变成直连。
 
 → [v2rayN 详细说明](docs/kernels/v2rayn.md)
 

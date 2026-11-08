@@ -1,18 +1,27 @@
-# v2rayN v0.1
+# v2rayN v0.2
 
-Hrules 的 v2rayN 版本是一份可以直接导入 v2rayN「路由设置」的规则集，当前状态为 **🧪 Beta**：规则已通过 Xray 26.10.31 的配置校验和路由命中测试，真实客户端验收进行中。
+Hrules 的 v2rayN 版本是一份可以直接导入 v2rayN「路由设置」的规则集，当前状态为 **🧪 Beta**：规则已通过 Xray 配置校验和路由命中测试；场景出口的机制来自 v2rayN 7.25.6 源码，真实客户端验收进行中。
 
-## 和其他版本的区别
+## v0.2 有什么变化
 
-v2rayN 的路由规则只有三个去向：`proxy`（当前选中的节点）、`direct`、`block`，**没有代理组**。
+v0.1 的所有代理规则都走 `proxy`（当前选中的节点）。v0.2 让 AI、金融、流媒体可以各自走固定出口：
 
-| Hrules 功能 | Clash Verge Rev / Shadowrocket | v2rayN |
+| 规则 | v0.1 | v0.2 |
 | --- | --- | --- |
-| 国内直连边界保护 | ✅ | ✅ |
-| 敏感流量不回落到 DIRECT | ✅ | ✅ |
-| AI / 金融 / 流媒体各自选择出口 | ✅ | ❌ 全部走当前选中的节点 |
+| IP 检测、Claude / OpenAI、通用 AI、Apple Intelligence | `proxy` | **`Hrules-AI`** |
+| 虚拟货币、美国银行、证券 / 券商、支付 / 跨境金融 | `proxy` | **`Hrules-金融`** |
+| 流媒体 | `proxy` | **`Hrules-流媒体`** |
+| YouTube、Telegram、Apple、海外应用、漏网之鱼 | `proxy` | `proxy` |
+| 局域网、中国大陆域名、中国大陆 IP | `direct` | `direct` |
 
-> v2rayN 版只负责 **「哪些走代理、哪些直连」**。需要按场景分配不同出口，请使用 Clash Verge Rev 或 Shadowrocket 版本。
+域名和 IP 列表与 v0.1 完全相同，只有出口变了。
+
+**原理：** 规则的出口不是 `proxy` / `direct` / `block` 时，v2rayN 会去找**备注名完全相同**的配置项（普通节点或策略组都可以），让流量走那个配置项。**找不到时回落到 `proxy`，不会回落到直连。**
+
+所以：
+
+- **什么都不建：** 效果和 v0.1 完全一样，所有代理流量走当前选中的节点。
+- **建了同名配置项：** 对应场景自动走你指定的出口。
 
 ## 导入
 
@@ -29,7 +38,42 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/v2rayn/hrules.json
 3. 点 **从订阅 Url 中导入规则**，粘贴上面的地址
 4. 确定后，在主界面底部的路由下拉框选择 `Hrules`
 
-更新规则：重新打开这个规则集，再点一次「从订阅 Url 中导入规则」。
+更新规则：重新打开这个规则集，再点一次「从订阅 Url 中导入规则」。规则列表第一条的备注会显示版本号（例如 `Hrules v0.2·局域网 / 私有地址`）。
+
+## 按场景选择出口（可选）
+
+| 档位 | 你要做什么 | 效果 |
+| --- | --- | --- |
+| 0 档 | 只导入规则集 | 国内直连，其余全部走当前节点 |
+| 1 档 | 再建一个备注为 `Hrules-AI` 的策略组 | AI 和 IP 检测走固定出口，其余走当前节点 |
+| 2 档 | 再建 `Hrules-金融`、`Hrules-流媒体` | 三类场景各走各的出口 |
+
+### 建策略组
+
+1. 主界面 → **配置项 → 添加策略组**
+2. **别名（备注）** 填 `Hrules-AI`。必须和上表**一字不差**，大小写也要一致。
+3. 子配置项选 **自动筛选**：订阅分组选你的订阅，过滤框填只匹配目标节点的文字，点 **子配置项预览** 确认。
+4. 保存。不需要把它设为活动节点，也不需要再改规则。
+
+### 建组建议
+
+| 场景 | 建议 | 原因 |
+| --- | --- | --- |
+| `Hrules-AI`、`Hrules-金融` | **组里只放 1 个固定节点**：过滤框填这个节点的完整名称 | 自动切换会改变出口 IP，AI 和金融账户容易因此触发风控。Hrules 的原则是一次访问只走一个出口 |
+| `Hrules-流媒体` | 可以放同一地区的多个节点，用自动切换 | 流媒体看的是地区，同一地区内换 IP 影响不大 |
+
+> 不建议直接把订阅节点的备注改成 `Hrules-AI`：更新订阅时备注可能会被改回去。
+
+## 怎么确认生效
+
+配好了不等于生效了。名字写错时 v2rayN 不会报错，只会悄悄回落到当前节点，所以一定要验证：
+
+1. 设置 → 参数设置 → Core: 基础设置 → 日志等级改为 **info**
+2. 打开 claude.ai 或 ipinfo.io，在主界面下方的日志里看这次连接走的出口：
+   - 走了 `Hrules-AI` 对应的出站 → 生效
+   - 显示 `proxy` → 没有匹配到同名配置项，检查备注名
+3. 也可以对比 ipinfo.io 显示的出口 IP 和 `Hrules-AI` 里那个节点的 IP；切换主界面的活动节点后，这个 IP 应该保持不变。
+4. 进阶：右键节点 → 导出为客户端配置，`outbounds` 里应出现 tag 以 `-proxy-Hrules-AI` 结尾的出站。
 
 ## 规则顺序
 
@@ -37,9 +81,10 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/v2rayn/hrules.json
 
 1. 局域网 / 私有地址 → 直连
 2. 中国大陆域名（Hrules 边界保护列表）→ 直连
-3. IP 检测、AI、虚拟货币、银行、券商、支付、流媒体、YouTube、Telegram、Apple、海外应用 → 代理
-4. 中国大陆 IP（`geoip:cn`）→ 直连
-5. 漏网之鱼（其他所有流量）→ 代理
+3. IP 检测、AI → `Hrules-AI`；虚拟货币、银行、券商、支付 → `Hrules-金融`；流媒体 → `Hrules-流媒体`
+4. YouTube、Telegram、Apple、海外应用 → 代理
+5. 中国大陆 IP（`geoip:cn`）→ 直连
+6. 漏网之鱼（其他所有流量）→ 代理
 
 和 v2rayN 自带的「绕过大陆」相比：
 
@@ -55,15 +100,19 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/v2rayn/hrules.json
 
 ## 已知限制
 
-- 所有代理流量走同一个节点，无法按场景分配出口。
-- 当前节点使用 sing-box 内核（如 Hysteria2）时，规则由 v2rayN 转换为 sing-box 格式，该路径尚未完成验收。
-- v2rayN 的直连 DNS 默认只对 `geosite:cn` 生效；Hrules 列表中、但不在 `geosite:cn` 里的少数国内域名，会经远程 DNS 解析后再直连，可能解析到较远的 CDN 节点。
+- **系统代理模式下，Hrules 列表里没有的国内网站会走代理。** AsIs 不解析域名，`geoip:cn` 只能匹配已经是 IP 的连接。TUN 模式下影响较小。这样做是为了不把海外服务误判为国内直连，和 Mihomo 版行为一致。
+- **场景出口只提供 Standard 粒度**（AI / 金融 / 流媒体）。v2rayN 找不到配置项时只会回落到当前节点，不会回落到上一级的组，拆得更细会让没建组的场景悄悄回到当前节点。
+- **备注名重复：** 如果多个配置项的备注都是 `Hrules-AI`，只会匹配其中一个。请保证名字唯一。
+- **sing-box 内核路径待验收：** 当前节点使用 sing-box 内核（如部分 Hysteria2 配置）时，规则由 v2rayN 转换为 sing-box 格式。源码中回落逻辑相同，但尚未完成真实客户端验收。
+- **直连 DNS：** 按 v2rayN 7.25.6 源码，直连规则中的普通域名会交给直连 DNS 解析，待真实客户端确认。
 
 ## 生成方式
 
-`v2rayn/hrules.json` 由 `scripts/build_v2rayn_v01.py` 从 `mihomo/routing.yaml` 和 `mihomo/scenes/*.yaml` 生成，请勿手动修改。
+`v2rayn/hrules.json` 由 Hrules-core 的 `generators/build_v2rayn.py` 从已发布的 `mihomo/routing.yaml` 和 `mihomo/scenes/*.yaml` 生成，随 Core 发布同步更新，请勿手动修改。本仓库的 `scripts/build_v2rayn.py` 是同一脚本的副本，只用于 CI 校验：
 
 ```bash
-python scripts/build_v2rayn_v01.py          # 重新生成
-python scripts/build_v2rayn_v01.py --check  # 校验是否与场景文件同步
+pip install pyyaml
+python scripts/build_v2rayn.py --public-root . --check   # 校验是否与场景文件同步
 ```
+
+场景组到 v2rayN 出口的映射在脚本的 `SCENE_TAGS` 中定义。Mihomo 版新增场景组而没有对应映射时，构建会直接失败，不会悄悄落到 `proxy`。

@@ -9,14 +9,14 @@
   "artifacts": [
     {
       "path": "mihomo/editions/hrules-standard.js",
-      "sha256": "e45849d5bcf4ef4a743b1ac93b4d28f6c95e9fd0415d3100170cb3fe1d7cf6e8",
+      "sha256": "5a51236385ea8bf36fe0a0df2bb1d0d3c7c53beddc21f047c96029a2d280b1bf",
       "client": "mihomo",
       "format": "global-extension-script",
       "edition": "standard"
     },
     {
       "path": "mihomo/editions/hrules-strict.js",
-      "sha256": "fd5febca93478b0ea6d73e365cc0236651419249020ac7c61502274062de0e60",
+      "sha256": "c57b0588e727936484a73a419b479bd3f1a5237da923add55f19f1a2b48dcd06",
       "client": "mihomo",
       "format": "global-extension-script",
       "edition": "strict"
@@ -1050,13 +1050,13 @@
     },
     {
       "path": "mihomo/adapters/clash-verge-rev/hrules-global.js",
-      "sha256": "312f6fdd5525e08de8661922830248b4bff56764006a76c6f48895e3cf12f509",
+      "sha256": "2bd15a5c7625a9188ec949d980b723e0548a2d90e272e105f79cc539a4b208ad",
       "client": "mihomo",
       "format": "clash-verge-rev-global-adapter"
     },
     {
       "path": "mihomo/hosts/3x-ui.yaml",
-      "sha256": "8fd5c0acdcb5eb7c2d4175864e5f73534370a5ba704ac5149909ce664a1b8f31",
+      "sha256": "d9ed1a14a7017acfd2273521141cb7864189ce9908c42f458e80c97fc54584aa",
       "client": "mihomo",
       "format": "host-routing-layer",
       "host": "3x-ui",
@@ -1064,7 +1064,7 @@
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-standard.yaml",
-      "sha256": "8fd5c0acdcb5eb7c2d4175864e5f73534370a5ba704ac5149909ce664a1b8f31",
+      "sha256": "d9ed1a14a7017acfd2273521141cb7864189ce9908c42f458e80c97fc54584aa",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
@@ -1073,7 +1073,7 @@
     },
     {
       "path": "mihomo/hosts/3x-ui/hrules-strict.yaml",
-      "sha256": "85793ebbe8438da9d00de96eaae1ba6ee0fd35ec50ea6e7288b95a5f081d397f",
+      "sha256": "5575fa89068c25a2639daa704611b8bb31b973014bc7af519072766a5af2723a",
       "client": "mihomo",
       "format": "host-routing-layer-edition",
       "host": "3x-ui",
@@ -1087,6 +1087,14 @@
       "format": "complete-config",
       "entries": 7085,
       "status": "available"
+    },
+    {
+      "path": "v2rayn/hrules.json",
+      "sha256": "239beecd94dfd6103c832efa49bb9fb03f42230164716d2a816ae04a0661cd41",
+      "client": "v2rayn",
+      "format": "routing-ruleset",
+      "entries": 20,
+      "status": "beta"
     }
   ],
   "skipped_non_publishable_modules": [
