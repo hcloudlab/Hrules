@@ -11,7 +11,8 @@ Hrules 不提供节点。开始前，请先准备一个可正常使用的机场�
 | 3X-UI → Mihomo Remote Routing | Available | [3X-UI 安装说明](install.md#3x-ui-remote-routing) |
 | Shadowrocket | Validating | [安装说明](kernels/shadowrocket.md) |
 | sing-box / SFM | Planned | 尚未公开 |
-| v2rayN / v2rayNG | Planned | 尚未公开 |
+| v2rayN | Beta | [v2rayN 说明](kernels/v2rayn.md) |
+| v2rayNG | Planned | 尚未公开 |
 | Karing | Planned | 尚未公开 |
 
 Planned 不代表已经可用。只有通过对应客户端真实验收的实现才会开放。

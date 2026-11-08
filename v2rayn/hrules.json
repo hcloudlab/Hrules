@@ -1,6 +1,6 @@
 [
   {
-    "remarks": "Hrules·局域网 / 私有地址",
+    "remarks": "Hrules v0.2·局域网 / 私有地址",
     "outboundTag": "direct",
     "domain": [
       "domain:home.arpa",
@@ -6606,7 +6606,7 @@
   },
   {
     "remarks": "Hrules·IP 检测网站",
-    "outboundTag": "proxy",
+    "outboundTag": "Hrules-AI",
     "domain": [
       "domain:browserleaks.com",
       "domain:dnsleaktest.com",
@@ -6623,7 +6623,7 @@
   },
   {
     "remarks": "Hrules·Claude / OpenAI",
-    "outboundTag": "proxy",
+    "outboundTag": "Hrules-AI",
     "domain": [
       "full:openaiapi-site.azureedge.net",
       "full:openaiassets.blob.core.windows.net",
@@ -6656,7 +6656,7 @@
   },
   {
     "remarks": "Hrules·通用 AI",
-    "outboundTag": "proxy",
+    "outboundTag": "Hrules-AI",
     "domain": [
       "full:ai.google.dev",
       "full:alkalicore-pa.clients6.google.com",
@@ -6753,7 +6753,7 @@
   },
   {
     "remarks": "Hrules·Apple Intelligence",
-    "outboundTag": "proxy",
+    "outboundTag": "Hrules-AI",
     "domain": [
       "full:apple-relay.apple.com",
       "full:apple-relay.cloudflare.com",
@@ -6762,7 +6762,7 @@
   },
   {
     "remarks": "Hrules·虚拟货币",
-    "outboundTag": "proxy",
+    "outboundTag": "Hrules-金融",
     "domain": [
       "domain:binance.cloud",
       "domain:binance.com",
@@ -6830,7 +6830,7 @@
   },
   {
     "remarks": "Hrules·美国银行",
-    "outboundTag": "proxy",
+    "outboundTag": "Hrules-金融",
     "domain": [
       "domain:ally.com",
       "domain:americanexpress.com",
@@ -6859,7 +6859,7 @@
   },
   {
     "remarks": "Hrules·证券 / 券商",
-    "outboundTag": "proxy",
+    "outboundTag": "Hrules-金融",
     "domain": [
       "domain:etrade.com",
       "domain:fidelity.com",
@@ -6889,7 +6889,7 @@
   },
   {
     "remarks": "Hrules·支付 / 跨境金融",
-    "outboundTag": "proxy",
+    "outboundTag": "Hrules-金融",
     "domain": [
       "full:hsbc.edge.sdk.awswaf.com",
       "full:standchartbank.sc.omtrdc.net",
@@ -6932,7 +6932,7 @@
   },
   {
     "remarks": "Hrules·流媒体",
-    "outboundTag": "proxy",
+    "outboundTag": "Hrules-流媒体",
     "domain": [
       "domain:aiv-cdn.net",
       "domain:aiv-delivery.net",
