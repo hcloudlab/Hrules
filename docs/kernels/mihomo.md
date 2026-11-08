@@ -96,7 +96,12 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrule
 ## 自动选择最低延迟与故障切换
 
 标准版、精细版、全局 JS 适配器和 3X-UI 模板均提供 `⚡ 最低延迟 [自动]`。
+它出现在 **海外应用、流媒体、Apple / iCloud、漏网之鱼** 这些普通场景中。
 更新订阅或扩展脚本后，在需要自动切换的场景中选择这个组；已有场景选择及默认出口保持不变。
+
+**AI 服务、金融服务（精细版的银行服务、证券 / 券商、支付 / 跨境金融、虚拟货币）不提供这个组。**
+自动组会跨地区、跨 IP 切换，同一次访问可能从不同出口发出，容易触发账户风控。
+这些场景请选择地区组或具体节点。
 
 该组使用 Mihomo `url-test`，每 60 秒检测全部候选节点，超时 5000 ms，
 `lazy: false`，切换容差为 0 ms。健康检查发现当前节点不可用时，
@@ -104,8 +109,7 @@ https://raw.githubusercontent.com/hcloudlab/Hrules/main/mihomo/hosts/3x-ui/hrule
 故障检测和切换需要时间，不保证既有连接无缝恢复。全部节点不可用时无法保证连通性。
 
 支持内联节点及 proxy-providers，并排除流量/到期等提示节点。
-自动组可能跨地区切换；AI、银行等场景只有主动选中此组后才启用跨地区自动选择。
-如需固定地区，继续选择地区组；如需固定 IP，选择具体节点。
+自动组可能跨地区切换。如需固定地区，选择地区组；如需固定 IP，选择具体节点。
 测速延迟只代表对检测 URL 的响应时间，不等于带宽或特定服务的可用性。
 
 参考：[Mihomo url-test 文档](https://wiki.metacubex.one/config/proxy-groups/url-test/)。
