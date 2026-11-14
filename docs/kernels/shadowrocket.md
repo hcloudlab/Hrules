@@ -1,6 +1,6 @@
 # Shadowrocket v0.1
 
-Hrules 的 Shadowrocket 版本提供一份可直接导入的完整远程配置，当前状态为 **✅ Available**。配置已经完成真实客户端验收。
+Hrules 的 Shadowrocket 版本提供一份可直接导入的完整远程配置，当前状态为 **🧪 Beta**：配置可以正常导入使用，真实客户端验收仍在进行中，完成后会改为 Available。
 
 ## 导入
 

@@ -167,7 +167,11 @@ function main(config) {
   config.hosts=Object.assign({},config.hosts||{},{
     "hrules-seed.invalid":"127.0.0.1"
   });
-  const r=["RULE-SET,hrules-private-direct,DIRECT,no-resolve","RULE-SET,hrules-cn-direct,DIRECT"];
+  // Payment / cross-border financial accounts precede the generic CN namespace
+  // (Hrules Core stage financial_precedence): payoneer.com.cn keeps its scene exit.
+  const r=["RULE-SET,hrules-private-direct,DIRECT,no-resolve",
+    (fine ? "RULE-SET,hrules-financial-account,💳 支付 / 跨境金融 [场景]" : "RULE-SET,hrules-financial-account,💳 金融服务 [场景]"),
+    "RULE-SET,hrules-cn-direct,DIRECT"];
   r.push("RULE-SET,hrules-network-test,🤖 AI 服务 [场景]");
   r.push("RULE-SET,hrules-sensitive-ai,🤖 AI 服务 [场景]");
   r.push("RULE-SET,hrules-general-ai,🤖 AI 服务 [场景]");
@@ -176,12 +180,10 @@ function main(config) {
     r.push("RULE-SET,hrules-crypto-account,💰 虚拟货币 [场景]");
     r.push("RULE-SET,hrules-us-banking-account,🏦 银行服务 [场景]");
     r.push("RULE-SET,hrules-brokerage-account,📈 证券 / 券商 [场景]");
-    r.push("RULE-SET,hrules-financial-account,💳 支付 / 跨境金融 [场景]");
   } else {
     r.push("RULE-SET,hrules-crypto-account,💳 金融服务 [场景]");
     r.push("RULE-SET,hrules-us-banking-account,💳 金融服务 [场景]");
     r.push("RULE-SET,hrules-brokerage-account,💳 金融服务 [场景]");
-    r.push("RULE-SET,hrules-financial-account,💳 金融服务 [场景]");
   }
   r.push("RULE-SET,hrules-streaming-media,📺 流媒体 [场景]");
   r.push("RULE-SET,hrules-youtube-media,🌐 海外应用 [场景]");

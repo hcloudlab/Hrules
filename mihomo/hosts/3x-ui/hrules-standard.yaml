@@ -163,6 +163,7 @@ rule-providers:
     interval: 21600
 rules:
 - RULE-SET,hrules-private-direct,DIRECT,no-resolve
+- RULE-SET,hrules-financial-account,💳 金融服务 [场景]
 - RULE-SET,hrules-cn-direct,DIRECT
 - RULE-SET,hrules-network-test,🤖 AI 服务 [场景]
 - RULE-SET,hrules-sensitive-ai,🤖 AI 服务 [场景]
@@ -171,7 +172,6 @@ rules:
 - RULE-SET,hrules-crypto-account,💳 金融服务 [场景]
 - RULE-SET,hrules-us-banking-account,💳 金融服务 [场景]
 - RULE-SET,hrules-brokerage-account,💳 金融服务 [场景]
-- RULE-SET,hrules-financial-account,💳 金融服务 [场景]
 - RULE-SET,hrules-streaming-media,📺 流媒体 [场景]
 - RULE-SET,hrules-youtube-media,🌐 海外应用 [场景]
 - RULE-SET,hrules-telegram,🌐 海外应用 [场景],no-resolve

@@ -18,7 +18,7 @@ Hrules 不替换你的订阅。之后仍按原来的方式更新机场订阅。
 
 订阅扩展脚本采用节点名称进行保守地区分类。名称中没有可靠地区信息的节点会进入“未分类”。选择地区时自动选择只发生在该地区内部；选择具体节点时固定使用该节点。
 
-## Shadowrocket（Validating）
+## Shadowrocket（Beta）
 
 Shadowrocket v0.1 使用单一完整远程配置，不跟随 Mihomo 的标准版 / 精细版划分。
 
@@ -28,7 +28,7 @@ Shadowrocket v0.1 使用单一完整远程配置，不跟随 Mihomo 的标准版
 4. 选择你希望 PROXY 流量使用的主节点。
 5. 最终验收时通过请求日志确认 `域名 → 命中规则 → DIRECT / PROXY → 最终节点`。
 
-当前配置已进入公共发布链，但仍处于 **Validating**；完成最终真实客户端验收后才会标记为 Available。
+当前配置已进入公共发布链，但仍处于 **Beta**；完成最终真实客户端验收后才会标记为 Available。
 
 ## 3X-UI Remote Routing
 
